@@ -1,122 +1,749 @@
-<!DOCTYPE HTML>
-<!--
-	Parallelism by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Parallelism by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Drift | Professional Star Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-				<!-- Main -->
-					<section id="main">
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
 
-						<!-- Items -->
-							<div class="items">
+        /* Background Container */
+        .stellar-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
 
-								<div class="item intro span-2">
-									<h1>Parallelism</h1>
-									<p>A responsive portfolio site<br />
-									template by HTML5 UP</p>
-								</div>
+        /* Canvas for Star Animation */
+        #stellarCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
-								<article class="item thumb span-1">
-									<h2>You really got me</h2>
-									<a href="images/fulls/01.jpg" class="image"><img src="images/thumbs/01.jpg" alt=""></a>
-								</article>
+        /* Content Overlay - ensures text visibility */
+        .content {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
 
-								<article class="item thumb span-2">
-									<h2>Ad Infinitum</h2>
-									<a href="images/fulls/02.jpg" class="image"><img src="images/thumbs/02.jpg" alt=""></a>
-								</article>
+        /* Premium Glass Card - Optimized for readability */
+        .glass-card {
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 32px;
+            padding: 48px 64px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            max-width: 700px;
+            margin: 20px;
+        }
 
-								<article class="item thumb span-1">
-									<h2>Different.</h2>
-									<a href="images/fulls/03.jpg" class="image"><img src="images/thumbs/03.jpg" alt=""></a>
-								</article>
+        .glass-card h1 {
+            font-size: 52px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
 
-								<article class="item thumb span-1">
-									<h2>Elysium</h2>
-									<a href="images/fulls/04.jpg" class="image"><img src="images/thumbs/04.jpg" alt=""></a>
-								</article>
+        .glass-card p {
+            font-size: 18px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 32px;
+            line-height: 1.6;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
 
-								<article class="item thumb span-3">
-									<h2>Kingdom of the Wind</h2>
-									<a href="images/fulls/05.jpg" class="image"><img src="images/thumbs/05.jpg" alt=""></a>
-								</article>
+        /* Premium Button */
+        .btn-premium {
+            display: inline-block;
+            padding: 14px 36px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 40px;
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
 
-								<article class="item thumb span-1">
-									<h2>The Pursuit</h2>
-									<a href="images/fulls/06.jpg" class="image"><img src="images/thumbs/06.jpg" alt=""></a>
-								</article>
+        .btn-premium:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
 
-								<article class="item thumb span-2">
-									<h2>Boundless</h2>
-									<a href="images/fulls/07.jpg" class="image"><img src="images/thumbs/07.jpg" alt=""></a>
-								</article>
+        /* Mode Selector - Professional */
+        .mode-selector {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 6px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
 
-								<article class="item thumb span-2">
-									<h2>The Spectators</h2>
-									<a href="images/fulls/08.jpg" class="image"><img src="images/thumbs/08.jpg" alt=""></a>
-								</article>
+        .mode-option {
+            padding: 8px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            color: rgba(255, 255, 255, 0.7);
+            background: transparent;
+            border: none;
+            font-family: inherit;
+        }
 
-							</div>
+        .mode-option.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
 
-						<!-- Items -->
-							<div class="items">
+        .mode-option:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
 
-								<article class="item thumb span-3"><h2>Kingdom of the Wind</h2><a href="images/fulls/05.jpg" class="image"><img src="images/thumbs/05.jpg" alt=""></a></article>
-								<article class="item thumb span-1"><h2>The Pursuit</h2><a href="images/fulls/06.jpg" class="image"><img src="images/thumbs/06.jpg" alt=""></a></article>
-								<article class="item thumb span-2"><h2>Boundless</h2><a href="images/fulls/07.jpg" class="image"><img src="images/thumbs/07.jpg" alt=""></a></article>
-								<article class="item thumb span-2"><h2>The Spectators</h2><a href="images/fulls/08.jpg" class="image"><img src="images/thumbs/08.jpg" alt=""></a></article>
-								<article class="item thumb span-1"><h2>You really got me</h2><a href="images/fulls/01.jpg" class="image"><img src="images/thumbs/01.jpg" alt=""></a></article>
-								<article class="item thumb span-2"><h2>Ad Infinitum</h2><a href="images/fulls/02.jpg" class="image"><img src="images/thumbs/02.jpg" alt=""></a></article>
-								<article class="item thumb span-1"><h2>Different.</h2><a href="images/fulls/03.jpg" class="image"><img src="images/thumbs/03.jpg" alt=""></a></article>
-								<article class="item thumb span-2"><h2>Kingdom of the Wind</h2><a href="images/fulls/05.jpg" class="image"><img src="images/thumbs/05.jpg" alt=""></a></article>
-								<article class="item thumb span-1"><h2>Elysium</h2><a href="images/fulls/04.jpg" class="image"><img src="images/thumbs/04.jpg" alt=""></a></article>
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 60px auto 0;
+            width: 100%;
+        }
 
-							</div>
+        .feature-card {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 28px 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.25s ease;
+        }
 
-					</section>
+        .feature-card:hover {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
 
-				<!-- Footer -->
-					<section id="footer">
-						<section>
-							<p>This is <strong>Parallelism</strong>, a responsive portfolio site template by <a href="http://html5up.net">HTML5 UP</a>. Free for personal
-							and commercial use under the <a href="http://html5up.net/license">Creative Commons Attribution</a> license.</p>
-						</section>
-						<section>
-							<ul class="icons">
-								<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-								<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</section>
-					</section>
+        .feature-card .icon {
+            font-size: 36px;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
 
-			</div>
+        .feature-card h4 {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.poptrox.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.5;
+        }
 
-	</body>
+        /* Status Indicator */
+        .status {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 8px 18px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fbbf24;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glass-card { padding: 32px 24px; }
+            .glass-card h1 { font-size: 32px; }
+            .features-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 40px; }
+            .mode-selector { top: 20px; right: 20px; }
+            .mode-option { padding: 6px 16px; font-size: 12px; }
+            .status { bottom: 20px; left: 20px; font-size: 11px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .status-dot { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stellar-bg">
+        <canvas id="stellarCanvas"></canvas>
+    </div>
+
+    <div class="mode-selector">
+        <button class="mode-option active" data-mode="day">Day</button>
+        <button class="mode-option" data-mode="night">Night</button>
+        <button class="mode-option" data-mode="auto">Auto</button>
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        <span id="statusText">Night Mode • Watching Stars</span>
+    </div>
+
+    <div class="content">
+        <div class="glass-card">
+            <h1>Stellar Drift</h1>
+            <p>Experience the elegance of shooting stars across a dynamic sky.<br>Professional, subtle, and always readable.</p>
+            <button class="btn-premium" id="ctaButton">Explore Universe →</button>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">✨</div>
+                <h4>Shooting Stars</h4>
+                <p>Elegant meteor trails that streak across your screen</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🌓</div>
+                <h4>Day & Night</h4>
+                <p>Seamless transition with optimized visibility</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">⚡</div>
+                <h4>Silky Smooth</h4>
+                <p>60fps performance on all modern devices</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('stellarCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Mode states
+        let currentMode = 'night';
+        let targetMode = 'night';
+        let transitionProgress = 0;
+        let isTransitioning = false;
+        
+        // Star systems
+        let stars = [];          // Static stars
+        let shootingStars = [];  // Active shooting stars
+        
+        // Configuration
+        const STATIC_STAR_COUNT = 150;
+        const SHOOTING_STAR_INTERVAL = 4000; // ms between new shooting stars
+        let lastShootingStarTime = 0;
+        
+        // Celestial objects
+        let sunX, sunY;
+        let moonX, moonY;
+        
+        // Animation timers
+        let animationId = null;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initStars();
+            updateCelestialPositions();
+        }
+        
+        // Initialize static stars
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < STATIC_STAR_COUNT; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height * 0.7, // Stars only in upper 70%
+                    size: Math.random() * 1.8 + 0.8,
+                    opacity: Math.random() * 0.5 + 0.3,
+                    twinkleSpeed: Math.random() * 0.01 + 0.003,
+                    twinklePhase: Math.random() * Math.PI * 2
+                });
+            }
+        }
+        
+        // Create a new shooting star
+        function createShootingStar() {
+            // Random starting position along top or left edge
+            const edge = Math.random() < 0.7 ? 'top' : 'left';
+            let x, y;
+            const angle = Math.random() * Math.PI / 3 + Math.PI / 6; // 30-90 degrees
+            
+            if (edge === 'top') {
+                x = Math.random() * canvas.width;
+                y = -20;
+            } else {
+                x = -20;
+                y = Math.random() * canvas.height * 0.5;
+            }
+            
+            // Calculate velocity based on angle
+            const speed = Math.random() * 3 + 2.5;
+            const vx = Math.cos(angle) * speed;
+            const vy = Math.sin(angle) * speed;
+            
+            shootingStars.push({
+                x: x,
+                y: y,
+                vx: vx,
+                vy: vy,
+                length: Math.random() * 50 + 40,
+                opacity: 0.9,
+                life: 1.0,
+                decay: Math.random() * 0.008 + 0.005,
+                tailWidth: Math.random() * 2 + 1.5
+            });
+        }
+        
+        // Update celestial positions based on mode
+        function updateCelestialPositions() {
+            if (currentMode === 'day') {
+                sunX = canvas.width * 0.85;
+                sunY = canvas.height * 0.18;
+                moonX = null;
+            } else {
+                moonX = canvas.width * 0.85;
+                moonY = canvas.height * 0.18;
+                sunX = null;
+            }
+        }
+        
+        // Draw gradient sky
+        function drawSky() {
+            let gradient;
+            
+            if (currentMode === 'day') {
+                // Professional day gradient
+                gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, '#1a4d6f');
+                gradient.addColorStop(0.4, '#3c7a8c');
+                gradient.addColorStop(0.7, '#7ba5b0');
+                gradient.addColorStop(1, '#cbd5e6');
+            } else {
+                // Professional night gradient - deep space
+                gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, '#0a0f1a');
+                gradient.addColorStop(0.4, '#0f172a');
+                gradient.addColorStop(0.7, '#1e1b2e');
+                gradient.addColorStop(1, '#2a2438');
+            }
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Transition overlay if transitioning
+            if (isTransitioning && transitionProgress < 1) {
+                const overlayColor = targetMode === 'day' 
+                    ? `rgba(100, 150, 180, ${transitionProgress * 0.25})`
+                    : `rgba(10, 15, 30, ${transitionProgress * 0.4})`;
+                ctx.fillStyle = overlayColor;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+        
+        // Draw static stars (only visible in night mode or during transition)
+        function drawStars() {
+            const isNight = currentMode === 'night';
+            let starOpacityMultiplier = isNight ? 1 : 0.15;
+            
+            // During transition, gradually fade
+            if (isTransitioning) {
+                if (targetMode === 'night') {
+                    starOpacityMultiplier = transitionProgress;
+                } else {
+                    starOpacityMultiplier = 1 - transitionProgress;
+                }
+            }
+            
+            stars.forEach(star => {
+                // Subtle twinkling
+                const twinkle = Math.sin(Date.now() * star.twinkleSpeed + star.twinklePhase) * 0.2 + 0.8;
+                const finalOpacity = star.opacity * twinkle * starOpacityMultiplier;
+                
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 245, 220, ${Math.max(0, Math.min(0.6, finalOpacity))})`;
+                ctx.fill();
+            });
+        }
+        
+        // Draw shooting stars
+        function drawShootingStars() {
+            for (let i = shootingStars.length - 1; i >= 0; i--) {
+                const star = shootingStars[i];
+                
+                // Update position
+                star.x += star.vx;
+                star.y += star.vy;
+                star.life -= star.decay;
+                
+                // Remove if off screen or faded
+                if (star.x > canvas.width + 200 || 
+                    star.y > canvas.height + 200 || 
+                    star.x < -200 || 
+                    star.y < -200 ||
+                    star.life <= 0) {
+                    shootingStars.splice(i, 1);
+                    continue;
+                }
+                
+                // Calculate trail gradient
+                const tailGradient = ctx.createLinearGradient(
+                    star.x, star.y,
+                    star.x - star.vx * star.length,
+                    star.y - star.vy * star.length
+                );
+                
+                const alpha = star.opacity * star.life;
+                tailGradient.addColorStop(0, `rgba(255, 245, 200, ${alpha * 0.9})`);
+                tailGradient.addColorStop(0.3, `rgba(255, 220, 150, ${alpha * 0.6})`);
+                tailGradient.addColorStop(1, `rgba(200, 180, 120, 0)`);
+                
+                // Draw trail
+                ctx.beginPath();
+                ctx.moveTo(star.x, star.y);
+                ctx.lineTo(
+                    star.x - star.vx * star.length,
+                    star.y - star.vy * star.length
+                );
+                ctx.lineWidth = star.tailWidth * star.life;
+                ctx.strokeStyle = tailGradient;
+                ctx.stroke();
+                
+                // Draw head
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.tailWidth * 0.8, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 240, 180, ${alpha})`;
+                ctx.fill();
+                
+                // Glow effect
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.tailWidth * 1.5, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 220, 150, ${alpha * 0.3})`;
+                ctx.fill();
+            }
+        }
+        
+        // Draw sun (day mode)
+        function drawSun() {
+            if (currentMode !== 'day' && !(isTransitioning && targetMode === 'day')) return;
+            
+            let opacity = 1;
+            if (isTransitioning && targetMode === 'day') {
+                opacity = transitionProgress;
+            } else if (isTransitioning && targetMode === 'night') {
+                opacity = 1 - transitionProgress;
+            }
+            
+            const radius = 55;
+            const x = canvas.width * 0.85;
+            const y = canvas.height * 0.18;
+            
+            // Soft glow
+            const glowGradient = ctx.createRadialGradient(x, y, 0, x, y, radius + 25);
+            glowGradient.addColorStop(0, `rgba(255, 220, 140, ${0.15 * opacity})`);
+            glowGradient.addColorStop(1, `rgba(255, 180, 80, 0)`);
+            ctx.fillStyle = glowGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Sun core
+            const sunGradient = ctx.createRadialGradient(x - 5, y - 5, 0, x, y, radius);
+            sunGradient.addColorStop(0, `rgba(255, 235, 170, ${0.7 * opacity})`);
+            sunGradient.addColorStop(0.7, `rgba(255, 200, 100, ${0.3 * opacity})`);
+            sunGradient.addColorStop(1, `rgba(255, 160, 60, 0)`);
+            
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = sunGradient;
+            ctx.fill();
+        }
+        
+        // Draw moon (night mode)
+        function drawMoon() {
+            if (currentMode !== 'night' && !(isTransitioning && targetMode === 'night')) return;
+            
+            let opacity = 1;
+            if (isTransitioning && targetMode === 'night') {
+                opacity = transitionProgress;
+            } else if (isTransitioning && targetMode === 'day') {
+                opacity = 1 - transitionProgress;
+            }
+            
+            const radius = 48;
+            const x = canvas.width * 0.85;
+            const y = canvas.height * 0.18;
+            
+            // Moon glow
+            const glowGradient = ctx.createRadialGradient(x, y, 0, x, y, radius + 20);
+            glowGradient.addColorStop(0, `rgba(210, 210, 230, ${0.12 * opacity})`);
+            glowGradient.addColorStop(1, `rgba(180, 180, 200, 0)`);
+            ctx.fillStyle = glowGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Moon core
+            const moonGradient = ctx.createRadialGradient(x - 3, y - 3, 0, x, y, radius);
+            moonGradient.addColorStop(0, `rgba(235, 235, 250, ${0.6 * opacity})`);
+            moonGradient.addColorStop(0.6, `rgba(200, 200, 220, ${0.3 * opacity})`);
+            moonGradient.addColorStop(1, `rgba(160, 160, 180, 0)`);
+            
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = moonGradient;
+            ctx.fill();
+            
+            // Subtle craters
+            if (opacity > 0.3) {
+                ctx.fillStyle = `rgba(140, 140, 160, ${0.15 * opacity})`;
+                ctx.beginPath();
+                ctx.arc(x - 12, y - 8, 6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(x + 8, y + 5, 4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Draw subtle clouds (day mode only)
+        let clouds = [];
+        
+        function initClouds() {
+            clouds = [];
+            for (let i = 0; i < 5; i++) {
+                clouds.push({
+                    x: Math.random() * canvas.width,
+                    y: canvas.height * 0.2 + Math.random() * canvas.height * 0.25,
+                    width: Math.random() * 140 + 100,
+                    opacity: Math.random() * 0.12 + 0.05,
+                    speed: Math.random() * 0.08 + 0.04
+                });
+            }
+        }
+        
+        function drawClouds() {
+            if (currentMode !== 'day' && !(isTransitioning && targetMode === 'day')) return;
+            
+            let opacityMultiplier = 1;
+            if (isTransitioning && targetMode === 'day') {
+                opacityMultiplier = transitionProgress;
+            } else if (isTransitioning && targetMode === 'night') {
+                opacityMultiplier = 1 - transitionProgress;
+            }
+            
+            clouds.forEach(cloud => {
+                cloud.x += cloud.speed;
+                if (cloud.x > canvas.width + cloud.width) cloud.x = -cloud.width;
+                
+                ctx.beginPath();
+                ctx.ellipse(cloud.x, cloud.y, cloud.width * 0.4, cloud.width * 0.2, 0, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 250, 240, ${cloud.opacity * 0.6 * opacityMultiplier})`;
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.ellipse(cloud.x + cloud.width * 0.3, cloud.y - cloud.width * 0.1, cloud.width * 0.35, cloud.width * 0.18, 0, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.ellipse(cloud.x - cloud.width * 0.2, cloud.y, cloud.width * 0.3, cloud.width * 0.18, 0, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+        
+        // Smooth transition between modes
+        function transitionToMode(newMode) {
+            if (isTransitioning || newMode === currentMode) return;
+            
+            targetMode = newMode;
+            isTransitioning = true;
+            
+            const duration = 1200;
+            const startTime = performance.now();
+            
+            function animateTransition(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(1, elapsed / duration);
+                
+                transitionProgress = progress;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animateTransition);
+                } else {
+                    currentMode = targetMode;
+                    transitionProgress = 0;
+                    isTransitioning = false;
+                    updateUI();
+                    updateCelestialPositions();
+                }
+            }
+            
+            requestAnimationFrame(animateTransition);
+        }
+        
+        // Update UI elements
+        function updateUI() {
+            const statusText = document.getElementById('statusText');
+            const modeButtons = document.querySelectorAll('.mode-option');
+            
+            if (currentMode === 'day') {
+                statusText.textContent = 'Day Mode • Clear Skies';
+            } else {
+                statusText.textContent = 'Night Mode • Shooting Stars Active';
+            }
+            
+            modeButtons.forEach(btn => {
+                const mode = btn.getAttribute('data-mode');
+                if (mode === currentMode) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        // Auto mode based on system time
+        function checkAutoMode() {
+            const hour = new Date().getHours();
+            const isNight = hour >= 19 || hour < 6;
+            
+            if (isNight && currentMode !== 'night') {
+                transitionToMode('night');
+            } else if (!isNight && currentMode !== 'day') {
+                transitionToMode('day');
+            }
+        }
+        
+        // Animation loop
+        let lastTimestamp = 0;
+        
+        function animate(timestamp) {
+            // Generate shooting stars at intervals
+            if (currentMode === 'night' || (isTransitioning && targetMode === 'night')) {
+                if (timestamp - lastShootingStarTime > SHOOTING_STAR_INTERVAL) {
+                    // Random chance to create a shooting star
+                    if (Math.random() < 0.6) {
+                        createShootingStar();
+                    }
+                    lastShootingStarTime = timestamp;
+                }
+            }
+            
+            drawSky();
+            drawStars();
+            drawClouds();
+            drawShootingStars();
+            drawSun();
+            drawMoon();
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initClouds();
+            updateCelestialPositions();
+        });
+        
+        // Initialize everything
+        function init() {
+            resizeCanvas();
+            initStars();
+            initClouds();
+            updateCelestialPositions();
+            
+            // Setup mode buttons
+            const modeButtons = document.querySelectorAll('.mode-option');
+            modeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mode = btn.getAttribute('data-mode');
+                    if (mode === 'day') {
+                        transitionToMode('day');
+                    } else if (mode === 'night') {
+                        transitionToMode('night');
+                    } else if (mode === 'auto') {
+                        checkAutoMode();
+                    }
+                });
+            });
+            
+            // CTA button interaction
+            const ctaBtn = document.getElementById('ctaButton');
+            ctaBtn.addEventListener('click', () => {
+                ctaBtn.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    ctaBtn.style.transform = '';
+                }, 150);
+            });
+            
+            // Start animation
+            lastShootingStarTime = performance.now();
+            animate();
+            updateUI();
+        }
+        
+        init();
+    </script>
+</body>
 </html>
