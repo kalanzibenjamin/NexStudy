@@ -2,1301 +2,701 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>GlassTeX Studio — VS Code LaTeX Editor | Glassmorphism + Light/Dark Mode</title>
-    <!-- Monaco Editor CSS & JS -->
-    <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/editor/editor.main.min.css">
-    <!-- KaTeX for LaTeX rendering -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Practice smarter with AI-generated multiple-choice questions. Track progress, identify weak spots, and climb the chess ranks from Beginner to Grandmaster.">
+    <title>MedQ | MCQ Practice Platform</title>
     <style>
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --surface-hover: #222222;
+            --border: #2a2a2a;
+            --text: #e0e0e0;
+            --text-secondary: #999;
+            --accent: #4CAF50;
+            --accent-glow: rgba(76, 175, 80, 0.3);
+            --warning: #FFC107;
+            --danger: #F44336;
+            --purple: #9C27B0;
+            --blue: #2196F3;
+            --gold: #FFD700;
+            --radius: 10px;
+            --transition: 0.2s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-light: radial-gradient(circle at 20% 30%, #e0eef5, #cbdde6);
-            --bg-dark: radial-gradient(circle at 20% 30%, #0a1f1e, #030a09);
-            --panel-light: rgba(245, 250, 255, 0.55);
-            --panel-dark: rgba(10, 20, 26, 0.6);
-            --border-light: rgba(100, 120, 140, 0.3);
-            --border-dark: rgba(255,255,255,0.2);
-            --text-light: #1a2c3a;
-            --text-dark: #eef4ff;
-            --accent: #2c7da0;
-            --accent-soft: rgba(30, 120, 200, 0.35);
-            --scrollbar: rgba(100, 140, 180, 0.5);
-        }
-
         body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
             min-height: 100vh;
-            min-width: 100vw;
-            overflow: auto;
-            font-family: 'Segoe UI', 'SF Pro Text', 'Inter', system-ui, -apple-system, sans-serif;
-            transition: background 0.2s ease;
         }
 
-        /* ---------- LIGHT MODE (default) ---------- */
-        body.light-mode {
-            background: radial-gradient(circle at 20% 30%, #e0eef5, #cbdde6);
-        }
-        body.light-mode .glass-panel,
-        body.light-mode .activity-bar,
-        body.light-mode .left-sidebar,
-        body.light-mode .secondary-sidebar,
-        body.light-mode .editor-toolbar,
-        body.light-mode .preview-panel,
-        body.light-mode .status-bar {
-            background: rgba(245, 250, 255, 0.55);
-            backdrop-filter: blur(14px) saturate(180%);
-            border-color: rgba(100, 120, 140, 0.3);
-            color: #1a2c3a;
-        }
-        body.light-mode .activity-icon {
-            color: #2c4e6e;
-        }
-        body.light-mode .activity-icon.active {
-            background: rgba(30, 120, 200, 0.35);
-            border-left-color: #1e6bb8;
-            color: #0a3a5a;
-        }
-        body.light-mode .tree-item,
-        body.light-mode .sidebar-header,
-        body.light-mode .agent-header {
-            color: #1e3a4d;
-        }
-        body.light-mode .tree-item:hover {
-            background: rgba(0, 0, 0, 0.08);
-        }
-        body.light-mode .message.agent-message {
-            background: rgba(200, 220, 240, 0.85);
-            color: #0f2c3b;
-        }
-        body.light-mode .message.user-message {
-            background: rgba(50, 140, 210, 0.35);
-            border-color: #2c7da0;
-            color: #0f2c3b;
-        }
-        body.light-mode .chat-input {
-            background: rgba(255,255,240,0.85);
-            color: #1f3e4f;
-            border-color: rgba(80,100,120,0.4);
-        }
-        body.light-mode .tool-btn {
-            background: rgba(30, 60, 90, 0.12);
-            color: #1f5575;
-        }
-        body.light-mode .status-bar {
-            color: #1e4a6e;
-        }
-        body.light-mode .preview-panel {
-            background: rgba(240, 248, 255, 0.75);
-            color: #1f3b48;
-        }
-        body.light-mode .mode-btn {
-            background: rgba(80,110,130,0.2);
-            color: #1f4e6e;
-        }
-        body.light-mode .mode-btn.active-mode {
-            background: #2c7da0;
-            color: white;
-        }
-        body.light-mode .latex-preview-content table {
-            background: rgba(200,220,240,0.5);
-        }
-
-        /* ---------- DARK MODE (original glass) ---------- */
-        body.dark-mode {
-            background: radial-gradient(circle at 20% 30%, #0a1f1e, #030a09);
-        }
-        body.dark-mode .glass-panel,
-        body.dark-mode .activity-bar,
-        body.dark-mode .left-sidebar,
-        body.dark-mode .secondary-sidebar,
-        body.dark-mode .editor-toolbar,
-        body.dark-mode .preview-panel,
-        body.dark-mode .status-bar {
-            background: rgba(10, 20, 26, 0.6);
-            backdrop-filter: blur(14px) saturate(180%);
-            border-color: rgba(255,255,255,0.2);
-            color: #eef4ff;
-        }
-        body.dark-mode .activity-icon {
-            color: rgba(210, 235, 245, 0.85);
-        }
-        body.dark-mode .activity-icon.active {
-            background: rgba(100, 180, 210, 0.5);
-            border-left-color: #7ad0ff;
-            color: white;
-        }
-        body.dark-mode .tree-item {
-            color: #cde5ff;
-        }
-        body.dark-mode .message.agent-message {
-            background: rgba(45, 60, 70, 0.9);
-            color: #eef4ff;
-        }
-        body.dark-mode .message.user-message {
-            background: rgba(72, 187, 255, 0.35);
-            border-color: #7ad0ff;
-        }
-        body.dark-mode .chat-input {
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border-color: rgba(255,255,255,0.3);
-        }
-        body.dark-mode .tool-btn {
-            background: rgba(255,255,255,0.08);
-            color: #c8e7ff;
-        }
-        body.dark-mode .preview-panel {
-            background: rgba(10, 20, 23, 0.65);
-            color: #eef4ff;
-        }
-
-        /* Shared Glass styles */
-        .glass-panel {
-            border-radius: 24px;
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
-        }
-        .app {
-            display: flex;
-            height: 100vh;
-            width: 100vw;
-            padding: 14px;
-            gap: 14px;
-            background: transparent;
-        }
-        /* Activity Bar */
-        .activity-bar {
-            width: 70px;
-            backdrop-filter: blur(18px);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 24px 0;
-            gap: 28px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        .activity-icon {
-            font-size: 26px;
-            transition: all 0.2s ease;
-            width: 50px;
-            height: 50px;
+        /* ── Navigation ─────────────────────── */
+        nav {
             display: flex;
             align-items: center;
-            justify-content: center;
-            border-radius: 18px;
-        }
-        .activity-bar button {
-            background: transparent;
-            border: none;
-            color: inherit;
-            cursor: pointer;
-            padding: 0;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 18px;
-            transition: all 0.2s ease;
-        }
-        .activity-bar button:hover,
-        .activity-icon:hover {
-            background: rgba(255,255,255,0.18);
-            transform: scale(1.03);
-        }
-        .activity-bar button:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-        /* Left Sidebar */
-        .left-sidebar {
-            width: 290px;
-            flex-shrink: 0;
-            backdrop-filter: blur(18px);
-            border-radius: 28px;
-            border: 1px solid rgba(255,255,255,0.2);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .left-sidebar.collapsed {
-            width: 0;
-            padding: 0;
-            margin: 0;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .sidebar-header {
-            padding: 18px 20px;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            display: flex;
             justify-content: space-between;
+            padding: 14px 24px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-logo {
+            display: flex;
             align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
         }
-        .file-tree {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px 10px;
-            font-size: 13px;
+
+        .nav-logo span {
+            color: var(--accent);
         }
-        .tree-item {
-            padding: 8px 12px;
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
             cursor: pointer;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: 0.12s;
-            margin-bottom: 2px;
-        }
-        .tree-item:hover {
-            background: rgba(255,255,255,0.12);
-        }
-        .tree-item.active-file {
-            background: rgba(72, 187, 255, 0.35);
-            border-left: 3px solid #7ad0ff;
-        }
-        .search-view {
-            padding: 20px;
-            display: none;
-        }
-        .search-input-glass {
-            width: 100%;
-            background: rgba(0,0,0,0.35);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 40px;
-            padding: 10px 16px;
-            outline: none;
-            font-size: 13px;
-        }
-        body.light-mode .search-input-glass {
-            background: rgba(220,235,250,0.7);
-            color: #1f3e4f;
-        }
-        /* Main Area */
-        .main-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            min-width: 0;
-        }
-        .editor-toolbar {
-            backdrop-filter: blur(14px);
-            border-radius: 28px;
-            padding: 8px 20px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            border: 1px solid rgba(255,255,255,0.18);
-        }
-        .tool-btn {
             border: none;
-            font-size: 18px;
+            transition: all var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-secondary);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0f0f0f;
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #FFD700, #FFA000);
+            color: #0f0f0f;
+            font-weight: 700;
+        }
+
+        /* ── Hero ──────────────────────────── */
+        .hero {
+            text-align: center;
+            padding: 80px 24px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 18px;
+            max-width: 500px;
+            margin: 30px auto 0;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text);
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-bar button {
+            background: var(--accent);
+            border: none;
+            color: #0f0f0f;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
             cursor: pointer;
-            padding: 8px 14px;
-            border-radius: 40px;
-            transition: 0.15s;
-            display: inline-flex;
+            font-size: 0.85rem;
+        }
+
+        /* ── Stats Banner ──────────────────── */
+        .stats-banner {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px 24px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ── Three Column Grid ─────────────── */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: border-color var(--transition);
+        }
+
+        .card:hover {
+            border-color: #444;
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 14px;
+            display: flex;
             align-items: center;
             gap: 8px;
         }
-        .tool-btn:hover {
-            background: rgba(255,255,255,0.25);
+
+        .card h3 .icon {
+            font-size: 1.2rem;
         }
-        .editor-container-wrapper {
-            display: flex;
-            flex: 1;
-            gap: 12px;
-            min-width: 0;
-            align-items: stretch;
+
+        .topic-list {
+            list-style: none;
         }
-        .monaco-frame {
-            flex: 1 1 auto;
-            min-width: 0;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.25);
-            background: rgba(8, 18, 20, 0.5);
+
+        .topic-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color var(--transition);
         }
-        .resizer {
-            width: 10px;
-            cursor: col-resize;
-            background: transparent;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        .topic-list li:hover {
+            color: var(--accent);
         }
-        .resizer:focus {
-            outline: 2px solid var(--accent);
+
+        .topic-list li:last-child {
+            border-bottom: none;
         }
-        .resizer::after {
-            content: '';
-            width: 2px;
-            height: 48px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 2px;
-        }
-        .preview-panel {
-            width: 380px;
-            flex-shrink: 0;
-            backdrop-filter: blur(14px);
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.2);
-            height: 100%;
-            overflow-y: auto;
-            padding: 18px;
-            transition: 0.2s;
-            font-size: 14px;
-        }
-        .preview-panel {
-            backdrop-filter: blur(14px);
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.2);
-            height: 270px;
-            overflow-y: auto;
-            padding: 18px;
-            transition: 0.2s;
-            font-size: 14px;
-        }
-        /* Secondary Sidebar Agent */
-        .secondary-sidebar {
-            width: 360px;
-            flex-shrink: 0;
-            backdrop-filter: blur(18px);
-            border-radius: 28px;
-            border: 1px solid rgba(255,255,255,0.2);
-            display: flex;
-            flex-direction: column;
-            transition: 0.25s cubic-bezier(0.2,0.9,0.4,1.1);
-        }
-        .secondary-sidebar.collapsed {
-            width: 0;
-            padding: 0;
-            margin: 0;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .agent-header {
-            padding: 18px;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .message {
+
+        .topic-list .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 8px;
             border-radius: 20px;
-            padding: 10px 16px;
-            max-width: 90%;
-            font-size: 13px;
-            line-height: 1.4;
-            word-break: break-word;
+            margin-right: 6px;
         }
-        .user-message {
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
+
+        .badge-green {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
         }
-        .agent-message {
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
+        .badge-yellow {
+            background: rgba(255, 193, 7, 0.2);
+            color: #FFC107;
         }
-        .chat-input-area {
+        .badge-red {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+        }
+        .badge-purple {
+            background: rgba(156, 39, 176, 0.2);
+            color: #9C27B0;
+        }
+        .badge-blue {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+
+        .news-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-item .news-date {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .news-item .news-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 4px 0;
+            cursor: pointer;
+        }
+
+        .news-item .news-title:hover {
+            color: var(--accent);
+        }
+
+        .news-item .news-excerpt {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .book-card {
+            background: var(--surface-hover);
+            border-radius: 8px;
             padding: 14px;
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
         }
-        .chat-input {
-            flex: 1;
-            border-radius: 40px;
-            padding: 12px 18px;
-            outline: none;
-            font-size: 13px;
+
+        .book-card .book-title {
+            font-weight: 600;
+            font-size: 0.9rem;
         }
-        .mode-selector {
-            padding: 12px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            border-top: 1px solid rgba(255,255,255,0.08);
+
+        .book-card .book-author {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
-        .mode-btn {
-            border: none;
-            border-radius: 40px;
-            padding: 6px 16px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: 0.1s;
-        }
-        .mode-btn.active-mode {
-            box-shadow: 0 0 8px #6bc6ff;
-        }
-        .status-bar {
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            padding: 6px 20px;
-            font-size: 12px;
-            display: flex;
-            justify-content: space-between;
-        }
-        @media (max-width: 1200px) {
-            .app {
-                flex-wrap: wrap;
-                align-items: flex-start;
-            }
-            .activity-bar {
-                width: 100%;
-                flex-direction: row;
-                justify-content: center;
-                padding: 12px 8px;
-                gap: 10px;
-            }
-            .left-sidebar,
-            .secondary-sidebar {
-                width: 100%;
-            }
-            .editor-container-wrapper {
-                flex-direction: column;
-            }
-            .preview-panel {
-                height: auto;
-            }
-            .status-bar {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-        }
-        @media (max-width: 760px) {
-            .activity-bar {
-                border-radius: 20px;
-                padding: 10px 6px;
-            }
-            .editor-toolbar {
-                flex-wrap: wrap;
-            }
-            .tool-btn {
-                flex: 1 1 calc(50% - 8px);
-                min-width: 0;
-            }
-        }
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(100, 140, 180, 0.5);
-            border-radius: 10px;
-        }
-        .latex-preview-content {
-            line-height: 1.5;
-        }
-        .latex-preview-content table {
-            border-collapse: collapse;
-            margin: 12px 0;
-            border: 1px solid #8ab3cf;
-        }
-        .latex-preview-content td, .latex-preview-content th {
-            border: 1px solid #8ab3cf;
+
+        .book-card .btn-sm {
             padding: 6px 12px;
+            font-size: 0.75rem;
+            margin-top: 8px;
         }
-        /* Monaco compile error line decoration */
-        .compile-error-line {
-            background: rgba(255, 90, 90, 0.04) !important;
-            border-left: 3px solid rgba(255,90,90,0.45) !important;
+
+        .affiliate-note {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 10px;
         }
-        button {
-            font-family: inherit;
+
+        /* ── Feature Strip ─────────────────── */
+        .features {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 24px;
+            text-align: center;
         }
-        .theme-toggle {
-            background: rgba(0,0,0,0.3);
-            border-radius: 30px;
-            padding: 5px 10px;
-            cursor: pointer;
+
+        .features h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .feature-card .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 14px;
+        }
+
+        .feature-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ── Chess Rank Display ────────────── */
+        .rank-showcase {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 24px;
+        }
+
+        .rank-showcase h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .rank-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .rank-chip {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rank-chip .piece {
+            font-size: 1.4rem;
+        }
+
+        /* ── Footer ────────────────────────── */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 30px 24px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        footer a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* ── Responsive ────────────────────── */
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none; /* Hamburger would go here in full build */
+            }
         }
     </style>
 </head>
-<body class="light-mode">
-<div class="app">
-    <!-- Activity Bar -->
-    <div class="activity-bar" role="navigation" aria-label="Editor controls">
-        <button type="button" class="activity-icon" id="explorerIcon" aria-label="Explorer"><i class="fas fa-folder-tree"></i></button>
-        <button type="button" class="activity-icon" id="searchIcon" aria-label="Search"><i class="fas fa-search"></i></button>
-        <button type="button" class="activity-icon" id="toggleAgentIcon" aria-label="Toggle AI assistant"><i class="fas fa-robot"></i></button>
-        <button type="button" class="activity-icon" id="themeToggleIcon" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
-    </div>
+<body>
 
-    <!-- Left Sidebar (Explorer / Search) -->
-    <div class="left-sidebar" id="leftSidebar" role="complementary">
-        <div class="sidebar-header" id="sidebarHeader">📁 EXPLORER</div>
-        <div class="file-tree" id="fileTree"></div>
-        <div class="search-view" id="searchView">
-            <input type="text" id="globalSearchInput" class="search-input-glass" placeholder="🔍 Search across .tex files...">
-            <div id="searchResultsPreview" style="margin-top: 18px; font-size: 13px;">Results will appear here</div>
+    <!-- ═══════════════ NAVIGATION ═══════════════ -->
+    <nav>
+        <a href="/" class="nav-logo">Med<span>Q</span></a>
+        <ul class="nav-links">
+            <li><a href="#">Subjects</a></li>
+            <li><a href="#">☕ Cafe</a></li>
+            <li><a href="#">📰 News</a></li>
+            <li><a href="#">📚 Resources</a></li>
+        </ul>
+        <div class="nav-cta">
+            <a href="#" class="btn btn-outline">Sign In</a>
+            <a href="#" class="btn btn-primary">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section class="hero">
+        <h1>Practice Smarter.<br>Climb the <span>Chess Ranks</span> of Mastery.</h1>
+        <p>
+            AI-generated MCQs with progress tracking, personalized advice, and a difficulty ladder
+            from Beginner to Grandmaster. Built for students who want to know exactly what to improve.
+        </p>
+        <div class="hero-buttons">
+            <a href="#" class="btn btn-primary">Browse Subjects</a>
+            <a href="#" class="btn btn-outline">How It Works</a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search subjects, topics, or exams...">
+            <button>Search</button>
+        </div>
+    </section>
+
+    <!-- ═══════════════ STATS BANNER ═══════════════ -->
+    <div class="stats-banner">
+        <div class="stat-item">
+            <div class="stat-number">47</div>
+            <div class="stat-label">Forms Published</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">1,284</div>
+            <div class="stat-label">Active Learners</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">3,842</div>
+            <div class="stat-label">Forms Completed</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">9</div>
+            <div class="stat-label">Chess Ranks</div>
         </div>
     </div>
 
-    <!-- Main Area -->
-    <div class="main-area" role="main">
-        <div class="editor-toolbar">
-            <button id="splitEditorBtn" class="tool-btn"><i class="fas fa-columns"></i> Split</button>
-            <button id="togglePreviewBtn" class="tool-btn"><i class="fas fa-eye"></i> Preview</button>
-            <button id="compileToggleBtn" class="tool-btn" title="Toggle auto-compile (off)"><i class="fas fa-bolt"></i> Auto</button>
-            <button id="compileBtn" class="tool-btn"><i class="fas fa-play"></i> Compile</button>
-            <button id="newFileBtn" class="tool-btn"><i class="fas fa-plus"></i> New .tex</button>
-            <button id="importBtn" class="tool-btn"><i class="fas fa-upload"></i> Import</button>
-            <button id="exportBtn" class="tool-btn"><i class="fas fa-download"></i> Download</button>
-            <span style="flex:1"></span>
-            <span id="fileStatus" style="font-size:13px; background:rgba(0,0,0,0.2); padding:4px 14px; border-radius:40px;"><i class="fas fa-file-alt"></i> main.tex</span>
+    <!-- ═══════════════ MAIN CONTENT GRID ═══════════════ -->
+    <div class="main-grid">
+
+        <!-- ── Left Column: Topics ── -->
+        <div>
+            <div class="card">
+                <h3><span class="icon">📘</span> Popular Topics</h3>
+                <ul class="topic-list">
+                    <li><span class="badge badge-green">Easy</span> SAT Math: Linear Equations</li>
+                    <li><span class="badge badge-yellow">Medium</span> Pharmacology: Cardiac Drugs</li>
+                    <li><span class="badge badge-red">Hard</span> IB Biology: Cell Respiration</li>
+                    <li><span class="badge badge-purple">Expert</span> Nursing: Diuretics</li>
+                    <li><span class="badge badge-blue">C. Master</span> Clinical Prioritization</li>
+                    <li><span class="badge badge-green">Easy</span> A-Level Chemistry: Bonding</li>
+                    <li><span class="badge badge-yellow">Medium</span> GRE Verbal: Text Completion</li>
+                </ul>
+            </div>
         </div>
-        <div class="editor-container-wrapper" id="editorWrapper">
-            <div id="monacoContainer" class="monaco-frame"></div>
-            <div id="splitEditorContainer" class="monaco-frame" style="display: none;"></div>
-            <div class="resizer" id="editorResizer" role="separator" aria-orientation="vertical" aria-label="Resize preview" tabindex="0"></div>
-            <div class="preview-panel" id="previewPanel" aria-live="polite">
-                <div style="display:flex; justify-content: space-between; margin-bottom: 12px;"><strong><i class="fas fa-eye"></i> Live Preview (KaTeX + Tables)</strong><span style="font-size:11px;">auto-updates</span></div>
-                <div id="latexPreview" class="latex-preview-content">✨ LaTeX output will appear here — supports math, bold, tables, lists.</div>
-                <div id="compileLog" style="margin-top:12px; font-size:13px; border-top:1px dashed rgba(255,255,255,0.06); padding-top:10px; display:none;">
-                    <strong>Compile Log</strong>
-                    <div id="compileLogContent" style="margin-top:8px; max-height:160px; overflow:auto; font-family:monospace; font-size:12px;"></div>
+
+        <!-- ── Middle Column: News ── -->
+        <div>
+            <div class="card">
+                <h3><span class="icon">📰</span> EdTech &amp; Exam Updates</h3>
+                <div class="news-item">
+                    <div class="news-date">May 15, 2026</div>
+                    <div class="news-title">Digital SAT: What Changed and How to Prepare</div>
+                    <div class="news-excerpt">The College Board has introduced adaptive testing modules. Here's what you need to know...</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">May 12, 2026</div>
+                    <div class="news-title">IB Biology Syllabus Updates for 2026-2027</div>
+                    <div class="news-excerpt">New topics include CRISPR technology and advanced epigenetics...</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">May 10, 2026</div>
+                    <div class="news-title">Platform Update: Comment Locking Now Live</div>
+                    <div class="news-excerpt">You must complete a form before joining its discussion. Here's why...</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">May 8, 2026</div>
+                    <div class="news-title">New: Pharmacology Expert Tier Forms Added</div>
+                    <div class="news-excerpt">Expert-level multi-select questions for nursing certificate candidates are now available...</div>
                 </div>
             </div>
         </div>
-        <div class="status-bar">
-            <span><i class="fas fa-code"></i> LaTeX Mode</span>
-            <span id="cursorPos">Ln 1, Col 1</span>
-            <span id="compileStatus" style="min-width:140px; text-align:center;">Idle</span>
-            <span><i class="fas fa-save"></i> Autosave</span>
+
+        <!-- ── Right Column: Books & Premium ── -->
+        <div>
+            <div class="card">
+                <h3><span class="icon">📚</span> Recommended Resources</h3>
+                <div class="book-card">
+                    <div class="book-title">Pharmacology for Nursing Care</div>
+                    <div class="book-author">Lehne, 11th Edition</div>
+                    <a href="#" class="btn btn-outline btn-sm">View on Amazon →</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-title">Campbell Biology</div>
+                    <div class="book-author">12th Edition</div>
+                    <a href="#" class="btn btn-outline btn-sm">View on Amazon →</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-title">Official SAT Study Guide</div>
+                    <div class="book-author">College Board, 2024</div>
+                    <a href="#" class="btn btn-outline btn-sm">View on Amazon →</a>
+                </div>
+                <p class="affiliate-note">⚡ As an Amazon Associate, we earn from qualifying purchases.</p>
+            </div>
+
+            <div class="card" style="margin-top: 16px; text-align: center;">
+                <h3 style="justify-content: center;">🧠 AI Study Advisor</h3>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
+                    Get personalized weak-area analysis and custom study plans.
+                </p>
+                <a href="#" class="btn btn-gold">Subscribe to Pro</a>
+                <p style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 10px;">
+                    $7/month • Cancel anytime
+                </p>
+            </div>
         </div>
+
     </div>
 
-    <!-- Secondary Sidebar (Agent) -->
-    <div class="secondary-sidebar collapsed" id="secondarySidebar" role="complementary" aria-label="AI assistant">
-        <div class="agent-header">
-            <span><i class="fas fa-brain"></i> AI Assistant · Agent Mode</span>
-            <button id="closeAgentBtn" style="background:transparent; border:none; cursor:pointer;"><i class="fas fa-times"></i></button>
+    <!-- ═══════════════ CHESS RANK SHOWCASE ═══════════════ -->
+    <section class="rank-showcase">
+        <h2>Climb the Ranks</h2>
+        <div class="rank-row">
+            <div class="rank-chip"><span class="piece">♟️</span> Beginner</div>
+            <div class="rank-chip"><span class="piece">♟️</span> Easy</div>
+            <div class="rank-chip"><span class="piece">♟️</span> Middle</div>
+            <div class="rank-chip"><span class="piece">♟️</span> Hard</div>
+            <div class="rank-chip"><span class="piece">♟️</span> Advanced</div>
+            <div class="rank-chip"><span class="piece">♟️</span> Expert</div>
+            <div class="rank-chip"><span class="piece">♟️</span> Candidate Master</div>
+            <div class="rank-chip"><span class="piece">♟️</span> Master</div>
+            <div class="rank-chip"><span class="piece">👑</span> Grandmaster</div>
         </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="message agent-message">🤖 <strong>GlassTeX Agent active</strong><br> Ask me to: <br>• "add 3x3 table" <br>• "make this bold" <br>• "matrix" <br>• "insert fraction"</div>
+    </section>
+
+    <!-- ═══════════════ FEATURES ═══════════════ -->
+    <section class="features">
+        <h2>Why MedQ?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h4>AI-Generated Questions</h4>
+                <p>100 questions per form, generated from curated datasets with multi-select formats that mirror real exams.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h4>Verified Discussions</h4>
+                <p>Comment sections unlock only after you submit the form. No spam, just real insights from real attempts.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h4>Progress Tracking</h4>
+                <p>Every question you've ever answered is stored. See your weak areas and watch your rank climb over time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h4>AI Advisor (Pro)</h4>
+                <p>Personalized recommendations: which forms to take next, what to improve, and when you're ready to rank up.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">☕</div>
+                <h4>Study Cafe</h4>
+                <p>Community discussions with verified badges. Your profile shows your actual scores, not just your opinions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">♟️</div>
+                <h4>Chess Rank System</h4>
+                <p>From Beginner to Grandmaster. A difficulty ladder that means something—appropriate for middle school to PhD.</p>
+            </div>
         </div>
-        <div class="chat-input-area">
-            <input type="text" id="chatInput" class="chat-input" placeholder="Ask agent to edit LaTeX ...">
-            <button id="sendChatBtn" style="border-radius:40px; padding:0 16px; background:#2c7da0; border:none; color:white; cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
-        </div>
-        <div class="mode-selector">
-            <button id="agentAskMode" class="mode-btn">💬 Ask</button>
-            <button id="agentPlanMode" class="mode-btn">📋 Plan</button>
-            <button id="agentAgentMode" class="mode-btn active-mode">⚡ Agent</button>
-        </div>
-    </div>
-</div>
+    </section>
 
-<!-- hidden file input for import -->
-<input type="file" id="fileUpload" accept=".tex,.txt" style="display:none" />
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer>
+        <ul class="footer-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Subjects</a></li>
+            <li><a href="#">Cafe</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <p>&copy; 2026 MedQ. Built for learners who want to know exactly what to improve.</p>
+        <p style="margin-top: 6px;">Hosted on GitHub Pages • Full platform coming soon</p>
+    </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
-<script>
-    // ---------- FILE SYSTEM ----------
-    const STORAGE_KEY = 'glasstex-demo-state';
-    const files = {
-        "main.tex": `\\documentclass{article}
-\\begin{document}
-\\section{Glassmorphism LaTeX Studio}
-Welcome to **VS Code style** editor. Math: $E = mc^2$ and bold \\textbf{Glass UI}.
-
-\\begin{itemize}
-    \\item \\textit{Italic} and \\texttt{monospace}
-    \\item $\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}$
-\\end{itemize}
-
-\\begin{tabular}{|c|c|}
-\\hline
-\\textbf{Feature} & \\textbf{Status} \\\\
-\\hline
-Tables & ✅ \\\\
-Formulas & ✅ \\\\
-\\hline
-\\end{tabular}
-\\end{document}`,
-        "math.tex": `\\section{Advanced Math}
-\\begin{equation}
-\\nabla \\times \\mathbf{E} = -\\frac{\\partial \\mathbf{B}}{\\partial t}
-\\end{equation}
-Inline: $\\alpha^2 + \\beta^2 = \\gamma^2$`,
-        "table_sample.tex": `\\begin{tabular}{|l|c|r|}
-\\hline
-\\textbf{Name} & \\textbf{Value} & \\textbf{Score} \\\\
-\\hline
-Glass & 42 & 99.9 \\\\
-Morphism & 88 & 100 \\\\
-\\hline
-\\end{tabular}
-\\vspace{4pt}
-\\textbf{Bold} and \\textit{Italic} example.`
-    };
-    let currentFile = "main.tex";
-    let editor = null;
-    let splitEditor = null;
-    let isSplitActive = false;
-    let isSyncingSplit = false;
-    let leftSidebarVisible = true;
-    let agentSidebarVisible = false;
-    let currentSidebarMode = "explorer";
-    let currentTheme = "light";
-
-    const savedStateRaw = localStorage.getItem(STORAGE_KEY);
-    if (savedStateRaw) {
-        try {
-            const savedState = JSON.parse(savedStateRaw);
-            if (savedState.files) Object.assign(files, savedState.files);
-            if (savedState.currentFile && files[savedState.currentFile]) currentFile = savedState.currentFile;
-            if (savedState.currentTheme) currentTheme = savedState.currentTheme;
-        } catch (err) {
-            console.warn('Unable to restore saved state', err);
-        }
-    }
-
-    // Helper: build file tree
-    function buildFileTree() {
-        const container = document.getElementById('fileTree');
-        container.innerHTML = '';
-        Object.keys(files).forEach(filename => {
-            const div = document.createElement('div');
-            div.className = 'tree-item';
-            if (filename === currentFile) div.classList.add('active-file');
-            div.setAttribute('data-file', filename);
-            div.innerHTML = `<i class="fas fa-file-latex"></i> <span class="filename">${filename}</span>
-                <span style="margin-left:auto; display:flex; gap:8px;">
-                    <button type="button" class="file-act" data-action="download" data-file="${filename}" title="Download"><i class="fas fa-download"></i></button>
-                    <button type="button" class="file-act" data-action="rename" data-file="${filename}" title="Rename"><i class="fas fa-edit"></i></button>
-                    <button type="button" class="file-act" data-action="delete" data-file="${filename}" title="Delete"><i class="fas fa-trash"></i></button>
-                </span>`;
-            div.addEventListener('click', (e) => {
-                // clicking the row (not buttons) switches file
-                if (e.target.closest('.file-act')) return;
-                e.stopPropagation();
-                switchFile(filename);
-                document.querySelectorAll('.tree-item').forEach(el => el.classList.remove('active-file'));
-                div.classList.add('active-file');
-            });
-            container.appendChild(div);
-            // action buttons
-            const actions = div.querySelectorAll('.file-act');
-            actions.forEach(btn => btn.addEventListener('click', (ev) => {
-                ev.stopPropagation();
-                const act = btn.dataset.action;
-                const fname = btn.dataset.file;
-                if (act === 'download') downloadFile(fname);
-                if (act === 'rename') renameFile(fname);
-                if (act === 'delete') deleteFile(fname);
-            }));
-        });
-    }
-
-    function switchFile(filename) {
-        if (!files[filename]) return;
-        currentFile = filename;
-        saveAppState();
-        if (editor) editor.setValue(files[filename]);
-        document.getElementById('fileStatus').innerHTML = `<i class="fas fa-file-alt"></i> ${filename}`;
-        updatePreviewDelayed();
-        if (splitEditor && isSplitActive) splitEditor.setValue(files[filename]);
-        // clear previous compile decorations when switching
-        clearCompileDecorations();
-    }
-
-    function saveCurrentFile() {
-        if (editor && files[currentFile] !== undefined) {
-            files[currentFile] = editor.getValue();
-            saveAppState();
-            const statusSpan = document.getElementById('fileStatus');
-            const original = statusSpan.innerHTML;
-            statusSpan.innerHTML = `<i class="fas fa-check-circle"></i> ${currentFile} saved`;
-            setTimeout(() => { if(statusSpan) statusSpan.innerHTML = original; }, 1000);
-        }
-    }
-
-    function saveAppState() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ files, currentFile, currentTheme }));
-    }
-
-    // Enhanced LaTeX preview
-    function updatePreview() {
-        if (!editor) return;
-        const latexSource = editor.getValue();
-        const previewDiv = document.getElementById('latexPreview');
-        let escaped = escapeHtmlForPreview(latexSource);
-        escaped = escaped
-            .replace(/\\textbf\{([^}]*)\}/g, '<strong>$1</strong>')
-            .replace(/\\textit\{([^}]*)\}/g, '<em>$1</em>')
-            .replace(/\\texttt\{([^}]*)\}/g, '<code>$1</code>')
-            .replace(/\n/g, '<br>');
-        previewDiv.innerHTML = convertTabularToHtml(escaped);
-        renderMathInElement(previewDiv, {
-            delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false},
-                {left: '\\[', right: '\\]', display: true},
-                {left: '\\(', right: '\\)', display: false}
-            ],
-            throwOnError: false
-        });
-    }
-
-    function convertTabularToHtml(str) {
-        return str.replace(/\\begin\{tabular\}(\{[^}]+\})?([\s\S]*?)\\end\{tabular\}/g, (match, alignSpec, content) => {
-            const rows = content.split(/\\\\/).map(r => r.trim()).filter(r => r && !/^\\hline/.test(r));
-            let html = '<table style="border-collapse:collapse; margin:10px 0; width:100%;">';
-            rows.forEach((row, index) => {
-                const cells = row.split('&').map(cell => cell.replace(/\\hline/g, '').trim());
-                html += '<tr>' + cells.map(cell => `<td style="padding:8px 12px; border:1px solid #8ab3cf;">${cell}</td>`).join('') + '</tr>';
-            });
-            html += '</table>';
-            return html;
-        });
-    }
-
-    function escapeHtmlForPreview(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    let previewTimeout;
-    function updatePreviewDelayed() {
-        clearTimeout(previewTimeout);
-        previewTimeout = setTimeout(() => {
-            updatePreview();
-            if (autoCompileEnabled) compileDocument();
-        }, 200);
-    }
-
-    // --- Compile logic (simple client-side checks and mock compile) ---
-    let autoCompileEnabled = false;
-    const compileStatusEl = () => document.getElementById('compileStatus');
-    const compileLogEl = () => document.getElementById('compileLog');
-    const compileLogContentEl = () => document.getElementById('compileLogContent');
-    let compileDecorations = [];
-
-    function setCompileStatus(text, isError) {
-        const el = compileStatusEl();
-        if (!el) return;
-        el.textContent = text;
-        el.style.color = isError ? '#ffb3b3' : 'inherit';
-    }
-
-    function clearCompileDecorations() {
-        try {
-            if (editor && Array.isArray(compileDecorations) && compileDecorations.length) {
-                compileDecorations = editor.deltaDecorations(compileDecorations, []);
-            }
-        } catch (err) { console.warn('clearCompileDecorations', err); }
-    }
-
-    function highlightCompileErrors(errors) {
-        if (!editor || !window.monaco) return;
-        const decs = errors.map(e => {
-            const line = Math.max(1, e.line || 1);
-            const col = Math.max(1, e.col || 1);
-            return {
-                range: new monaco.Range(line, 1, line, 1),
-                options: {
-                    isWholeLine: true,
-                    className: 'compile-error-line',
-                    hoverMessage: { value: escapeHtmlForPreview(e.msg || 'Error') }
-                }
-            };
-        });
-        try {
-            compileDecorations = editor.deltaDecorations(compileDecorations, decs);
-        } catch (err) { console.warn('highlightCompileErrors', err); }
-    }
-
-    function compileDocument() {
-        if (!editor) return;
-        setCompileStatus('Compiling...', false);
-        const src = editor.getValue();
-        const errors = [];
-
-        // find \begin / \end mismatches with stack and line numbers
-        const lines = src.split(/\r?\n/);
-        const beginStack = [];
-        const beginRegex = /\\begin\{([^}]+)\}/g;
-        const endRegex = /\\end\{([^}]+)\}/g;
-        lines.forEach((lineText, idx) => {
-            let m;
-            beginRegex.lastIndex = 0;
-            while ((m = beginRegex.exec(lineText)) !== null) {
-                beginStack.push({ env: m[1], line: idx + 1, col: m.index + 1 });
-            }
-            endRegex.lastIndex = 0;
-            while ((m = endRegex.exec(lineText)) !== null) {
-                const env = m[1];
-                // find last matching begin
-                let found = -1;
-                for (let i = beginStack.length - 1; i >= 0; i--) {
-                    if (beginStack[i].env === env) { found = i; break; }
-                }
-                if (found >= 0) beginStack.splice(found, 1);
-                else errors.push({ msg: `Unmatched \\end{${env}}`, line: idx + 1, col: m.index + 1, isError: true });
-            }
-        });
-        // any remaining begins are unmatched
-        beginStack.forEach(b => errors.push({ msg: `Unclosed \\begin{${b.env}}`, line: b.line, col: b.col, isError: true }));
-
-        // simple brace matching
-        const braceStack = [];
-        lines.forEach((lineText, idx) => {
-            for (let i = 0; i < lineText.length; i++) {
-                const ch = lineText[i];
-                if (ch === '{') braceStack.push({ line: idx + 1, col: i + 1 });
-                else if (ch === '}') {
-                    if (braceStack.length) braceStack.pop();
-                    else errors.push({ msg: 'Unmatched }', line: idx + 1, col: i + 1, isError: true });
-                }
-            }
-        });
-        braceStack.forEach(b => errors.push({ msg: 'Unclosed {', line: b.line, col: b.col, isError: true }));
-
-        // show log with clickable entries
-        const logEl = compileLogContentEl();
-        if (errors.length) {
-            if (logEl) logEl.innerHTML = errors.map((e,i) => `<div class="log-entry" data-line="${e.line||''}" data-col="${e.col||1}" style="cursor:pointer;color:${e.isError? '#ffb3b3':'#ffd'}">[${i+1}] ERROR: ${escapeHtmlForPreview(e.msg)} ${e.line? `(Ln ${e.line}, Col ${e.col})`:''}</div>`).join('');
-            if (compileLogEl()) compileLogEl().style.display = 'block';
-            setCompileStatus('Compile failed', true);
-            highlightCompileErrors(errors);
-        } else {
-            if (logEl) logEl.innerHTML = `<div style="color:#bfffc9">Compiled successfully</div>`;
-            if (compileLogEl()) compileLogEl().style.display = 'block';
-            setCompileStatus('Compiled ✓', false);
-            clearCompileDecorations();
-        }
-        saveAppState();
-    }
-
-    // --- File operations: download, import, rename, delete ---
-    function downloadFile(name) {
-        if (!files[name]) return;
-        const blob = new Blob([files[name]], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-    }
-
-    function renameFile(name) {
-        const newName = prompt('Rename file', name);
-        if (!newName || newName === name) return;
-        let final = newName;
-        if (!final.endsWith('.tex')) final += '.tex';
-        if (files[final]) { alert('A file with that name already exists'); return; }
-        files[final] = files[name];
-        delete files[name];
-        if (currentFile === name) currentFile = final;
-        buildFileTree();
-        switchFile(currentFile);
-        saveAppState();
-    }
-
-    function deleteFile(name) {
-        if (!confirm(`Delete ${name}? This cannot be undone.`)) return;
-        delete files[name];
-        if (currentFile === name) {
-            const keys = Object.keys(files);
-            currentFile = keys.length ? keys[0] : null;
-        }
-        buildFileTree();
-        if (currentFile) switchFile(currentFile);
-        saveAppState();
-    }
-
-    const fileUploadEl = document.getElementById('fileUpload');
-    if (fileUploadEl) {
-        fileUploadEl.addEventListener('change', (ev) => {
-            const f = ev.target.files && ev.target.files[0];
-            if (!f) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const text = e.target.result;
-                let name = f.name || 'imported.tex';
-                if (!name.endsWith('.tex')) name = name.replace(/\.txt$/i, '.tex');
-                let i = 0; const base = name.replace(/\.tex$/i, '');
-                while (files[name]) { i++; name = `${base}_${i}.tex`; }
-                files[name] = text;
-                buildFileTree();
-                switchFile(name);
-                saveAppState();
-            };
-            reader.readAsText(f);
-            // reset input
-            ev.target.value = '';
-        });
-    }
-
-    // Hook up compile buttons, log navigation, and keyboard shortcuts
-    document.addEventListener('DOMContentLoaded', () => {
-        const compileBtn = document.getElementById('compileBtn');
-        const compileToggleBtn = document.getElementById('compileToggleBtn');
-        const logContent = document.getElementById('compileLogContent');
-        if (compileBtn) compileBtn.addEventListener('click', compileDocument);
-        if (compileToggleBtn) compileToggleBtn.addEventListener('click', () => {
-            autoCompileEnabled = !autoCompileEnabled;
-            compileToggleBtn.title = `Toggle auto-compile (${autoCompileEnabled ? 'on' : 'off'})`;
-            compileToggleBtn.style.background = autoCompileEnabled ? 'var(--accent)' : '';
-            if (autoCompileEnabled) compileDocument();
-        });
-        // import/export toolbar
-        const importBtn = document.getElementById('importBtn');
-        const exportBtn = document.getElementById('exportBtn');
-        if (importBtn) importBtn.addEventListener('click', () => document.getElementById('fileUpload').click());
-        if (exportBtn) exportBtn.addEventListener('click', () => { if (currentFile) downloadFile(currentFile); });
-        if (logContent) {
-            logContent.addEventListener('click', (ev) => {
-                const entry = ev.target.closest('.log-entry');
-                if (!entry) return;
-                const ln = parseInt(entry.getAttribute('data-line') || '1', 10) || 1;
-                const col = parseInt(entry.getAttribute('data-col') || '1', 10) || 1;
-                if (editor) {
-                    try {
-                        editor.focus();
-                        editor.setPosition({ lineNumber: ln, column: col });
-                        editor.revealPositionInCenter({ lineNumber: ln, column: col });
-                    } catch (err) { console.warn('Could not navigate to position', err); }
-                }
-            });
-        }
-
-        // Keyboard shortcuts (editor-focused):
-        // Ctrl/Cmd+S = Save, Ctrl/Cmd+P = Toggle Preview, Ctrl+Shift+E = Toggle Explorer, Ctrl+Shift+A = Toggle Auto-compile, Ctrl+Enter = Compile
-        document.addEventListener('keydown', (e) => {
-            const mod = e.ctrlKey || e.metaKey;
-            if (!mod && !(e.key === 'Enter' && (e.ctrlKey || e.metaKey))) return;
-            const key = (e.key || '').toLowerCase();
-            // Save
-            if (mod && key === 's') {
-                e.preventDefault();
-                saveCurrentFile();
-                return;
-            }
-            // Toggle Preview
-            if (mod && key === 'p') {
-                e.preventDefault();
-                document.getElementById('togglePreviewBtn')?.click();
-                return;
-            }
-            // Toggle Explorer (Ctrl+Shift+E)
-            if (mod && e.shiftKey && key === 'e') {
-                e.preventDefault();
-                if (!leftSidebarVisible) toggleLeftSidebar();
-                setLeftSidebarMode('explorer');
-                return;
-            }
-            // Toggle Auto-compile (Ctrl+Shift+A)
-            if (mod && e.shiftKey && key === 'a') {
-                e.preventDefault();
-                document.getElementById('compileToggleBtn')?.click();
-                return;
-            }
-            // Compile (Ctrl+Enter)
-            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                e.preventDefault();
-                compileDocument();
-                return;
-            }
-        });
-    });
-
-    // Monaco init
-    require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' } });
-    require(['vs/editor/editor.main'], function () {
-        editor = monaco.editor.create(document.getElementById('monacoContainer'), {
-            value: files[currentFile],
-            language: 'latex',
-            theme: currentTheme === 'dark' ? 'vs-dark' : 'vs',
-            automaticLayout: true,
-            fontSize: 14,
-            wordWrap: 'on',
-            minimap: { enabled: false },
-            lineNumbers: 'on'
-        });
-        editor.onDidChangeModelContent(() => {
-            saveCurrentFile();
-            updatePreviewDelayed();
-            updateCursorStatus();
-        });
-        editor.onDidChangeCursorPosition(() => updateCursorStatus());
-        updatePreview();
-        buildFileTree();
-    });
-
-    function updateCursorStatus() {
-        if (editor) {
-            let pos = editor.getPosition();
-            document.getElementById('cursorPos').innerText = `Ln ${pos.lineNumber}, Col ${pos.column}`;
-        }
-    }
-
-    // Theme toggling (light/dark) + Monaco theme sync
-    function setTheme(theme) {
-        currentTheme = theme;
-        const body = document.body;
-        body.classList.remove('light-mode', 'dark-mode');
-        body.classList.add(theme === 'light' ? 'light-mode' : 'dark-mode');
-        const themeIcon = document.getElementById('themeToggleIcon');
-        if (theme === 'light') {
-            themeIcon.innerHTML = '<i class="fas fa-moon"></i>';
-            if (editor) monaco.editor.setTheme('vs');
-        } else {
-            themeIcon.innerHTML = '<i class="fas fa-sun"></i>';
-            if (editor) monaco.editor.setTheme('vs-dark');
-        }
-        if (splitEditor) {
-            monaco.editor.setTheme(theme === 'dark' ? 'vs-dark' : 'vs');
-        }
-        saveAppState();
-    }
-
-    // Sidebar logic
-    const leftSidebarEl = document.getElementById('leftSidebar');
-    const explorerIcon = document.getElementById('explorerIcon');
-    const searchIcon = document.getElementById('searchIcon');
-    const fileTreeDiv = document.getElementById('fileTree');
-    const searchViewDiv = document.getElementById('searchView');
-    
-    function setLeftSidebarMode(mode) {
-        currentSidebarMode = mode;
-        if (mode === 'explorer') {
-            fileTreeDiv.style.display = 'block';
-            searchViewDiv.style.display = 'none';
-            document.getElementById('sidebarHeader').innerHTML = '📁 EXPLORER';
-            explorerIcon.classList.add('active');
-            searchIcon.classList.remove('active');
-        } else {
-            fileTreeDiv.style.display = 'none';
-            searchViewDiv.style.display = 'block';
-            document.getElementById('sidebarHeader').innerHTML = '🔍 SEARCH';
-            searchIcon.classList.add('active');
-            explorerIcon.classList.remove('active');
-            setupGlobalSearch();
-        }
-    }
-    
-    function setupGlobalSearch() {
-        const searchInput = document.getElementById('globalSearchInput');
-        const resultsDiv = document.getElementById('searchResultsPreview');
-        if (!searchInput) return;
-        searchInput.oninput = () => {
-            const term = searchInput.value.toLowerCase();
-            if (term.length < 2) { resultsDiv.innerHTML = 'Type at least 2 characters'; return; }
-            let matches = [];
-            Object.entries(files).forEach(([name, content]) => {
-                if (content.toLowerCase().includes(term)) matches.push(name);
-            });
-            if (matches.length) resultsDiv.innerHTML = matches.map(m => `<div style="padding:6px; cursor:pointer; border-radius:12px;" onclick="switchFile('${m}')">📄 ${m}</div>`).join('');
-            else resultsDiv.innerHTML = 'No matches';
-        };
-    }
-    
-    function toggleLeftSidebar() {
-        if (leftSidebarVisible) {
-            leftSidebarEl.classList.add('collapsed');
-            leftSidebarVisible = false;
-        } else {
-            leftSidebarEl.classList.remove('collapsed');
-            leftSidebarVisible = true;
-        }
-    }
-    explorerIcon.addEventListener('click', () => { if (!leftSidebarVisible) toggleLeftSidebar(); setLeftSidebarMode('explorer'); });
-    searchIcon.addEventListener('click', () => { if (!leftSidebarVisible) toggleLeftSidebar(); setLeftSidebarMode('search'); });
-    explorerIcon.addEventListener('dblclick', () => { if (currentSidebarMode === 'explorer') toggleLeftSidebar(); });
-    searchIcon.addEventListener('dblclick', () => { if (currentSidebarMode === 'search') toggleLeftSidebar(); });
-
-    // Agent Sidebar
-    const secondarySidebar = document.getElementById('secondarySidebar');
-    const toggleAgentIcon = document.getElementById('toggleAgentIcon');
-    const closeAgentBtn = document.getElementById('closeAgentBtn');
-    function toggleAgentSidebar() {
-        if (agentSidebarVisible) {
-            secondarySidebar.classList.add('collapsed');
-            agentSidebarVisible = false;
-        } else {
-            secondarySidebar.classList.remove('collapsed');
-            agentSidebarVisible = true;
-        }
-    }
-    toggleAgentIcon.addEventListener('click', toggleAgentSidebar);
-    closeAgentBtn.addEventListener('click', toggleAgentSidebar);
-
-    // Split Editor
-    const splitBtn = document.getElementById('splitEditorBtn');
-    const splitContainer = document.getElementById('splitEditorContainer');
-    splitBtn.addEventListener('click', () => {
-        if (!isSplitActive) {
-            splitContainer.style.display = 'block';
-            if (!splitEditor && monaco) {
-                splitEditor = monaco.editor.create(splitContainer, { value: editor.getValue(), language: 'latex', theme: currentTheme === 'dark' ? 'vs-dark' : 'vs', automaticLayout: true });
-                splitEditor.onDidChangeModelContent(() => {
-                    if (splitEditor && editor && !isSyncingSplit) {
-                        isSyncingSplit = true;
-                        editor.setValue(splitEditor.getValue());
-                        isSyncingSplit = false;
-                    }
-                });
-                editor.onDidChangeModelContent(() => {
-                    if (splitEditor && editor && !isSyncingSplit) {
-                        isSyncingSplit = true;
-                        splitEditor.setValue(editor.getValue());
-                        isSyncingSplit = false;
-                    }
-                });
-            } else if (splitEditor) splitEditor.setValue(editor.getValue());
-            isSplitActive = true;
-            splitBtn.style.background = '#2c7da0';
-        } else {
-            splitContainer.style.display = 'none';
-            isSplitActive = false;
-            splitBtn.style.background = 'rgba(255,255,255,0.08)';
-        }
-    });
-
-    // Resizer: allow user to resize the preview pane
-    (function() {
-        const resizer = document.getElementById('editorResizer');
-        const previewPanel = document.getElementById('previewPanel');
-        if (!resizer || !previewPanel) return;
-        let startX = 0;
-        let startWidth = 0;
-        const minW = 240;
-        const maxW = 900;
-        function onPointerMove(e) {
-            const dx = e.clientX - startX;
-            let newW = startWidth - dx;
-            newW = Math.max(minW, Math.min(maxW, newW));
-            previewPanel.style.width = newW + 'px';
-        }
-        function onPointerUp(e) {
-            try { resizer.releasePointerCapture(e.pointerId); } catch (err) {}
-            window.removeEventListener('pointermove', onPointerMove);
-            window.removeEventListener('pointerup', onPointerUp);
-        }
-        resizer.addEventListener('pointerdown', (e) => {
-            startX = e.clientX;
-            startWidth = previewPanel.getBoundingClientRect().width;
-            resizer.setPointerCapture(e.pointerId);
-            window.addEventListener('pointermove', onPointerMove);
-            window.addEventListener('pointerup', onPointerUp);
-        });
-        resizer.addEventListener('keydown', (e) => {
-            const cur = previewPanel.getBoundingClientRect().width;
-            if (e.key === 'ArrowLeft') previewPanel.style.width = Math.max(minW, cur - 16) + 'px';
-            if (e.key === 'ArrowRight') previewPanel.style.width = Math.min(maxW, cur + 16) + 'px';
-        });
-    })();
-
-    document.getElementById('newFileBtn').addEventListener('click', () => {
-        let newName = prompt('New .tex filename:', 'newfile.tex');
-        if (newName && !newName.endsWith('.tex')) newName += '.tex';
-        if (newName && !files[newName]) {
-            files[newName] = `% New LaTeX file\n\\section{${newName}}\nHello from GlassTeX!`;
-            buildFileTree();
-            switchFile(newName);
-            saveAppState();
-        } else if (newName) alert('File exists!');
-    });
-    
-    let previewVisible = true;
-    document.getElementById('togglePreviewBtn').addEventListener('click', () => {
-        const panel = document.getElementById('previewPanel');
-        previewVisible = !previewVisible;
-        panel.style.display = previewVisible ? 'flex' : 'none';
-    });
-
-    // Agent Chat Logic
-    const chatMessagesDiv = document.getElementById('chatMessages');
-    const chatInput = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendChatBtn');
-    function addMessage(text, isUser) {
-        const msgDiv = document.createElement('div');
-        msgDiv.classList.add('message', isUser ? 'user-message' : 'agent-message');
-        msgDiv.innerHTML = isUser ? `<i class="fas fa-user"></i> ${text}` : `<i class="fas fa-robot"></i> ${text}`;
-        chatMessagesDiv.appendChild(msgDiv);
-        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-    }
-    function processAgent(userMsg) {
-        let lower = userMsg.toLowerCase();
-        let insertText = "";
-        if (lower.includes("3x3 table")) insertText = "\\begin{tabular}{|c|c|c|}\\hline 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\\\ \\hline \\end{tabular}";
-        else if (lower.includes("bold")) insertText = "\\textbf{glass text}";
-        else if (lower.includes("matrix")) insertText = "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}";
-        else if (lower.includes("fraction")) insertText = "\\frac{numerator}{denominator}";
-        else if (lower.includes("italic")) insertText = "\\textit{italic style}";
-        else insertText = "\\section{Added Section}\nHere is your LaTeX content.";
-        if (editor) {
-            let selection = editor.getSelection();
-            let range = selection || editor.getModel().getFullModelRange();
-            editor.executeEdits("agent", [{ range: range, text: insertText, forceMoveMarkers: true }]);
-        }
-        return `✨ Inserted: ${insertText.substring(0, 80)}${insertText.length>80 ? '…' : ''}`;
-    }
-    sendBtn.addEventListener('click', () => {
-        let msg = chatInput.value.trim();
-        if (!msg) return;
-        addMessage(msg, true);
-        let reply = processAgent(msg);
-        addMessage(reply, false);
-        chatInput.value = '';
-    });
-    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendBtn.click(); });
-    
-    const askBtn = document.getElementById('agentAskMode');
-    const planBtn = document.getElementById('agentPlanMode');
-    const agentBtn = document.getElementById('agentAgentMode');
-    [askBtn, planBtn, agentBtn].forEach(btn => btn.addEventListener('click', function() {
-        [askBtn, planBtn, agentBtn].forEach(b => b.classList.remove('active-mode'));
-        this.classList.add('active-mode');
-        addMessage(`Switched to ${this.innerText.trim()} mode.`, false);
-    }));
-    
-    // Theme toggle event
-    document.getElementById('themeToggleIcon').addEventListener('click', () => {
-        setTheme(currentTheme === 'light' ? 'dark' : 'light');
-    });
-    
-    setLeftSidebarMode('explorer');
-    setTheme(currentTheme);
-    window.switchFile = switchFile;
-</script>
 </body>
 </html>
