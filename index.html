@@ -1,702 +1,720 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Practice smarter with AI-generated multiple-choice questions. Track progress, identify weak spots, and climb the chess ranks from Beginner to Grandmaster.">
-    <title>MedQ | MCQ Practice Platform</title>
-    <style>
-        :root {
-            --bg: #0f0f0f;
-            --surface: #1a1a1a;
-            --surface-hover: #222222;
-            --border: #2a2a2a;
-            --text: #e0e0e0;
-            --text-secondary: #999;
-            --accent: #4CAF50;
-            --accent-glow: rgba(76, 175, 80, 0.3);
-            --warning: #FFC107;
-            --danger: #F44336;
-            --purple: #9C27B0;
-            --blue: #2196F3;
-            --gold: #FFD700;
-            --radius: 10px;
-            --transition: 0.2s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        /* ── Navigation ─────────────────────── */
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 24px;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(12px);
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .nav-logo span {
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--text);
-        }
-
-        .nav-cta {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 8px 18px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all var(--transition);
-            text-decoration: none;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--text-secondary);
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #0f0f0f;
-            font-weight: 700;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, #FFD700, #FFA000);
-            color: #0f0f0f;
-            font-weight: 700;
-        }
-
-        /* ── Hero ──────────────────────────── */
-        .hero {
-            text-align: center;
-            padding: 80px 24px 60px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 16px;
-        }
-
-        .hero h1 span {
-            color: var(--accent);
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 32px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .search-bar {
-            display: flex;
-            align-items: center;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 10px 18px;
-            max-width: 500px;
-            margin: 30px auto 0;
-            gap: 10px;
-        }
-
-        .search-bar input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text);
-            font-size: 1rem;
-            width: 100%;
-        }
-
-        .search-bar input::placeholder {
-            color: var(--text-secondary);
-        }
-
-        .search-bar button {
-            background: var(--accent);
-            border: none;
-            color: #0f0f0f;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        /* ── Stats Banner ──────────────────── */
-        .stats-banner {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 20px 24px;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--accent);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ── Three Column Grid ─────────────── */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 24px;
-        }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-            transition: border-color var(--transition);
-        }
-
-        .card:hover {
-            border-color: #444;
-        }
-
-        .card h3 {
-            font-size: 1rem;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .card h3 .icon {
-            font-size: 1.2rem;
-        }
-
-        .topic-list {
-            list-style: none;
-        }
-
-        .topic-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: color var(--transition);
-        }
-
-        .topic-list li:hover {
-            color: var(--accent);
-        }
-
-        .topic-list li:last-child {
-            border-bottom: none;
-        }
-
-        .topic-list .badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 20px;
-            margin-right: 6px;
-        }
-
-        .badge-green {
-            background: rgba(76, 175, 80, 0.2);
-            color: #4CAF50;
-        }
-        .badge-yellow {
-            background: rgba(255, 193, 7, 0.2);
-            color: #FFC107;
-        }
-        .badge-red {
-            background: rgba(244, 67, 54, 0.2);
-            color: #F44336;
-        }
-        .badge-purple {
-            background: rgba(156, 39, 176, 0.2);
-            color: #9C27B0;
-        }
-        .badge-blue {
-            background: rgba(33, 150, 243, 0.2);
-            color: #2196F3;
-        }
-
-        .news-item {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .news-item:last-child {
-            border-bottom: none;
-        }
-
-        .news-item .news-date {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        .news-item .news-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 4px 0;
-            cursor: pointer;
-        }
-
-        .news-item .news-title:hover {
-            color: var(--accent);
-        }
-
-        .news-item .news-excerpt {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .book-card {
-            background: var(--surface-hover);
-            border-radius: 8px;
-            padding: 14px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border);
-        }
-
-        .book-card .book-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .book-card .book-author {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .book-card .btn-sm {
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            margin-top: 8px;
-        }
-
-        .affiliate-note {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        /* ── Feature Strip ─────────────────── */
-        .features {
-            max-width: 1200px;
-            margin: 60px auto;
-            padding: 0 24px;
-            text-align: center;
-        }
-
-        .features h2 {
-            font-size: 2rem;
-            margin-bottom: 40px;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-        }
-
-        .feature-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 30px 20px;
-            text-align: center;
-        }
-
-        .feature-card .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 14px;
-        }
-
-        .feature-card h4 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        /* ── Chess Rank Display ────────────── */
-        .rank-showcase {
-            max-width: 1200px;
-            margin: 60px auto;
-            padding: 0 24px;
-        }
-
-        .rank-showcase h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-        }
-
-        .rank-row {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .rank-chip {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 10px 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .rank-chip .piece {
-            font-size: 1.4rem;
-        }
-
-        /* ── Footer ────────────────────────── */
-        footer {
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            padding: 30px 24px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        footer a {
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: var(--accent);
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            list-style: none;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-        }
-
-        /* ── Responsive ────────────────────── */
-        @media (max-width: 900px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .nav-links {
-                display: none; /* Hamburger would go here in full build */
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NeXForge — Next-Gen Learning Platform</title>
+  <meta name="description" content="NeXForge: Build engaging learning experiences with seasons, episodes, analytics, and creator-first tools." />
+  <meta name="theme-color" content="#071226" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #050e1f;
+      --bg-surface: #0a132a;
+      --bg-elevated: #0f1a32;
+      --accent-primary: #60a5fa;
+      --accent-secondary: #7c3aed;
+      --accent-tertiary: #22c55e;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #5b6e8c;
+      --glass-white: rgba(255, 255, 255, 0.05);
+      --glass-white-strong: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(96, 165, 250, 0.2);
+      --shadow-xl: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --transition-smooth: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* enhanced animated background */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.08), transparent 40%),
+                  radial-gradient(circle at 85% 70%, rgba(124, 58, 237, 0.08), transparent 45%),
+                  linear-gradient(125deg, var(--bg-deep) 0%, #07162e 100%);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.4;
+      animation: float 20s infinite alternate ease-in-out;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.5), rgba(96, 165, 250, 0));
+      top: -150px;
+      left: -150px;
+    }
+
+    .orb-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.4), rgba(124, 58, 237, 0));
+      bottom: -200px;
+      right: -200px;
+      animation-duration: 25s;
+    }
+
+    .orb-3 {
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0));
+      top: 40%;
+      left: 70%;
+      animation-duration: 18s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        transform: translate(40px, 40px) scale(1.1);
+      }
+    }
+
+    /* layout */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* glassmorphic header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      padding: 1rem 1.5rem;
+      background: var(--glass-white);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-glow);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #041029;
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+    }
+
+    .logo-text h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, #fff, var(--accent-primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text p {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: var(--transition-smooth);
+    }
+
+    .nav-links a:hover {
+      background: var(--glass-white);
+      color: var(--accent-primary);
+    }
+
+    .nav-links .btn-cta {
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      color: #041029;
+      font-weight: 700;
+    }
+
+    /* Hero section - modern split */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 2.5rem;
+      margin-bottom: 5rem;
+      align-items: center;
+    }
+
+    .hero-content h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(to right, #ffffff, var(--accent-primary), #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 0.8rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      border: none;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      color: #041029;
+      box-shadow: 0 4px 14px rgba(96, 165, 250, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(96, 165, 250, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--glass-white-strong);
+      color: var(--text-primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--glass-white);
+      border-color: var(--accent-primary);
+    }
+
+    .stats-mini {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .stat span {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+    }
+
+    .hero-card-preview {
+      background: var(--glass-white);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-glow);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .episode-item {
+      background: var(--glass-white-strong);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      transition: var(--transition-smooth);
+    }
+
+    .episode-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateX(4px);
+    }
+
+    /* Feature grid */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .feature-card {
+      background: var(--glass-white);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      border: 1px solid var(--border-glow);
+      transition: var(--transition-smooth);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent-primary);
+      background: var(--glass-white-strong);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--accent-primary);
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+    }
+
+    /* Seasons carousel */
+    .seasons-showcase {
+      background: var(--bg-surface);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-bottom: 5rem;
+      border: 1px solid var(--border-glow);
+    }
+
+    .seasons-grid {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding: 1rem 0.2rem;
+      scrollbar-width: thin;
+    }
+
+    .season-card {
+      min-width: 240px;
+      background: var(--glass-white);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      border-left: 3px solid var(--accent-primary);
+      transition: var(--transition-smooth);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .testimonial {
+      background: var(--glass-white);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .quote {
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: linear-gradient(120deg, rgba(96, 165, 250, 0.15), rgba(124, 58, 237, 0.15));
+      border-radius: var(--radius-xl);
+      padding: 3rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      border: 1px solid var(--border-glow);
+    }
+
+    .cta-banner h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--glass-white);
+      padding-top: 2rem;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 14, 31, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-content {
+      max-width: 600px;
+      width: 100%;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      border: 1px solid var(--accent-primary);
+      box-shadow: var(--shadow-xl);
+    }
+
+    /* scroll animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 1rem;
+      }
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
+<div class="animated-bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
 
-    <!-- ═══════════════ NAVIGATION ═══════════════ -->
-    <nav>
-        <a href="/" class="nav-logo">Med<span>Q</span></a>
-        <ul class="nav-links">
-            <li><a href="#">Subjects</a></li>
-            <li><a href="#">☕ Cafe</a></li>
-            <li><a href="#">📰 News</a></li>
-            <li><a href="#">📚 Resources</a></li>
-        </ul>
-        <div class="nav-cta">
-            <a href="#" class="btn btn-outline">Sign In</a>
-            <a href="#" class="btn btn-primary">Get Started</a>
-        </div>
-    </nav>
-
-    <!-- ═══════════════ HERO ═══════════════ -->
-    <section class="hero">
-        <h1>Practice Smarter.<br>Climb the <span>Chess Ranks</span> of Mastery.</h1>
-        <p>
-            AI-generated MCQs with progress tracking, personalized advice, and a difficulty ladder
-            from Beginner to Grandmaster. Built for students who want to know exactly what to improve.
-        </p>
-        <div class="hero-buttons">
-            <a href="#" class="btn btn-primary">Browse Subjects</a>
-            <a href="#" class="btn btn-outline">How It Works</a>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search subjects, topics, or exams...">
-            <button>Search</button>
-        </div>
-    </section>
-
-    <!-- ═══════════════ STATS BANNER ═══════════════ -->
-    <div class="stats-banner">
-        <div class="stat-item">
-            <div class="stat-number">47</div>
-            <div class="stat-label">Forms Published</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">1,284</div>
-            <div class="stat-label">Active Learners</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">3,842</div>
-            <div class="stat-label">Forms Completed</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">9</div>
-            <div class="stat-label">Chess Ranks</div>
-        </div>
+<div class="container">
+  <!-- Header -->
+  <header class="header fade-up">
+    <div class="logo-area">
+      <div class="logo-icon">NX</div>
+      <div class="logo-text">
+        <h1>NeXForge</h1>
+        <p>Creator-led learning ecosystem</p>
+      </div>
     </div>
-
-    <!-- ═══════════════ MAIN CONTENT GRID ═══════════════ -->
-    <div class="main-grid">
-
-        <!-- ── Left Column: Topics ── -->
-        <div>
-            <div class="card">
-                <h3><span class="icon">📘</span> Popular Topics</h3>
-                <ul class="topic-list">
-                    <li><span class="badge badge-green">Easy</span> SAT Math: Linear Equations</li>
-                    <li><span class="badge badge-yellow">Medium</span> Pharmacology: Cardiac Drugs</li>
-                    <li><span class="badge badge-red">Hard</span> IB Biology: Cell Respiration</li>
-                    <li><span class="badge badge-purple">Expert</span> Nursing: Diuretics</li>
-                    <li><span class="badge badge-blue">C. Master</span> Clinical Prioritization</li>
-                    <li><span class="badge badge-green">Easy</span> A-Level Chemistry: Bonding</li>
-                    <li><span class="badge badge-yellow">Medium</span> GRE Verbal: Text Completion</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- ── Middle Column: News ── -->
-        <div>
-            <div class="card">
-                <h3><span class="icon">📰</span> EdTech &amp; Exam Updates</h3>
-                <div class="news-item">
-                    <div class="news-date">May 15, 2026</div>
-                    <div class="news-title">Digital SAT: What Changed and How to Prepare</div>
-                    <div class="news-excerpt">The College Board has introduced adaptive testing modules. Here's what you need to know...</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-date">May 12, 2026</div>
-                    <div class="news-title">IB Biology Syllabus Updates for 2026-2027</div>
-                    <div class="news-excerpt">New topics include CRISPR technology and advanced epigenetics...</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-date">May 10, 2026</div>
-                    <div class="news-title">Platform Update: Comment Locking Now Live</div>
-                    <div class="news-excerpt">You must complete a form before joining its discussion. Here's why...</div>
-                </div>
-                <div class="news-item">
-                    <div class="news-date">May 8, 2026</div>
-                    <div class="news-title">New: Pharmacology Expert Tier Forms Added</div>
-                    <div class="news-excerpt">Expert-level multi-select questions for nursing certificate candidates are now available...</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── Right Column: Books & Premium ── -->
-        <div>
-            <div class="card">
-                <h3><span class="icon">📚</span> Recommended Resources</h3>
-                <div class="book-card">
-                    <div class="book-title">Pharmacology for Nursing Care</div>
-                    <div class="book-author">Lehne, 11th Edition</div>
-                    <a href="#" class="btn btn-outline btn-sm">View on Amazon →</a>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">Campbell Biology</div>
-                    <div class="book-author">12th Edition</div>
-                    <a href="#" class="btn btn-outline btn-sm">View on Amazon →</a>
-                </div>
-                <div class="book-card">
-                    <div class="book-title">Official SAT Study Guide</div>
-                    <div class="book-author">College Board, 2024</div>
-                    <a href="#" class="btn btn-outline btn-sm">View on Amazon →</a>
-                </div>
-                <p class="affiliate-note">⚡ As an Amazon Associate, we earn from qualifying purchases.</p>
-            </div>
-
-            <div class="card" style="margin-top: 16px; text-align: center;">
-                <h3 style="justify-content: center;">🧠 AI Study Advisor</h3>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
-                    Get personalized weak-area analysis and custom study plans.
-                </p>
-                <a href="#" class="btn btn-gold">Subscribe to Pro</a>
-                <p style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 10px;">
-                    $7/month • Cancel anytime
-                </p>
-            </div>
-        </div>
-
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Explore</a>
+      <a href="#">Seasons</a>
+      <a href="#">Creator Hub</a>
+      <a href="#" class="btn-cta btn" id="openOwnerBtn"><i class="fas fa-crown"></i> Owner Panel</a>
     </div>
+  </header>
 
-    <!-- ═══════════════ CHESS RANK SHOWCASE ═══════════════ -->
-    <section class="rank-showcase">
-        <h2>Climb the Ranks</h2>
-        <div class="rank-row">
-            <div class="rank-chip"><span class="piece">♟️</span> Beginner</div>
-            <div class="rank-chip"><span class="piece">♟️</span> Easy</div>
-            <div class="rank-chip"><span class="piece">♟️</span> Middle</div>
-            <div class="rank-chip"><span class="piece">♟️</span> Hard</div>
-            <div class="rank-chip"><span class="piece">♟️</span> Advanced</div>
-            <div class="rank-chip"><span class="piece">♟️</span> Expert</div>
-            <div class="rank-chip"><span class="piece">♟️</span> Candidate Master</div>
-            <div class="rank-chip"><span class="piece">♟️</span> Master</div>
-            <div class="rank-chip"><span class="piece">👑</span> Grandmaster</div>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-content fade-up">
+      <h1>Build immersive learning journeys, faster than ever</h1>
+      <p class="hero-description">Design seasons, episodes, quizzes & analytics — all from a single powerful dashboard. Engage your audience like never before.</p>
+      <div class="btn-group">
+        <button class="btn btn-primary" id="demoCreatorBtn"><i class="fas fa-rocket"></i> Start Creating</button>
+        <button class="btn btn-outline" id="demoPreviewBtn"><i class="fas fa-eye"></i> Live Demo</button>
+      </div>
+      <div class="stats-mini">
+        <div class="stat"><span>120+</span><br>Active Seasons</div>
+        <div class="stat"><span>2.4k</span><br>Episodes Published</div>
+        <div class="stat"><span>98%</span><br>Engagement Rate</div>
+      </div>
+    </div>
+    <div class="hero-card-preview fade-up">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <span style="font-weight: 600;"><i class="fas fa-clock"></i> Latest episodes</span>
+        <span style="color: var(--accent-primary); font-size: 0.8rem;">Updated today</span>
+      </div>
+      <div id="dynamicEpisodeList">
+        <!-- dynamic episodes injected via JS -->
+        <div class="episode-item">Loading trending content...</div>
+      </div>
+      <div style="margin-top: 1rem;">
+        <button class="btn btn-outline" style="width: 100%;" id="browseSeasonsBtn"><i class="fas fa-compass"></i> Browse All Seasons</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="fade-up">
+    <h2 class="section-title">Everything you need to scale your content</h2>
+    <p class="section-sub">Powerful tools crafted for creators, educators, and knowledge entrepreneurs</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card fade-up">
+      <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+      <h3>Seasons & Episodes</h3>
+      <p>Organize content into structured seasons with drip-feed or bulk publishing. Version control and drafts included.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+      <h3>Advanced Analytics</h3>
+      <p>Track completion, drop-off points, heatmaps, and custom reports. Export to CSV or API.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div>
+      <h3>Interactive Blocks</h3>
+      <p>Quizzes, flashcards, code editors, and embedded media — engage learners with rich formats.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon"><i class="fas fa-users"></i></div>
+      <h3>Team Collaboration</h3>
+      <p>Invite co-authors, assign roles, and leave review comments before publishing.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+      <h3>Seamless Integrations</h3>
+      <p>Webhooks, Zapier, Discord, Slack — automate workflows and reach your audience anywhere.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+      <h3>Enterprise Security</h3>
+      <p>SSO, role-based access, GDPR compliance, and encrypted backups.</p>
+    </div>
+  </div>
+
+  <!-- Seasons showcase carousel -->
+  <div class="seasons-showcase fade-up">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 1rem;">
+      <h3><i class="fas fa-tree"></i> Popular Seasons</h3>
+      <a href="#" style="color: var(--accent-primary); text-decoration: none;">View all →</a>
+    </div>
+    <div class="seasons-grid" id="seasonsGrid">
+      <!-- dynamic seasons -->
+      <div class="season-card"><strong>🎨 Design Fundamentals</strong><br>12 episodes · 2.3k students</div>
+      <div class="season-card"><strong>⚛️ React Deep Dive</strong><br>8 episodes · 4.1k students</div>
+      <div class="season-card"><strong>📊 Data Science 101</strong><br>15 episodes · 3.8k students</div>
+      <div class="season-card"><strong>🤖 AI for Creators</strong><br>6 episodes · 1.9k students</div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="testimonials fade-up">
+    <div class="testimonial">
+      <div class="quote">"NeXForge changed how we produce online courses. The episode editor is intuitive, and analytics helped us optimize retention by 42%."</div>
+      <div class="author"><div class="avatar">JD</div><div><strong>Jessie Du</strong><br>Creator Educator</div></div>
+    </div>
+    <div class="testimonial">
+      <div class="quote">"Finally, a platform that respects both creators and learners. The drag-drop content blocks saved us weeks of dev time."</div>
+      <div class="author"><div class="avatar">MC</div><div><strong>Marcus Chen</strong><br>Tech Lead, LearnNow</div></div>
+    </div>
+    <div class="testimonial">
+      <div class="quote">"Seasons + episodes model is pure genius. Our membership retention skyrocketed thanks to structured learning paths."</div>
+      <div class="author"><div class="avatar">SR</div><div><strong>Sarah Reiner</strong><br>Edupreneur</div></div>
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner fade-up">
+    <h2>Ready to shape the future of learning?</h2>
+    <p style="margin-bottom: 1.5rem;">Join hundreds of creators building transformative experiences.</p>
+    <button class="btn btn-primary" id="finalCtaBtn"><i class="fas fa-gem"></i> Launch Your First Season →</button>
+  </div>
+
+  <footer class="footer fade-up">
+    <div>© 2025 NeXForge — Creator-first learning infrastructure</div>
+    <div><i class="fab fa-twitter"></i> <i class="fab fa-github"></i> <i class="fab fa-discord"></i> &nbsp;|&nbsp; Status: <span style="color: var(--accent-primary);">Operational</span></div>
+  </footer>
+</div>
+
+<!-- Modal for demo preview -->
+<div id="globalModal" class="modal">
+  <div class="modal-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <h3><i class="fas fa-chalkboard-teacher"></i> Episode Preview</h3>
+      <button id="closeModalBtn" style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer;">&times;</button>
+    </div>
+    <div style="margin-bottom: 1rem;">
+      <span style="background: var(--accent-primary); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem;">Season 2 · Episode 4</span>
+      <h2 style="margin-top: 0.5rem;">The Science of Motivation</h2>
+      <p>In this episode, you'll learn how to build intrinsic motivation loops using psychology and gamification. Includes interactive quiz and downloadable workbook.</p>
+      <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 1rem; margin-top: 1rem;">
+        <i class="fas fa-play-circle" style="color: var(--accent-primary);"></i> <strong>Preview content:</strong> <span style="color: var(--text-secondary);">Three practical frameworks + case studies.</span>
+      </div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;" onclick="alert('🚀 Start building your own episodes in Owner Panel!')">Explore Full Episode</button>
+  </div>
+</div>
+
+<script>
+  // Helper to open modal
+  const modal = document.getElementById('globalModal');
+  function openModal() { modal.style.display = 'flex'; }
+  function closeModal() { modal.style.display = 'none'; }
+  document.getElementById('closeModalBtn')?.addEventListener('click', closeModal);
+  window.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+  // Attach demo buttons
+  document.getElementById('demoPreviewBtn')?.addEventListener('click', openModal);
+  document.getElementById('openOwnerBtn')?.addEventListener('click', () => {
+    alert('✨ Owner Panel Dashboard (Demo): Manage seasons, create episodes, view analytics and publish content instantly.');
+  });
+  document.getElementById('demoCreatorBtn')?.addEventListener('click', () => {
+    alert('🎬 Creator Hub launched! Start building your first episode with our drag & drop builder.');
+  });
+  document.getElementById('finalCtaBtn')?.addEventListener('click', () => {
+    alert('🚀 Let\'s get started! Check your email for onboarding resources.');
+  });
+  document.getElementById('browseSeasonsBtn')?.addEventListener('click', () => {
+    alert('📚 Browse all public seasons — Explore full catalog of learning paths.');
+  });
+
+  // Populate dynamic episodes list (more interactive)
+  const episodeContainer = document.getElementById('dynamicEpisodeList');
+  const trendingEpisodes = [
+    { title: "Neural Networks Explained", questions: 12, duration: "18 min" },
+    { title: "Building with GPT-4o", questions: 8, duration: "24 min" },
+    { title: "UX Psychology Principles", questions: 10, duration: "15 min" },
+    { title: "Blockchain Basics", questions: 7, duration: "22 min" }
+  ];
+  function renderEpisodes() {
+    if(!episodeContainer) return;
+    episodeContainer.innerHTML = '';
+    trendingEpisodes.forEach(ep => {
+      const div = document.createElement('div');
+      div.className = 'episode-item';
+      div.style.cursor = 'pointer';
+      div.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="font-size: 0.9rem;">📘 ${ep.title}</strong>
+            <div style="font-size: 0.7rem; color: var(--text-muted);"><i class="fas fa-question-circle"></i> ${ep.questions} questions · ${ep.duration}</div>
+          </div>
+          <button class="btn btn-outline" style="padding: 0.3rem 0.9rem; font-size:0.7rem;" data-ep-title="${ep.title}">Preview</button>
         </div>
-    </section>
+      `;
+      const btn = div.querySelector('button');
+      btn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        alert(`🎬 Preview: "${ep.title}"\nThis episode contains ${ep.questions} interactive questions and rich media. Launch Owner Panel to customize.`);
+        openModal();
+      });
+      episodeContainer.appendChild(div);
+    });
+  }
+  renderEpisodes();
 
-    <!-- ═══════════════ FEATURES ═══════════════ -->
-    <section class="features">
-        <h2>Why MedQ?</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <h4>AI-Generated Questions</h4>
-                <p>100 questions per form, generated from curated datasets with multi-select formats that mirror real exams.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h4>Verified Discussions</h4>
-                <p>Comment sections unlock only after you submit the form. No spam, just real insights from real attempts.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h4>Progress Tracking</h4>
-                <p>Every question you've ever answered is stored. See your weak areas and watch your rank climb over time.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🧠</div>
-                <h4>AI Advisor (Pro)</h4>
-                <p>Personalized recommendations: which forms to take next, what to improve, and when you're ready to rank up.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">☕</div>
-                <h4>Study Cafe</h4>
-                <p>Community discussions with verified badges. Your profile shows your actual scores, not just your opinions.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">♟️</div>
-                <h4>Chess Rank System</h4>
-                <p>From Beginner to Grandmaster. A difficulty ladder that means something—appropriate for middle school to PhD.</p>
-            </div>
-        </div>
-    </section>
+  // Intersection Observer for fade-up animations
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '20px' });
+  fadeElements.forEach(el => observer.observe(el));
 
-    <!-- ═══════════════ FOOTER ═══════════════ -->
-    <footer>
-        <ul class="footer-links">
-            <li><a href="#">About</a></li>
-            <li><a href="#">Subjects</a></li>
-            <li><a href="#">Cafe</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Privacy</a></li>
-            <li><a href="#">Terms</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-        <p>&copy; 2026 MedQ. Built for learners who want to know exactly what to improve.</p>
-        <p style="margin-top: 6px;">Hosted on GitHub Pages • Full platform coming soon</p>
-    </footer>
-
+  // small extra: dynamic season hover effect
+  const seasonCards = document.querySelectorAll('.season-card');
+  seasonCards.forEach(card => {
+    card.addEventListener('click', () => {
+      alert(`Explore this season: ${card.innerText.split('\n')[0]} — Full curriculum and episodes available in the public library.`);
+    });
+    card.style.cursor = 'pointer';
+  });
+</script>
 </body>
 </html>
