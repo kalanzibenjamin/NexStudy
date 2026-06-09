@@ -75,6 +75,7 @@
       backdrop-filter: blur(22px) saturate(180%);
       -webkit-backdrop-filter: blur(22px) saturate(180%);
       transition: background 0.3s ease, transform 0.3s ease;
+      min-width: 0;
     }
     .topic-nav-link { position: relative; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.24); padding: 0.45rem 1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: var(--text-primary); text-decoration: none; transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 18px 42px rgba(0,0,0,0.12); }
     .topic-nav-link:hover { background: rgba(255,255,255,0.28); transform: translateY(-1px); box-shadow: 0 24px 54px rgba(0,0,0,0.16); }
@@ -135,6 +136,7 @@
       cursor: pointer;
       border: none;
       box-shadow: none;
+      min-width: 0;
     }
     .episode-row::before {
       content: '';
@@ -171,87 +173,33 @@
       letter-spacing: 0.04em;
       font-size: 0.85rem;
       min-width: auto;
-    }
-    .episode-questions {
-      margin-left: auto;
-      color: var(--text-secondary);
-      font-size: 0.82rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .episode-title {
+    }    .episode-title {
       font-weight: 600;
       color: var(--text-primary);
       min-width: 0;
     }
-    .action-buttons {
-      display: flex;
-      justify-content: flex-end;
+    .episode-row {
+      min-width: 0;
     }
-    .btn-start {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.75rem 1rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.12);
-      color: var(--text-primary);
+    .episode-info {
+      min-width: 0;
+    }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; transition: var(--transition-smooth); }
+    .topic-nav-link,
+    .episode-row,
+    .topic-header,
+    .btn,
+    .social-icon,
+    .whatsapp-channel {
       cursor: pointer;
-      transition: var(--transition-smooth);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+      -webkit-tap-highlight-color: rgba(79, 158, 255, 0.2);
+    }
+    .topic-section,
+    .topics-nav,
+    .season-header {
       backdrop-filter: blur(18px) saturate(180%);
       -webkit-backdrop-filter: blur(18px) saturate(180%);
-    }
-    .btn-start:hover {
-      background: rgba(255,255,255,0.18);
-      transform: translateY(-1px);
-    }
-    .action-buttons { display: flex; justify-content: flex-end; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; transition: var(--transition-smooth); }
-    .episode-variant { background: rgba(79,158,255,0.12); color: var(--accent-blue); padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.75rem; }
-    .footer-wrapper { margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.14); padding: 2rem 0 1.5rem; background: rgba(255,255,255,0.08); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); }
-    .social-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .social-icon { font-size: 1.6rem; color: var(--text-dim); cursor: pointer; transition: var(--transition-smooth); }
-    .social-icon:hover { color: var(--accent-blue); transform: scale(1.15); }
-    .action-cards { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.2rem; margin-bottom: 2rem; }
-    .whatsapp-channel { text-align: center; padding: 0.9rem 1.8rem; background: rgba(255,255,255,0.1); border-radius: 60px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.22); box-shadow: var(--glass-shadow); backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); }
-    .whatsapp-channel i { color: #25D366; font-size: 1.2rem; }
-    .whatsapp-channel span { color: var(--text-secondary); font-weight: 500; }
-    .whatsapp-channel:hover { background: rgba(255,255,255,0.16); transform: translateY(-2px); }
-    .construction-banner { text-align: center; padding: 0.9rem 1.5rem; background: rgba(255,255,255,0.1); border-radius: 60px; display: inline-flex; align-items: center; gap: 10px; color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 26px 46px rgba(0,0,0,0.1); backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); }
-    .construction-banner i { color: #ffc107; }
-    .copyright { text-align: center; color: var(--text-dim); font-size: 0.75rem; margin-top: 1rem; }
-    .theme-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 1000; background: var(--glass-surface); border-radius: 50px; padding: 12px 16px; box-shadow: var(--glass-shadow); border: 1px solid var(--glass-border); cursor: pointer; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
-    .theme-toggle i { color: var(--text-primary); }
-    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 640px) {
-      .container { padding: 1rem; }
-      .season-meta { flex-direction: column; }
-      .topic-header { flex-direction: column; align-items: flex-start; }
-      .episode-row { grid-template-columns: 1fr auto; gap: 0.8rem; }
-      .action-buttons { justify-content: flex-start; }
-      html { scroll-padding-top: 64px; }
-      .topic-section { scroll-margin-top: 64px; }
-    }
-    body.light-mode {
-      --bg-primary: linear-gradient(135deg, #f5f7ff 0%, #e8f2ff 45%, #e5f7ff 100%);
-      --bg-surface: rgba(255, 255, 255, 0.8);
-      --bg-card: rgba(255, 255, 255, 0.7);
-      --bg-filter: rgba(255, 255, 255, 0.7);
-      --glass-bg: rgba(255, 255, 255, 0.45);
-      --glass-surface: rgba(255, 255, 255, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.55);
-      --glass-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
-      --text-primary: #1a1f2e;
-      --text-secondary: #4a5568;
-      --text-dim: #718096;
-      background: var(--bg-primary);
-    }
-    body.light-mode .orb-a { background: radial-gradient(circle, rgba(118,148,255,0.45), rgba(255,255,255,0.12)); }
+    }    body.light-mode .orb-a { background: radial-gradient(circle, rgba(118,148,255,0.45), rgba(255,255,255,0.12)); }
     body.light-mode .orb-b { background: radial-gradient(circle, rgba(102, 209, 255,0.32), rgba(255,255,255,0.1)); }
     body.light-mode .orb-c { background: radial-gradient(circle, rgba(173, 119, 255,0.24), rgba(255,255,255,0.08)); }
   </style>
@@ -299,76 +247,49 @@
         <span class="collapse-icon">▶</span>
       </div>
       <div class="topic-content" id="topic-content-1">
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e01">
         <div class="episode-info">
           <span class="episode-number">E01</span>
           <span class="episode-title">Levels of Organization</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e01" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e02">
         <div class="episode-info">
           <span class="episode-number">E02</span>
           <span class="episode-title">Directional Terms</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e02" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e03">
         <div class="episode-info">
           <span class="episode-number">E03</span>
           <span class="episode-title">Body Cavities</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e03" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e04">
         <div class="episode-info">
           <span class="episode-number">E04</span>
           <span class="episode-title">Homeostasis</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e04" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e05">
         <div class="episode-info">
           <span class="episode-number">E05</span>
           <span class="episode-title">Anatomical Planes</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e05" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e06">
         <div class="episode-info">
           <span class="episode-number">E06</span>
           <span class="episode-title">Basic Chemistry Review</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e06" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e07">
         <div class="episode-info">
           <span class="episode-number">E07</span>
           <span class="episode-title">Introduction Roundup</span>
-          <span class="episode-questions">72 questions</span> <span class="episode-variant">Roundup</span>
+          <span class="episode-variant">Roundup</span>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e07" class="btn btn-start">Start</a>
         </div>
-      </div>
       </div>
     </div>
 
@@ -381,56 +302,37 @@
         <span class="collapse-icon">▶</span>
       </div>
       <div class="topic-content" id="topic-content-2">
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e08">
         <div class="episode-info">
           <span class="episode-number">E08</span>
           <span class="episode-title">Epithelial Tissue</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e08" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e09">
         <div class="episode-info">
           <span class="episode-number">E09</span>
           <span class="episode-title">Connective Tissue</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e09" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e10">
         <div class="episode-info">
           <span class="episode-number">E10</span>
           <span class="episode-title">Muscle Tissue</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e10" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e11">
         <div class="episode-info">
           <span class="episode-number">E11</span>
           <span class="episode-title">Nervous Tissue</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e11" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e12">
         <div class="episode-info">
           <span class="episode-number">E12</span>
           <span class="episode-title">Tissues Roundup</span>
-          <span class="episode-questions">72 questions</span> <span class="episode-variant">Roundup</span>
+          <span class="episode-variant">Roundup</span>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e12" class="btn btn-start">Start</a>
         </div>
-      </div>
       </div>
     </div>
 
@@ -443,76 +345,49 @@
         <span class="collapse-icon">▶</span>
       </div>
       <div class="topic-content" id="topic-content-3">
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e13">
         <div class="episode-info">
           <span class="episode-number">E13</span>
           <span class="episode-title">Bone Structure</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e13" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e14">
         <div class="episode-info">
           <span class="episode-number">E14</span>
           <span class="episode-title">Bone Development & Growth</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e14" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e15">
         <div class="episode-info">
           <span class="episode-number">E15</span>
           <span class="episode-title">Axial Skeleton</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e15" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e16">
         <div class="episode-info">
           <span class="episode-number">E16</span>
           <span class="episode-title">Appendicular Skeleton</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e16" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e17">
         <div class="episode-info">
           <span class="episode-number">E17</span>
           <span class="episode-title">Joints & Classifications</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e17" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e18">
         <div class="episode-info">
           <span class="episode-number">E18</span>
           <span class="episode-title">Joint Movements</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e18" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e19">
         <div class="episode-info">
           <span class="episode-number">E19</span>
           <span class="episode-title">Skeletal System Roundup</span>
-          <span class="episode-questions">72 questions</span> <span class="episode-variant">Roundup</span>
+          <span class="episode-variant">Roundup</span>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e19" class="btn btn-start">Start</a>
         </div>
-      </div>
       </div>
     </div>
 
@@ -525,76 +400,49 @@
         <span class="collapse-icon">▶</span>
       </div>
       <div class="topic-content" id="topic-content-4">
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e20">
         <div class="episode-info">
           <span class="episode-number">E20</span>
           <span class="episode-title">Muscle Types</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e20" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e21">
         <div class="episode-info">
           <span class="episode-number">E21</span>
           <span class="episode-title">Skeletal Muscle Structure</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e21" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e22">
         <div class="episode-info">
           <span class="episode-number">E22</span>
           <span class="episode-title">Sliding Filament Theory</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e22" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e23">
         <div class="episode-info">
           <span class="episode-number">E23</span>
           <span class="episode-title">Neuromuscular Junction</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e23" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e24">
         <div class="episode-info">
           <span class="episode-number">E24</span>
           <span class="episode-title">Major Muscle Groups</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e24" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e25">
         <div class="episode-info">
           <span class="episode-number">E25</span>
           <span class="episode-title">Muscle Contraction Energetics</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e25" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e26">
         <div class="episode-info">
           <span class="episode-number">E26</span>
           <span class="episode-title">Muscular System Roundup</span>
-          <span class="episode-questions">72 questions</span> <span class="episode-variant">Roundup</span>
+          <span class="episode-variant">Roundup</span>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e26" class="btn btn-start">Start</a>
         </div>
-      </div>
       </div>
     </div>
 
@@ -607,76 +455,49 @@
         <span class="collapse-icon">▶</span>
       </div>
       <div class="topic-content" id="topic-content-5">
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e27">
         <div class="episode-info">
           <span class="episode-number">E27</span>
           <span class="episode-title">Neuron Structure</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e27" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e28">
         <div class="episode-info">
           <span class="episode-number">E28</span>
           <span class="episode-title">Action Potential</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e28" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e29">
         <div class="episode-info">
           <span class="episode-number">E29</span>
           <span class="episode-title">Synaptic Transmission</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e29" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e30">
         <div class="episode-info">
           <span class="episode-number">E30</span>
           <span class="episode-title">Central Nervous System</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e30" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e31">
         <div class="episode-info">
           <span class="episode-number">E31</span>
           <span class="episode-title">Peripheral Nervous System</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e31" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e32">
         <div class="episode-info">
           <span class="episode-number">E32</span>
           <span class="episode-title">Autonomic Nervous System</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e32" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e33">
         <div class="episode-info">
           <span class="episode-number">E33</span>
           <span class="episode-title">Nervous System Roundup</span>
-          <span class="episode-questions">72 questions</span> <span class="episode-variant">Roundup</span>
+          <span class="episode-variant">Roundup</span>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e33" class="btn btn-start">Start</a>
         </div>
-      </div>
       </div>
     </div>
 
@@ -689,76 +510,49 @@
         <span class="collapse-icon">▶</span>
       </div>
       <div class="topic-content" id="topic-content-6">
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e34">
         <div class="episode-info">
           <span class="episode-number">E34</span>
           <span class="episode-title">Heart Anatomy</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e34" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e35">
         <div class="episode-info">
           <span class="episode-number">E35</span>
           <span class="episode-title">Cardiac Cycle</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e35" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e36">
         <div class="episode-info">
           <span class="episode-number">E36</span>
           <span class="episode-title">Blood Vessels</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e36" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e37">
         <div class="episode-info">
           <span class="episode-number">E37</span>
           <span class="episode-title">Blood Pressure & Regulation</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e37" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e38">
         <div class="episode-info">
           <span class="episode-number">E38</span>
           <span class="episode-title">Circulatory Pathways</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e38" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e39">
         <div class="episode-info">
           <span class="episode-number">E39</span>
           <span class="episode-title">Cardiac Output & Regulation</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e39" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e40">
         <div class="episode-info">
           <span class="episode-number">E40</span>
           <span class="episode-title">Cardiovascular Roundup</span>
-          <span class="episode-questions">72 questions</span> <span class="episode-variant">Roundup</span>
+          <span class="episode-variant">Roundup</span>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e40" class="btn btn-start">Start</a>
         </div>
-      </div>
       </div>
     </div>
 
@@ -771,56 +565,37 @@
         <span class="collapse-icon">▶</span>
       </div>
       <div class="topic-content" id="topic-content-7">
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e41">
         <div class="episode-info">
           <span class="episode-number">E41</span>
           <span class="episode-title">Respiratory Anatomy</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e41" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e42">
         <div class="episode-info">
           <span class="episode-number">E42</span>
           <span class="episode-title">Mechanics of Breathing</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e42" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e43">
         <div class="episode-info">
           <span class="episode-number">E43</span>
           <span class="episode-title">Gas Exchange</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e43" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e44">
         <div class="episode-info">
           <span class="episode-number">E44</span>
           <span class="episode-title">Gas Transport</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e44" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e45">
         <div class="episode-info">
           <span class="episode-number">E45</span>
           <span class="episode-title">Respiratory Roundup</span>
-          <span class="episode-questions">72 questions</span> <span class="episode-variant">Roundup</span>
+          <span class="episode-variant">Roundup</span>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e45" class="btn btn-start">Start</a>
         </div>
-      </div>
       </div>
     </div>
 
@@ -833,76 +608,49 @@
         <span class="collapse-icon">▶</span>
       </div>
       <div class="topic-content" id="topic-content-8">
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e46">
         <div class="episode-info">
           <span class="episode-number">E46</span>
           <span class="episode-title">Digestive Tract Anatomy</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e46" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e47">
         <div class="episode-info">
           <span class="episode-number">E47</span>
           <span class="episode-title">Accessory Organs</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e47" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e48">
         <div class="episode-info">
           <span class="episode-number">E48</span>
           <span class="episode-title">Digestion & Absorption</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e48" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e49">
         <div class="episode-info">
           <span class="episode-number">E49</span>
           <span class="episode-title">Nutrient Metabolism</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e49" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e50">
         <div class="episode-info">
           <span class="episode-number">E50</span>
           <span class="episode-title">Hormonal Regulation</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e50" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e51">
         <div class="episode-info">
           <span class="episode-number">E51</span>
           <span class="episode-title">Digestive Disorders</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e51" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e52">
         <div class="episode-info">
           <span class="episode-number">E52</span>
           <span class="episode-title">Digestive System Roundup</span>
-          <span class="episode-questions">72 questions</span> <span class="episode-variant">Roundup</span>
+          <span class="episode-variant">Roundup</span>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e52" class="btn btn-start">Start</a>
         </div>
-      </div>
       </div>
     </div>
 
@@ -915,56 +663,37 @@
         <span class="collapse-icon">▶</span>
       </div>
       <div class="topic-content" id="topic-content-9">
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e53">
         <div class="episode-info">
           <span class="episode-number">E53</span>
           <span class="episode-title">Enzymes & Secretions</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e53" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e54">
         <div class="episode-info">
           <span class="episode-number">E54</span>
           <span class="episode-title">Liver & Biliary Function</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e54" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e55">
         <div class="episode-info">
           <span class="episode-number">E55</span>
           <span class="episode-title">Nutrient Absorption Pathways</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e55" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e56">
         <div class="episode-info">
           <span class="episode-number">E56</span>
           <span class="episode-title">Fluid Balance & Electrolytes</span>
-          <span class="episode-questions">24 questions</span>
+          </div>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e56" class="btn btn-start">Start</a>
-        </div>
-      </div>
-      <div class="episode-row">
+      <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e57">
         <div class="episode-info">
           <span class="episode-number">E57</span>
           <span class="episode-title">Digestive Disorders Roundup</span>
-          <span class="episode-questions">72 questions</span> <span class="episode-variant">Roundup</span>
+          <span class="episode-variant">Roundup</span>
         </div>
-        <div class="action-buttons">
-          <a href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e57" class="btn btn-start">Start</a>
         </div>
-      </div>
       </div>
     </div>
 
@@ -1081,15 +810,14 @@
     });
 
     document.querySelectorAll('.episode-row').forEach(row => {
-      const targetLink = row.querySelector('a.btn-start');
-      if (!targetLink) return;
+      const rowHref = row.dataset.href;
+      if (!rowHref) return;
       row.tabIndex = 0;
-      row.setAttribute('role', 'link');
-      row.addEventListener('click', () => { window.location.href = targetLink.href; });
+      row.setAttribute('role', 'link');row.addEventListener('click', () => { window.location.href = rowHref; });
       row.addEventListener('keydown', (event) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
-          window.location.href = targetLink.href;
+          window.location.href = rowHref;
         }
       });
     });
