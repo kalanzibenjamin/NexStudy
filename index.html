@@ -468,28 +468,6 @@
       border-color: var(--accent-blue);
     }
 
-    /* Modal */
-    .episode-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(10px);
-      z-index: 1100;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-card {
-      max-width: 500px;
-      width: 90%;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 28px;
-      padding: 2rem;
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-    }
     .fade-up {
       opacity: 0;
       transform: translateY(30px);
@@ -498,67 +476,6 @@
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
-    }
-
-    .btn-outline-light {
-      border: 1.5px solid var(--border-color);
-      color: var(--text-primary);
-      background: rgba(79, 158, 255, 0.08);
-      padding: 0.6rem 1.2rem;
-      border-radius: 60px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: var(--transition-smooth);
-    }
-    .episode-row {
-      background: rgba(79, 158, 255, 0.06);
-      border-radius: 14px;
-      padding: 1rem;
-      margin-bottom: 0.8rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      border: 1px solid var(--border-color);
-    }
-    .filter-buttons {
-      display: flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-      justify-content: center;
-    }
-    .filter-btn {
-      padding: 0.5rem 1.2rem;
-      background: rgba(79, 158, 255, 0.08);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      border-radius: 50px;
-      cursor: pointer;
-    }
-    .filter-btn.active {
-      background: var(--btn-bg);
-      color: #030615;
-    }
-    /* Keep container for episodes optional but hidden from main UI */
-    .episode-showcase {
-      background: var(--glass-bg);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-radius: 28px;
-      border: 1px solid var(--glass-border);
-      padding: 1.5rem;
-      max-width: 700px;
-      margin: 2rem auto;
-      box-shadow: var(--glass-shadow);
-    }
-    .section-mini-title {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 2.5px;
-      color: var(--accent-green);
-      margin-bottom: 1rem;
     }
   </style>
 </head>
@@ -660,52 +577,19 @@
   <i class="fas fa-sun" id="lightIcon" style="display: none;"></i>
 </div>
 
-<!-- Modal -->
-<div id="episodeModal" class="episode-modal">
-  <div class="modal-card">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-      <h3><i class="fas fa-play-circle"></i> Episode Preview</h3>
-      <button id="closeModalBtn" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
-    </div>
-    <div id="modalEpisodeContent"></div>
-  </div>
-</div>
-
 <script>
-  // Simple episode data for search/demo
-  const episodesCatalog = [
-    { title: "Design Systems", desc: "Master scalable design systems.", category: "design" },
-    { title: "Neuroscience of Focus", desc: "Understand attention & flow.", category: "science" },
-    { title: "Planetary Science", desc: "Journey through space.", category: "science" },
-    { title: "Clean Code", desc: "Best coding practices.", category: "tech" },
-    { title: "Mindful Breathing", desc: "Mindfulness techniques.", category: "mindfulness" },
-    { title: "UI Animation", desc: "Motion design principles.", category: "creativity" }
-  ];
-
-  function openModal(title, desc) {
-    const modal = document.getElementById('episodeModal');
-    const content = document.getElementById('modalEpisodeContent');
-    content.innerHTML = `<h2>${title}</h2><p>${desc}</p><button class="btn-outline-light" id="closeModalInnerBtn" style="margin-top:1rem; width:100%;"><i class="fas fa-check"></i> Got it</button>`;
-    modal.style.display = 'flex';
-    document.getElementById('closeModalInnerBtn')?.addEventListener('click', () => modal.style.display = 'none');
-  }
-  document.getElementById('closeModalBtn')?.addEventListener('click', () => document.getElementById('episodeModal').style.display = 'none');
-  window.addEventListener('click', (e) => { if(e.target === document.getElementById('episodeModal')) document.getElementById('episodeModal').style.display = 'none'; });
-
   // Search functionality
   const searchInput = document.getElementById('searchInput');
   const searchClear = document.getElementById('searchClearBtn');
   searchInput.addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase();
     searchClear.classList.toggle('visible', term.length > 0);
-    if(term && episodesCatalog.some(ep => ep.title.toLowerCase().includes(term))) {
-      const match = episodesCatalog.find(ep => ep.title.toLowerCase().includes(term));
-      if(match) openModal(match.title, match.desc);
-    } else if(term && !episodesCatalog.some(ep => ep.title.toLowerCase().includes(term))) {
-      openModal("Search", `No exact match for "${term}". Explore more soon!`);
-    }
   });
-  searchClear.addEventListener('click', () => { searchInput.value = ''; searchClear.classList.remove('visible'); });
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchClear.classList.remove('visible');
+    searchInput.focus();
+  });
 
   // UNMEB card click -> route /unmeb
   document.getElementById('unmebCard')?.addEventListener('click', () => {
