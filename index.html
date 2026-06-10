@@ -138,6 +138,9 @@
       top: 0;
       z-index: 100;
       padding: 0.75rem 0;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       transition: opacity 0.4s ease;
       opacity: 1;
     }
@@ -536,7 +539,7 @@
         background-size: auto !important;
       }
       .floating-orb { display: none !important; }
-      .topics-nav, .topics-nav-wrapper {
+      .topics-nav {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         background: rgba(255,255,255,0.03) !important;
