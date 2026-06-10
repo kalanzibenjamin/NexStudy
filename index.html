@@ -123,6 +123,12 @@
     }
     .season-title { font-size: 1.55rem; font-weight: 800; margin-bottom: 0.65rem; line-height: 1.2; }
     .season-meta { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; color: var(--text-secondary); }
+    .season-title i { color: var(--accent-blue); }
+    .season-meta i { color: var(--text-secondary); }
+    .season-meta .fa-pen-nib { color: #9B4DFF; }
+    .season-meta .fa-calendar-alt { color: #34C759; }
+    .season-meta .fa-sync-alt { color: #FF9F0A; }
+    .season-meta .fa-file-alt { color: #5B5BFF; }
     .topics-nav-wrapper {
       display: flex;
       align-items: center;
@@ -379,7 +385,23 @@
       transition: var(--transition-smooth);
       cursor: pointer;
     }
-    .social-icon:hover { color: var(--accent-blue); transform: scale(1.15); }
+    .social-icon[data-social='whatsapp'] { color: #25D366; }
+    .social-icon[data-social='wechat'] { color: #07C160; }
+    .social-icon[data-social='youtube'] { color: #FF3B30; }
+    .social-icon[data-social='telegram'] { color: #0088CC; }
+    .social-icon[data-social='tiktok'] {
+      color: transparent;
+      background: linear-gradient(135deg, #69C9D0 0%, #EE1D52 48%, #010101 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    .social-icon[data-social='instagram'] {
+      color: transparent;
+      background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    .social-icon:hover { transform: scale(1.15); }
     .footer-cta {
       display: flex;
       flex-direction: column;
@@ -1027,6 +1049,7 @@
     <div class="footer-wrapper">
       <div class="social-links">
         <i class="fab fa-whatsapp social-icon" data-social="whatsapp"></i>
+        <i class="fab fa-weixin social-icon" data-social="wechat"></i>
         <i class="fab fa-telegram social-icon" data-social="telegram"></i>
         <i class="fab fa-youtube social-icon" data-social="youtube"></i>
         <i class="fab fa-tiktok social-icon" data-social="tiktok"></i>
@@ -1275,9 +1298,10 @@
     
     // ========== SOCIAL LINKS ==========
     const socialUrls = {
-      whatsapp: 'https://whatsapp.com/channel/0029Va9ZqjK8x8Xx8Xx8Xx8X',
-      telegram: 'https://t.me/nexstudy',
-      youtube: 'https://youtube.com/@nexstudy',
+      whatsapp: 'https://whatsapp.com/channel/0029Vb7UygL1dAvuZvBWhB3y',
+      wechat: 'https://www.wechat.com',
+      telegram: 'https://t.me/clareoni',
+      youtube: 'https://youtube.com/@clareoni',
       tiktok: 'https://tiktok.com/@nexstudy',
       instagram: 'https://instagram.com/nexstudy'
     };
