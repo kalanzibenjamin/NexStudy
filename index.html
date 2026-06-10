@@ -406,13 +406,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
     }
     .social-links {
       display: flex;
       justify-content: center;
       gap: 0.75rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.65rem;
       flex-wrap: wrap;
     }
     .social-icon {
@@ -444,7 +444,7 @@
       flex-direction: column;
       align-items: center;
       gap: 0.5rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.45rem;
       padding: 0 0.5rem;
     }
     .whatsapp-channel {
@@ -478,7 +478,7 @@
       height: 1px;
       width: 100%;
       background: rgba(255,255,255,0.1);
-      margin: 0.75rem 0;
+      margin: 0.45rem 0;
     }
     .copyright {
       text-align: center;
@@ -527,8 +527,8 @@
       .topic-title { flex-wrap: wrap; }
       .topic-name { white-space: normal; }
       .footer-wrapper { padding: 1.5rem 1rem 1rem; }
-      .social-links { gap: 1rem; margin-bottom: 1rem; }
-      .footer-cta { gap: 0.5rem; margin-bottom: 1.2rem; }
+      .social-links { gap: 1rem; margin-bottom: 0.85rem; }
+      .footer-cta { gap: 0.5rem; margin-bottom: 0.75rem; }
       .whatsapp-channel { width: 100%; padding: 0.75rem 1rem; }
       .footer-note { font-size: 0.82rem; }
       .season-meta { gap: 0.75rem; font-size: 0.82rem; }
@@ -549,9 +549,9 @@
       .topics-nav {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
-        background: rgba(255,255,255,0.03) !important;
-        border-color: rgba(255,255,255,0.06) !important;
-        box-shadow: none !important;
+        background: rgba(255,255,255,0.12) !important;
+        border-color: rgba(255,255,255,0.14) !important;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10) !important;
       }
     }
 
@@ -570,9 +570,9 @@
     body.touch-device .topics-nav {
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
-      background: rgba(255,255,255,0.03) !important;
-      border-color: rgba(255,255,255,0.06) !important;
-      box-shadow: none !important;
+      background: rgba(255,255,255,0.14) !important;
+      border-color: rgba(255,255,255,0.16) !important;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12) !important;
     }
   </style>
 </head>
@@ -1270,7 +1270,7 @@
         inner.style.animationDuration = '';
         inner.style.removeProperty('transform');
 
-        if (isMobile || prefersReducedMotion) {
+        if (prefersReducedMotion) {
           return;
         }
 
@@ -1280,8 +1280,8 @@
         if (textWidth > containerWidth + 2) {
           container.classList.add('marquee-active');
           container.style.setProperty('--marquee-shift', `${textWidth - containerWidth}px`);
-          const durationBase = container.classList.contains('topic-name') ? 10 : 12;
-          const maxDuration = container.classList.contains('topic-name') ? 22 : 24;
+          const durationBase = container.classList.contains('topic-name') ? (isMobile ? 7 : 10) : (isMobile ? 8 : 12);
+          const maxDuration = container.classList.contains('topic-name') ? (isMobile ? 16 : 22) : (isMobile ? 18 : 24);
           const duration = Math.max(durationBase, Math.min(maxDuration, (textWidth / containerWidth) * durationBase));
           const propertyName = container.classList.contains('topic-name') ? '--topic-marquee-duration' : '--marquee-duration';
           container.style.setProperty(propertyName, duration + 's');
