@@ -3,453 +3,1436 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>E01 · Blood and Body Fluids | NexStudy</title>
+  <title>Anatomy & Physiology 1 and First Aid | Clareon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    :root { color-scheme: dark; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { min-height: 100%; }
-    body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: radial-gradient(circle at top left, rgba(79,158,255,0.18), transparent 31%), radial-gradient(circle at bottom right, rgba(45,212,191,0.16), transparent 28%), #02040d; color: #f6f9ff; line-height: 1.6; }
-    a { color: inherit; text-decoration: none; }
-    .page-shell { min-height: 100vh; display: flex; flex-direction: column; }
-    header { padding: 2rem 2rem 1.5rem; max-width: 1120px; width: 100%; margin: 0 auto; }
-    .page-title { font-size: clamp(2rem, 2.6vw, 3rem); font-weight: 800; margin-bottom: 0.75rem; }
-    .page-subtitle { max-width: 860px; color: rgba(246,249,255,0.72); font-size: 1rem; margin-bottom: 1.5rem; }
-    .episode-list { display: grid; gap: 1rem; max-width: 1120px; width: 100%; margin: 0 auto; padding: 0 2rem 2rem; }
-    .episode-row { display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; padding: 1.1rem 1.2rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease; }
-    .episode-row:hover { transform: translateY(-1px); background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.18); }
-    .episode-number { font-weight: 700; color: #84c8ff; min-width: 4.5rem; }
-    .episode-name { color: #eef3ff; font-weight: 600; }
-    .episode-link-label { color: #7bc6ff; font-size: 0.95rem; font-weight: 700; }
-    .footer { margin-top: auto; padding: 1.75rem 2rem 2rem; border-top: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); }
-    .footer-content { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; align-items: center; text-align: center; color: rgba(246,249,255,0.72); }
-    .footer-content a { color: #7bc6ff; }
-    .footer-note { font-size: 0.95rem; }
-    .empty-state { color: rgba(246,249,255,0.72); padding: 1rem 0; }
-    @media (max-width: 720px) {
-      header { padding: 1.5rem 1rem 1rem; }
-      .episode-list { padding: 0 1rem 1.5rem; }
-      .episode-row { grid-template-columns: 1fr; text-align: left; }
-      .episode-link-label { justify-self: start; }
+    :root {
+      --bg-primary: radial-gradient(circle at 10% 20%, #071c3a, #030615 80%);
+      --text-primary: #f0f3fa;
+      --text-secondary: #b9c7db;
+      --text-dim: #6e85b0;
+      --accent-blue: #4f9eff;
+      --accent-purple: #9b4dff;
+      --accent-green: #2dd4bf;
+      --transition-smooth: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-shadow: 0 34px 68px rgba(0, 0, 0, 0.24);
+    }
+    html, body {
+      min-height: 100%;
+      background-color: #030615;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      background-size: 300% 300%;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      animation: dayGradientFlow 24s ease infinite;
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    body.light-mode {
+      --bg-primary: linear-gradient(135deg, #f5f7ff 0%, #e8f2ff 45%, #e5f7ff 100%);
+      --text-primary: #1a1f2e;
+      --text-secondary: #4a5568;
+      --text-dim: #718096;
+      --glass-bg: rgba(255, 255, 255, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.55);
+      --glass-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+    }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
+    }
+    .cosmic-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; opacity: 1; }
+    .floating-orb { position: absolute; border-radius: 50%; filter: blur(75px); opacity: 0.35; animation: drift 26s infinite alternate ease-in-out; }
+    .orb-a { width: 500px; height: 500px; background: radial-gradient(circle, rgba(79,158,255,0.55), rgba(255,255,255,0.12)); top: -200px; left: -150px; }
+    .orb-b { width: 550px; height: 550px; background: radial-gradient(circle, rgba(45,212,191,0.45), rgba(255,255,255,0.12)); bottom: -180px; right: -100px; animation-duration: 32s; }
+    .orb-c { width: 320px; height: 320px; background: radial-gradient(circle, rgba(155,77,255,0.28), rgba(255,255,255,0.08)); top: 30%; left: 70%; animation-duration: 20s; opacity: 0.25; }
+    @keyframes drift { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 40px) scale(1.08); } }
+    @keyframes dayGradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    
+    body.light-mode .orb-a { background: radial-gradient(circle, rgba(118,148,255,0.45), rgba(255,255,255,0.12)); }
+    body.light-mode .orb-b { background: radial-gradient(circle, rgba(102, 209, 255,0.32), rgba(255,255,255,0.1)); }
+    body.light-mode .orb-c { background: radial-gradient(circle, rgba(173, 119, 255,0.24), rgba(255,255,255,0.08)); }
+    body.light-mode .topic-section { box-shadow: 0 28px 80px rgba(0,0,0,0.08); }
+    body.light-mode .topic-header { background: transparent; }
+    body.light-mode .topic-header:hover { background: rgba(255,255,255,0.14); }
+    body.light-mode .topic-content { background: transparent; }
+    body.light-mode .episode-row { background: rgba(255,255,255,0.10); border-bottom: 1px solid rgba(0,0,0,0.08); }
+    body.light-mode .episode-row:hover { background: rgba(255,255,255,0.16); box-shadow: 0 16px 32px rgba(0,0,0,0.08); }
+    body.light-mode .episode-number { background: rgba(255,255,255,0.55); border-color: rgba(255,255,255,0.75); }
+    
+    /* Fade up animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: opacity, transform;
+      backface-visibility: hidden;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html, body { scroll-behavior: auto; }
+      body { animation: none !important; }
+      .floating-orb { animation: none !important; }
+      .fade-up {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+        transition: none !important;
+      }
+      .episode-title.marquee-active .episode-title-text,
+      .topic-name.marquee-active .topic-name-text {
+        animation: none !important;
+        transform: none !important;
+      }
+      .episode-row:hover,
+      .topic-header:hover,
+      .nav-arrow:hover,
+      .whatsapp-channel:hover,
+      .theme-toggle:hover {
+        transform: none !important;
+      }
+    }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.5rem 2.5rem; position: relative; z-index: 1; }
+    .season-header {
+      background: rgba(255,255,255,0.16);
+      border-radius: 32px;
+      padding: 1.75rem 1.75rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 38px 96px rgba(0,0,0,0.24), inset 0 0 0 1px rgba(255,255,255,0.08);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+    }
+    .season-title { font-size: 1.55rem; font-weight: 800; margin-bottom: 0.65rem; line-height: 1.2; }
+    .season-meta { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; color: var(--text-secondary); }
+    .season-title i { color: var(--accent-blue); }
+    .season-meta i { color: var(--text-secondary); }
+    .season-meta .fa-pen-nib { color: #9B4DFF; }
+    .season-meta .fa-calendar-alt { color: #34C759; }
+    .season-meta .fa-sync-alt { color: #FF9F0A; }
+    .season-meta .fa-file-alt { color: #5B5BFF; }
+    .topics-nav-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .nav-arrow {
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.22);
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 18px 32px rgba(0,0,0,0.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .nav-arrow:hover {
+      background: rgba(255,255,255,0.32);
+      transform: translateY(-1px);
+      box-shadow: 0 24px 38px rgba(0,0,0,0.18);
+    }
+    .nav-arrow:disabled {
+      opacity: 0.35;
+      cursor: default;
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.14);
+      box-shadow: none;
+      transform: none;
+    }
+    .topics-nav {
+      position: relative;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.75rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 24px;
+      padding: 0.95rem 0.75rem;
+      flex: 1;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .topics-nav::-webkit-scrollbar { display: none; }
+    .topics-nav { -ms-overflow-style: none; scrollbar-width: none; }
+    .topic-nav-link { flex: 0 0 auto; position: relative; white-space: nowrap; scroll-snap-align: start; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.24); padding: 0.45rem 1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: var(--text-primary); text-decoration: none; transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 18px 42px rgba(0,0,0,0.12); }
+    .topic-nav-link:hover { background: rgba(255,255,255,0.28); transform: translateY(-1px); box-shadow: 0 24px 54px rgba(0,0,0,0.16); }
+    
+    /* Topic sections */
+    .topic-section {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.10);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.18);
+      margin: 1.3rem 0 1.8rem;
+      overflow: hidden;
+      scroll-margin-top: 96px;
+      box-shadow: 0 28px 60px rgba(0,0,0,0.18);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+    }
+    .topic-header {
+      padding: 1.15rem 1.35rem;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: nowrap;
+      transition: background 0.25s ease, transform 0.25s ease;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .topic-header:hover { background: rgba(255,255,255,0.06); transform: translateY(-1px); }
+    .topic-header:focus-visible { outline: 2px solid rgba(79,158,255,0.55); outline-offset: 4px; }
+    .topic-title {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex: 1 1 0;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .topic-number { font-weight: 800; color: var(--accent-blue); flex-shrink: 0; }
+    .topic-name {
+      font-weight: 700;
+      color: var(--text-primary);
+      min-width: 0;
+      flex: 1 1 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .topic-name-text {
+      display: inline-block;
+      white-space: nowrap;
+      min-width: max-content;
+      padding-right: 1rem;
+      will-change: transform;
+    }
+    .topic-name.marquee-active .topic-name-text {
+      animation: marquee var(--topic-marquee-duration, 14s) linear infinite;
+      animation-fill-mode: forwards;
+    }
+    .topic-name.marquee-active:hover .topic-name-text {
+      animation-play-state: paused;
+    }
+    .topic-name.reset-on-hover .topic-name-text {
+      animation: none !important;
+      transform: translateX(0) !important;
+    }
+    .collapse-icon { font-size: 0.9rem; color: var(--text-secondary); transition: transform 0.3s ease; display: inline-block; flex-shrink: 0; }
+    .topic-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+      background: transparent;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .topic-content.open { max-height: 3000px; transition: max-height 0.6s ease-in; }
+    
+    /* Episode rows - FLEXBOX for better control */
+    .episode-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.95rem 1.4rem 0.95rem 1.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.04);
+      transition: background 0.24s ease, transform 0.24s ease;
+      cursor: pointer;
+      position: relative;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+    .episode-row::before {
+      content: '';
+      position: absolute;
+      left: 0.8rem;
+      top: 0.8rem;
+      bottom: 0.8rem;
+      width: 4px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(79,158,255,0.95), rgba(155,77,255,0.95));
+    }
+    .episode-row:hover {
+      background: rgba(255,255,255,0.10);
+      transform: translateX(1px);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+    }
+    .episode-row:last-child { border-bottom: none; }
+    
+    .episode-info {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex: 1;
+      min-width: 0;
+      overflow: visible;
+    }
+    .episode-number {
+      font-weight: 700;
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 0.28rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .episode-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      position: relative;
+    }
+    .episode-title-text {
+      display: inline-block;
+      white-space: nowrap;
+      padding-right: 2rem;
+      min-width: max-content;
+      will-change: transform;
+    }
+    /* Marquee for titles that overflow */
+    .episode-title.marquee-active .episode-title-text {
+      animation: marquee var(--marquee-duration, 14s) linear infinite;
+      animation-fill-mode: forwards;
+    }
+    .episode-title.marquee-active:hover .episode-title-text {
+      animation-play-state: paused;
+    }
+    .episode-title.reset-on-hover .episode-title-text {
+      animation: none !important;
+      transform: translateX(0) !important;
+    }
+    .episode-arrow {
+      flex-shrink: 0;
+      color: var(--accent-blue);
+      font-size: 0.9rem;
+      transition: transform 0.2s ease;
+    }
+    .episode-row:hover .episode-arrow {
+      transform: translateX(4px);
+    }
+    
+    @keyframes marquee {
+      0%, 12% { transform: translateX(0); }
+      50%, 88% { transform: translateX(calc(-1 * var(--marquee-shift, 100px))); }
+      100% { transform: translateX(0); }
+    }
+
+    /* Footer */
+    .footer-wrapper {
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.14);
+      padding: 2rem 0 1.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(22px) saturate(180%);
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .social-icon {
+      font-size: 1.6rem;
+      color: var(--text-dim);
+      transition: var(--transition-smooth);
+      cursor: pointer;
+    }
+    .social-icon[data-social='whatsapp'] { color: #25D366; }
+    .social-icon[data-social='wechat'] { color: #07C160; }
+    .social-icon[data-social='youtube'] { color: #FF3B30; }
+    .social-icon[data-social='telegram'] { color: #0088CC; }
+    .social-icon[data-social='tiktok'] {
+      color: transparent;
+      background: linear-gradient(135deg, #69C9D0 0%, #EE1D52 48%, #010101 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    .social-icon[data-social='instagram'] {
+      color: transparent;
+      background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    .social-icon:hover { transform: scale(1.15); }
+    .footer-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+      padding: 0 1rem;
+    }
+    .whatsapp-channel {
+      text-align: center;
+      padding: 0.75rem 1.25rem;
+      background: var(--glass-bg);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition-smooth);
+      max-width: 100%;
+      justify-content: center;
+    }
+    .whatsapp-channel i { color: #25D366; font-size: 1.2rem; }
+    .whatsapp-channel:hover {
+      background: rgba(255,255,255,0.16);
+      transform: translateY(-2px);
+    }
+    .footer-note {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      max-width: 720px;
+      text-align: center;
+    }
+    .footer-divider {
+      height: 1px;
+      width: 100%;
+      background: rgba(255,255,255,0.14);
+      margin: 1.5rem 0;
+    }
+    .copyright {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+    
+    /* Theme toggle / scroll-to-top */
+    .theme-toggle {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 1000;
+      width: 46px;
+      height: 46px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      cursor: pointer;
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      box-shadow: 0 18px 32px rgba(0,0,0,0.16);
+    }
+    .theme-toggle:hover { transform: translateY(-1px) scale(1.02); background: rgba(255, 255, 255, 0.16); }
+    .theme-toggle.scroll-top { background: rgba(255, 255, 255, 0.18); }
+    .theme-toggle i { color: var(--text-primary); font-size: 1.1rem; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container { padding: 1rem 0.9rem 1.5rem; }
+      .season-header { padding: 1.1rem 1rem; }
+      .season-title { font-size: 1.35rem; }
+      .episode-row { flex-wrap: wrap; padding: 0.8rem 1rem 0.8rem 1.4rem; }
+      .episode-info { width: 100%; }
+      .episode-title { white-space: normal; }
+      .episode-title-text { white-space: normal; padding-right: 0; display: inline; }
+      .episode-arrow { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); }
+      .topic-title { flex-wrap: wrap; }
+      .topic-name { white-space: normal; }
+      .footer-wrapper { padding: 1.5rem 1rem 1rem; }
+      .social-links { gap: 1rem; margin-bottom: 1rem; }
+      .footer-cta { gap: 0.5rem; margin-bottom: 1.2rem; }
+      .whatsapp-channel { width: 100%; padding: 0.75rem 1rem; }
+      .footer-note { font-size: 0.82rem; }
+      .season-meta { gap: 0.75rem; font-size: 0.82rem; }
+      .theme-toggle { right: 16px; bottom: 82px; }
+      .nav-arrow { display: none; }
     }
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <header>
-      <div class="page-title">E01 · Blood and Body Fluids</div>
-      <div class="page-subtitle">This generated course page lists all episode pages in the <strong>anatomy-physiology-2</strong> folder.</div>
-    </header>
-    <main class="episode-list">
-      
-          <a class="episode-row" href="e01/index.html">
-            <span class="episode-number">E01</span>
-            <span class="episode-name">Blood and Body Fluids</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e02/index.html">
-            <span class="episode-number">E02</span>
-            <span class="episode-name">Endocrine System</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e03/index.html">
-            <span class="episode-number">E03</span>
-            <span class="episode-name">Reproductive Anatomy</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e04/index.html">
-            <span class="episode-number">E04</span>
-            <span class="episode-name">Neurophysiology</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e05/index.html">
-            <span class="episode-number">E05</span>
-            <span class="episode-name">Cardiorespiratory Physiology</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e06/index.html">
-            <span class="episode-number">E06</span>
-            <span class="episode-name">Renal Physiology</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e07/index.html">
-            <span class="episode-number">E07</span>
-            <span class="episode-name">Special Senses Review</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e08/index.html">
-            <span class="episode-number">E08</span>
-            <span class="episode-name">Nutrition and Metabolism</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e09/index.html">
-            <span class="episode-number">E09</span>
-            <span class="episode-name">Fluid and Electrolyte Balance</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e10/index.html">
-            <span class="episode-number">E10</span>
-            <span class="episode-name">Homeostatic Control</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e11/index.html">
-            <span class="episode-number">E11</span>
-            <span class="episode-name">Blood and Body Fluids Part 2</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e12/index.html">
-            <span class="episode-number">E12</span>
-            <span class="episode-name">Endocrine System Part 2</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e13/index.html">
-            <span class="episode-number">E13</span>
-            <span class="episode-name">Reproductive Anatomy Part 2</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e14/index.html">
-            <span class="episode-number">E14</span>
-            <span class="episode-name">Neurophysiology Review</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e15/index.html">
-            <span class="episode-number">E15</span>
-            <span class="episode-name">Cardiorespiratory Physiology Part 2</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e16/index.html">
-            <span class="episode-number">E16</span>
-            <span class="episode-name">Renal Physiology Part 2</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e17/index.html">
-            <span class="episode-number">E17</span>
-            <span class="episode-name">Special Senses Part 2</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e18/index.html">
-            <span class="episode-number">E18</span>
-            <span class="episode-name">Nutrition and Metabolism Part 2</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e19/index.html">
-            <span class="episode-number">E19</span>
-            <span class="episode-name">Fluid and Electrolyte Balance Part 2</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e20/index.html">
-            <span class="episode-number">E20</span>
-            <span class="episode-name">Homeostatic Control Part 2</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e21/index.html">
-            <span class="episode-number">E21</span>
-            <span class="episode-name">Blood and Body Fluids Review</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e22/index.html">
-            <span class="episode-number">E22</span>
-            <span class="episode-name">Endocrine System Part 3</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e23/index.html">
-            <span class="episode-number">E23</span>
-            <span class="episode-name">Reproductive Anatomy Part 3</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e24/index.html">
-            <span class="episode-number">E24</span>
-            <span class="episode-name">Neurophysiology Part 3</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e25/index.html">
-            <span class="episode-number">E25</span>
-            <span class="episode-name">Cardiorespiratory Physiology Part 3</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e26/index.html">
-            <span class="episode-number">E26</span>
-            <span class="episode-name">Renal Physiology Part 3</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e27/index.html">
-            <span class="episode-number">E27</span>
-            <span class="episode-name">Special Senses Part 3</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e28/index.html">
-            <span class="episode-number">E28</span>
-            <span class="episode-name">Nutrition and Metabolism Review</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e29/index.html">
-            <span class="episode-number">E29</span>
-            <span class="episode-name">Fluid and Electrolyte Balance Part 3</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e30/index.html">
-            <span class="episode-number">E30</span>
-            <span class="episode-name">Homeostatic Control Part 3</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e31/index.html">
-            <span class="episode-number">E31</span>
-            <span class="episode-name">Blood and Body Fluids Part 4</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e32/index.html">
-            <span class="episode-number">E32</span>
-            <span class="episode-name">Endocrine System Part 4</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e33/index.html">
-            <span class="episode-number">E33</span>
-            <span class="episode-name">Reproductive Anatomy Part 4</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e34/index.html">
-            <span class="episode-number">E34</span>
-            <span class="episode-name">Neurophysiology Part 4</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e35/index.html">
-            <span class="episode-number">E35</span>
-            <span class="episode-name">Cardiorespiratory Physiology Review</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e36/index.html">
-            <span class="episode-number">E36</span>
-            <span class="episode-name">Renal Physiology Part 4</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e37/index.html">
-            <span class="episode-number">E37</span>
-            <span class="episode-name">Special Senses Part 4</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e38/index.html">
-            <span class="episode-number">E38</span>
-            <span class="episode-name">Nutrition and Metabolism Part 4</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e39/index.html">
-            <span class="episode-number">E39</span>
-            <span class="episode-name">Fluid and Electrolyte Balance Part 4</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e40/index.html">
-            <span class="episode-number">E40</span>
-            <span class="episode-name">Homeostatic Control Part 4</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e41/index.html">
-            <span class="episode-number">E41</span>
-            <span class="episode-name">Blood and Body Fluids Part 5</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e42/index.html">
-            <span class="episode-number">E42</span>
-            <span class="episode-name">Endocrine System Review</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e43/index.html">
-            <span class="episode-number">E43</span>
-            <span class="episode-name">Reproductive Anatomy Part 5</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e44/index.html">
-            <span class="episode-number">E44</span>
-            <span class="episode-name">Neurophysiology Part 5</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e45/index.html">
-            <span class="episode-number">E45</span>
-            <span class="episode-name">Cardiorespiratory Physiology Part 5</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e46/index.html">
-            <span class="episode-number">E46</span>
-            <span class="episode-name">Renal Physiology Part 5</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e47/index.html">
-            <span class="episode-number">E47</span>
-            <span class="episode-name">Special Senses Part 5</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e48/index.html">
-            <span class="episode-number">E48</span>
-            <span class="episode-name">Nutrition and Metabolism Part 5</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e49/index.html">
-            <span class="episode-number">E49</span>
-            <span class="episode-name">Fluid and Electrolyte Balance Review</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e50/index.html">
-            <span class="episode-number">E50</span>
-            <span class="episode-name">Homeostatic Control Part 5</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e51/index.html">
-            <span class="episode-number">E51</span>
-            <span class="episode-name">Blood and Body Fluids Part 6</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e52/index.html">
-            <span class="episode-number">E52</span>
-            <span class="episode-name">Endocrine System Part 6</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e53/index.html">
-            <span class="episode-number">E53</span>
-            <span class="episode-name">Reproductive Anatomy Part 6</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e54/index.html">
-            <span class="episode-number">E54</span>
-            <span class="episode-name">Neurophysiology Part 6</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e55/index.html">
-            <span class="episode-number">E55</span>
-            <span class="episode-name">Cardiorespiratory Physiology Part 6</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e56/index.html">
-            <span class="episode-number">E56</span>
-            <span class="episode-name">Renal Physiology Review</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-
-          <a class="episode-row" href="e57/index.html">
-            <span class="episode-number">E57</span>
-            <span class="episode-name">Special Senses Part 6</span>
-            <span class="episode-link-label">Open</span>
-          </a>
-        
-    </main>
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-note">Each item opens the episode page that already exists in the folder.</div>
-        <div class="footer-note">Use the WhatsApp channel for updates: <a href="https://whatsapp.com/channel/0029Vb7UygL1dAvuZvBWhB3y" target="_blank">https://whatsapp.com/channel/0029Vb7UygL1dAvuZvBWhB3y</a></div>
-        <div class="footer-note"><a href="/unmeb/certificate">Back to Certificate index</a></div>
-      </div>
-    </footer>
+  <div class="cosmic-bg" aria-hidden="true">
+    <div class="floating-orb orb-a"></div>
+    <div class="floating-orb orb-b"></div>
+    <div class="floating-orb orb-c"></div>
   </div>
+
+  <div class="container">
+    <div class="season-header">
+      <div class="season-title"><i class="fas fa-book-open"></i> Anatomy & Physiology 1 and First Aid</div>
+      <div class="season-meta">
+        <span><i class="fas fa-pen-nib"></i> Author: Prof. Sarah Johnson</span>
+        <span><i class="fas fa-calendar-alt"></i> Published: Jan 2024</span>
+        <span><i class="fas fa-sync-alt"></i> Last updated: Mar 2025</span>
+        <span><i class="fas fa-file-alt"></i> 57 episodes · 9 topics</span>
+      </div>
+    </div>
+    
+    <div class="topics-nav-wrapper">
+      <button type="button" class="nav-arrow nav-arrow-left" aria-label="Scroll topics left"><i class="fas fa-chevron-left"></i></button>
+      <div class="topics-nav" id="topicsNav">
+        <a href="#topic-1" class="topic-nav-link">1.0 Introduction</a>
+        <a href="#topic-2" class="topic-nav-link">2.0 Tissues</a>
+        <a href="#topic-3" class="topic-nav-link">3.0 Skeletal System</a>
+        <a href="#topic-4" class="topic-nav-link">4.0 Muscular System</a>
+        <a href="#topic-5" class="topic-nav-link">5.0 Nervous System</a>
+        <a href="#topic-6" class="topic-nav-link">6.0 Cardiovascular</a>
+        <a href="#topic-7" class="topic-nav-link">7.0 Respiratory</a>
+        <a href="#topic-8" class="topic-nav-link">8.0 Digestive</a>
+        <a href="#topic-9" class="topic-nav-link">9.0 Digestive Review</a>
+      </div>
+      <button type="button" class="nav-arrow nav-arrow-right" aria-label="Scroll topics right"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Topic 1 -->
+    <div id="topic-1" class="topic-section fade-up">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 1)">
+        <div class="topic-title">
+          <span class="topic-number">1.0</span>
+          <span class="topic-name">Introduction to Anatomy & Physiology</span>
+        </div>
+        <i class="fas fa-chevron-right collapse-icon"></i>
+      </div>
+      <div class="topic-content" id="topic-content-1">
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e01">
+          <div class="episode-info">
+            <span class="episode-number">EP01</span>
+            <span class="episode-title">Levels of Organization</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e02">
+          <div class="episode-info">
+            <span class="episode-number">EP02</span>
+            <span class="episode-title">Directional Terms</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e03">
+          <div class="episode-info">
+            <span class="episode-number">EP03</span>
+            <span class="episode-title">Body Cavities</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e04">
+          <div class="episode-info">
+            <span class="episode-number">EP04</span>
+            <span class="episode-title">Homeostasis</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e05">
+          <div class="episode-info">
+            <span class="episode-number">EP05</span>
+            <span class="episode-title">Anatomical Planes</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e06">
+          <div class="episode-info">
+            <span class="episode-number">EP06</span>
+            <span class="episode-title">Basic Chemistry Review</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e07">
+          <div class="episode-info">
+            <span class="episode-number">EP07</span>
+            <span class="episode-title">Introduction Roundup</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 2 -->
+    <div id="topic-2" class="topic-section fade-up">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 2)">
+        <div class="topic-title">
+          <span class="topic-number">2.0</span>
+          <span class="topic-name">Tissues</span>
+        </div>
+        <i class="fas fa-chevron-right collapse-icon"></i>
+      </div>
+      <div class="topic-content" id="topic-content-2">
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e08">
+          <div class="episode-info">
+            <span class="episode-number">EP08</span>
+            <span class="episode-title">Epithelial Tissue</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e09">
+          <div class="episode-info">
+            <span class="episode-number">EP09</span>
+            <span class="episode-title">Connective Tissue</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e10">
+          <div class="episode-info">
+            <span class="episode-number">EP10</span>
+            <span class="episode-title">Muscle Tissue</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e11">
+          <div class="episode-info">
+            <span class="episode-number">EP11</span>
+            <span class="episode-title">Nervous Tissue</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e12">
+          <div class="episode-info">
+            <span class="episode-number">EP12</span>
+            <span class="episode-title">Tissues Roundup</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 3 -->
+    <div id="topic-3" class="topic-section fade-up">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 3)">
+        <div class="topic-title">
+          <span class="topic-number">3.0</span>
+          <span class="topic-name">Skeletal System</span>
+        </div>
+        <i class="fas fa-chevron-right collapse-icon"></i>
+      </div>
+      <div class="topic-content" id="topic-content-3">
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e13">
+          <div class="episode-info">
+            <span class="episode-number">EP13</span>
+            <span class="episode-title">Bone Structure</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e14">
+          <div class="episode-info">
+            <span class="episode-number">EP14</span>
+            <span class="episode-title">Bone Development & Growth</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e15">
+          <div class="episode-info">
+            <span class="episode-number">EP15</span>
+            <span class="episode-title">Axial Skeleton</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e16">
+          <div class="episode-info">
+            <span class="episode-number">EP16</span>
+            <span class="episode-title">Appendicular Skeleton</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e17">
+          <div class="episode-info">
+            <span class="episode-number">EP17</span>
+            <span class="episode-title">Joints & Classifications</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e18">
+          <div class="episode-info">
+            <span class="episode-number">EP18</span>
+            <span class="episode-title">Joint Movements</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e19">
+          <div class="episode-info">
+            <span class="episode-number">EP19</span>
+            <span class="episode-title">Skeletal System Roundup</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 4 -->
+    <div id="topic-4" class="topic-section fade-up">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 4)">
+        <div class="topic-title">
+          <span class="topic-number">4.0</span>
+          <span class="topic-name">Muscular System</span>
+        </div>
+        <i class="fas fa-chevron-right collapse-icon"></i>
+      </div>
+      <div class="topic-content" id="topic-content-4">
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e20">
+          <div class="episode-info">
+            <span class="episode-number">EP20</span>
+            <span class="episode-title">Muscle Types</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e21">
+          <div class="episode-info">
+            <span class="episode-number">EP21</span>
+            <span class="episode-title">Skeletal Muscle Structure</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e22">
+          <div class="episode-info">
+            <span class="episode-number">EP22</span>
+            <span class="episode-title">Sliding Filament Theory</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e23">
+          <div class="episode-info">
+            <span class="episode-number">EP23</span>
+            <span class="episode-title">Neuromuscular Junction</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e24">
+          <div class="episode-info">
+            <span class="episode-number">EP24</span>
+            <span class="episode-title">Major Muscle Groups</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e25">
+          <div class="episode-info">
+            <span class="episode-number">EP25</span>
+            <span class="episode-title">Muscle Contraction Energetics</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e26">
+          <div class="episode-info">
+            <span class="episode-number">EP26</span>
+            <span class="episode-title">Muscular System Roundup</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 5 -->
+    <div id="topic-5" class="topic-section fade-up">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 5)">
+        <div class="topic-title">
+          <span class="topic-number">5.0</span>
+          <span class="topic-name">Nervous System</span>
+        </div>
+        <i class="fas fa-chevron-right collapse-icon"></i>
+      </div>
+      <div class="topic-content" id="topic-content-5">
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e27">
+          <div class="episode-info">
+            <span class="episode-number">EP27</span>
+            <span class="episode-title">Neuron Structure</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e28">
+          <div class="episode-info">
+            <span class="episode-number">EP28</span>
+            <span class="episode-title">Action Potential</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e29">
+          <div class="episode-info">
+            <span class="episode-number">EP29</span>
+            <span class="episode-title">Synaptic Transmission</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e30">
+          <div class="episode-info">
+            <span class="episode-number">EP30</span>
+            <span class="episode-title">Central Nervous System</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e31">
+          <div class="episode-info">
+            <span class="episode-number">EP31</span>
+            <span class="episode-title">Peripheral Nervous System</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e32">
+          <div class="episode-info">
+            <span class="episode-number">EP32</span>
+            <span class="episode-title">Autonomic Nervous System</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e33">
+          <div class="episode-info">
+            <span class="episode-number">EP33</span>
+            <span class="episode-title">Nervous System Roundup</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 6 -->
+    <div id="topic-6" class="topic-section fade-up">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 6)">
+        <div class="topic-title">
+          <span class="topic-number">6.0</span>
+          <span class="topic-name">Cardiovascular System</span>
+        </div>
+        <i class="fas fa-chevron-right collapse-icon"></i>
+      </div>
+      <div class="topic-content" id="topic-content-6">
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e34">
+          <div class="episode-info">
+            <span class="episode-number">EP34</span>
+            <span class="episode-title">Heart Anatomy</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e35">
+          <div class="episode-info">
+            <span class="episode-number">EP35</span>
+            <span class="episode-title">Cardiac Cycle</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e36">
+          <div class="episode-info">
+            <span class="episode-number">EP36</span>
+            <span class="episode-title">Blood Vessels</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e37">
+          <div class="episode-info">
+            <span class="episode-number">EP37</span>
+            <span class="episode-title">Blood Pressure & Regulation</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e38">
+          <div class="episode-info">
+            <span class="episode-number">EP38</span>
+            <span class="episode-title">Circulatory Pathways</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e39">
+          <div class="episode-info">
+            <span class="episode-number">EP39</span>
+            <span class="episode-title">Cardiac Output & Regulation</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e40">
+          <div class="episode-info">
+            <span class="episode-number">EP40</span>
+            <span class="episode-title">Cardiovascular Roundup</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 7 -->
+    <div id="topic-7" class="topic-section fade-up">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 7)">
+        <div class="topic-title">
+          <span class="topic-number">7.0</span>
+          <span class="topic-name">Respiratory System</span>
+        </div>
+        <i class="fas fa-chevron-right collapse-icon"></i>
+      </div>
+      <div class="topic-content" id="topic-content-7">
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e41">
+          <div class="episode-info">
+            <span class="episode-number">EP41</span>
+            <span class="episode-title">Respiratory Anatomy</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e42">
+          <div class="episode-info">
+            <span class="episode-number">EP42</span>
+            <span class="episode-title">Mechanics of Breathing</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e43">
+          <div class="episode-info">
+            <span class="episode-number">EP43</span>
+            <span class="episode-title">Gas Exchange</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e44">
+          <div class="episode-info">
+            <span class="episode-number">EP44</span>
+            <span class="episode-title">Gas Transport</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e45">
+          <div class="episode-info">
+            <span class="episode-number">EP45</span>
+            <span class="episode-title">Respiratory Roundup</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 8 -->
+    <div id="topic-8" class="topic-section fade-up">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 8)">
+        <div class="topic-title">
+          <span class="topic-number">8.0</span>
+          <span class="topic-name">Digestive System</span>
+        </div>
+        <i class="fas fa-chevron-right collapse-icon"></i>
+      </div>
+      <div class="topic-content" id="topic-content-8">
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e46">
+          <div class="episode-info">
+            <span class="episode-number">EP46</span>
+            <span class="episode-title">Digestive Tract Anatomy</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e47">
+          <div class="episode-info">
+            <span class="episode-number">EP47</span>
+            <span class="episode-title">Accessory Organs</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e48">
+          <div class="episode-info">
+            <span class="episode-number">EP48</span>
+            <span class="episode-title">Digestion & Absorption</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e49">
+          <div class="episode-info">
+            <span class="episode-number">EP49</span>
+            <span class="episode-title">Nutrient Metabolism</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e50">
+          <div class="episode-info">
+            <span class="episode-number">EP50</span>
+            <span class="episode-title">Hormonal Regulation</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e51">
+          <div class="episode-info">
+            <span class="episode-number">EP51</span>
+            <span class="episode-title">Digestive Disorders</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e52">
+          <div class="episode-info">
+            <span class="episode-number">EP52</span>
+            <span class="episode-title">Digestive System Roundup</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 9 -->
+    <div id="topic-9" class="topic-section fade-up">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 9)">
+        <div class="topic-title">
+          <span class="topic-number">9.0</span>
+          <span class="topic-name">Digestive Disorders Review</span>
+        </div>
+        <i class="fas fa-chevron-right collapse-icon"></i>
+      </div>
+      <div class="topic-content" id="topic-content-9">
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e53">
+          <div class="episode-info">
+            <span class="episode-number">EP53</span>
+            <span class="episode-title">Enzymes & Secretions</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e54">
+          <div class="episode-info">
+            <span class="episode-number">EP54</span>
+            <span class="episode-title">Liver & Biliary Function</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e55">
+          <div class="episode-info">
+            <span class="episode-number">EP55</span>
+            <span class="episode-title">Nutrient Absorption Pathways</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e56">
+          <div class="episode-info">
+            <span class="episode-number">EP56</span>
+            <span class="episode-title">Fluid Balance & Electrolytes</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+        <div class="episode-row" data-href="/unmeb/certificate/anatomy-physiology-1-and-first-aid/e57">
+          <div class="episode-info">
+            <span class="episode-number">EP57</span>
+            <span class="episode-title">Digestive Disorders Roundup</span>
+          </div>
+          <i class="fas fa-arrow-right episode-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    
+    <footer class="footer-divider"></div>
+      <div class="footer-content">
+      <div class="social-links">
+        <i class="fab fa-whatsapp social-icon" data-social="whatsapp"></i>
+        <i class="fab fa-weixin social-icon" data-social="wechat"></i>
+        <i class="fab fa-telegram social-icon" data-social="telegram"></i>
+        <i class="fab fa-youtube social-icon" data-social="youtube"></i>
+        <i class="fab fa-tiktok social-icon" data-social="tiktok"></i>
+        <i class="fab fa-instagram social-icon" data-social="instagram"></i>
+      </div>
+      <div class="footer-cta">
+        <div class="whatsapp-channel" id="whatsappChannelBtn">
+          <i class="fab fa-whatsapp"></i>
+          <span>Join our WhatsApp channel for fresh revision updates</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+        <div class="footer-note">
+          Site is still being constructed — this is a clean revision template.
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="copyright">
+        <i class="far fa-copyright"></i> 2026 Clareon — open knowledge universe
+      </div>
+      </div>
+    </div>
+  </footer>
+    </div>
+  </div>
+
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </div>
+
+  <script>
+    // ========== TOPIC DROPDOWNS ==========
+    let openTopics = [];
+
+    function toggleTopic(header, topicId) {
+      const content = document.getElementById(`topic-content-${topicId}`);
+      const icon = header.querySelector('.collapse-icon');
+      const isOpen = content.classList.contains('open');
+
+      if (!isOpen) {
+        // Limit to 3 open topics
+        if (openTopics.length >= 3) {
+          const oldestId = openTopics.shift();
+          const oldestContent = document.getElementById(`topic-content-${oldestId}`);
+          const oldestHeader = oldestContent ? oldestContent.previousElementSibling : null;
+          if (oldestContent && oldestHeader) {
+            oldestContent.classList.remove('open');
+            const oldestIcon = oldestHeader.querySelector('.collapse-icon');
+            if (oldestIcon) {
+              oldestIcon.classList.remove('fa-chevron-down');
+              oldestIcon.classList.add('fa-chevron-right');
+            }
+          }
+        }
+        content.classList.add('open');
+        if (icon) {
+          icon.classList.remove('fa-chevron-right');
+          icon.classList.add('fa-chevron-down');
+        }
+        openTopics.push(topicId);
+      } else {
+        content.classList.remove('open');
+        if (icon) {
+          icon.classList.remove('fa-chevron-down');
+          icon.classList.add('fa-chevron-right');
+        }
+        openTopics = openTopics.filter(id => id !== topicId);
+      }
+    }
+
+    // Open topic from hash
+    function openTopicFromHash() {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#topic-')) {
+        const topicId = hash.replace('#topic-', '');
+        const header = document.querySelector(`#topic-${topicId} .topic-header`);
+        if (header) {
+          const content = document.getElementById(`topic-content-${topicId}`);
+          if (content && !content.classList.contains('open')) {
+            toggleTopic(header, parseInt(topicId));
+          }
+        }
+      }
+    }
+
+    // ========== MARQUEE DETECTION ==========
+    function setupEpisodeTitleWrappers() {
+      document.querySelectorAll('.episode-title').forEach(title => {
+        if (!title.querySelector('.episode-title-text')) {
+          const inner = document.createElement('span');
+          inner.className = 'episode-title-text';
+          inner.textContent = title.textContent.trim();
+          title.textContent = '';
+          title.appendChild(inner);
+        }
+      });
+    }
+
+    function setupTopicNameWrappers() {
+      document.querySelectorAll('.topic-name').forEach(name => {
+        if (!name.querySelector('.topic-name-text')) {
+          const inner = document.createElement('span');
+          inner.className = 'topic-name-text';
+          inner.textContent = name.textContent.trim();
+          name.textContent = '';
+          name.appendChild(inner);
+        }
+      });
+    }
+
+    function checkAndApplyMarquee() {
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('.episode-title, .topic-name').forEach(container => {
+        const inner = container.querySelector('.episode-title-text, .topic-name-text');
+        if (!inner) {
+          return;
+        }
+
+        container.classList.remove('marquee-active');
+        container.style.removeProperty('--marquee-duration');
+        container.style.removeProperty('--topic-marquee-duration');
+        inner.style.animationDuration = '';
+        inner.style.removeProperty('transform');
+
+        if (isMobile || prefersReducedMotion) {
+          return;
+        }
+
+        const containerWidth = container.clientWidth;
+        const textWidth = inner.scrollWidth;
+
+        if (textWidth > containerWidth + 2) {
+          container.classList.add('marquee-active');
+          container.style.setProperty('--marquee-shift', `${textWidth - containerWidth}px`);
+          const durationBase = container.classList.contains('topic-name') ? 10 : 12;
+          const maxDuration = container.classList.contains('topic-name') ? 22 : 24;
+          const duration = Math.max(durationBase, Math.min(maxDuration, (textWidth / containerWidth) * durationBase));
+          const propertyName = container.classList.contains('topic-name') ? '--topic-marquee-duration' : '--marquee-duration';
+          container.style.setProperty(propertyName, duration + 's');
+        }
+      });
+    }
+
+    // ========== THEME TOGGLE (FIXED) ==========
+    const themeToggle = document.getElementById('themeToggle');
+    let isLightMode = false;
+    let isScrollTopMode = false;
+    const scrollToggleThreshold = 220;
+
+    function renderThemeToggle() {
+      if (!themeToggle) return;
+      if (isScrollTopMode) {
+        themeToggle.classList.add('scroll-top');
+        themeToggle.innerHTML = '<i class="fas fa-arrow-up" aria-hidden="true"></i>';
+        themeToggle.setAttribute('aria-label', 'Scroll to top');
+      } else {
+        themeToggle.classList.remove('scroll-top');
+        if (isLightMode) {
+          themeToggle.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
+          themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+        } else {
+          themeToggle.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i>';
+          themeToggle.setAttribute('aria-label', 'Switch to light mode');
+        }
+      }
+    }
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        document.body.classList.add('light-mode');
+        localStorage.setItem('clareon-theme', 'light');
+        isLightMode = true;
+      } else {
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('clareon-theme', 'dark');
+        isLightMode = false;
+      }
+      renderThemeToggle();
+    }
+
+    function updateThemeToggleState() {
+      const shouldUseScrollTop = window.scrollY > scrollToggleThreshold;
+      if (shouldUseScrollTop !== isScrollTopMode) {
+        isScrollTopMode = shouldUseScrollTop;
+        renderThemeToggle();
+      }
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('clareon-theme');
+    if (savedTheme === 'light') {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (isScrollTopMode) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        if (isLightMode) {
+          setTheme('dark');
+        } else {
+          setTheme('light');
+        }
+      }
+    });
+
+    window.addEventListener('scroll', () => {
+      window.requestAnimationFrame(updateThemeToggleState);
+    });
+    
+    // ========== NAVIGATION SCROLL ==========
+    const topicsNav = document.getElementById('topicsNav');
+    const navLeftBtn = document.querySelector('.nav-arrow-left');
+    const navRightBtn = document.querySelector('.nav-arrow-right');
+
+    function updateTopicNavArrows() {
+      if (!topicsNav || !navLeftBtn || !navRightBtn) return;
+      const maxScroll = topicsNav.scrollWidth - topicsNav.clientWidth;
+      navLeftBtn.disabled = topicsNav.scrollLeft <= 10;
+      navRightBtn.disabled = topicsNav.scrollLeft >= maxScroll - 10;
+    }
+    
+    if (navLeftBtn) {
+      navLeftBtn.addEventListener('click', () => {
+        topicsNav.scrollBy({ left: -300, behavior: 'smooth' });
+      });
+    }
+    
+    if (navRightBtn) {
+      navRightBtn.addEventListener('click', () => {
+        topicsNav.scrollBy({ left: 300, behavior: 'smooth' });
+      });
+    }
+
+    topicsNav?.addEventListener('scroll', updateTopicNavArrows);
+
+    
+    // ========== EPISODE ROW CLICKS ==========
+    document.querySelectorAll('.episode-row').forEach(row => {
+      row.addEventListener('click', (e) => {
+        const href = row.getAttribute('data-href');
+        if (href) {
+          window.location.href = href;
+        }
+      });
+    });
+    
+    // ========== SOCIAL LINKS ==========
+    const socialUrls = {
+      whatsapp: 'https://whatsapp.com/channel/0029Vb7UygL1dAvuZvBWhB3y',
+      wechat: 'https://www.wechat.com',
+      telegram: 'https://t.me/clareoni',
+      youtube: 'https://youtube.com/@clareoni',
+      tiktok: 'https://tiktok.com',
+      instagram: 'https://instagram.com'
+    };
+    
+    document.querySelectorAll('.social-icon').forEach(icon => {
+      icon.addEventListener('click', () => {
+        const platform = icon.getAttribute('data-social');
+        if (platform && socialUrls[platform]) {
+          window.open(socialUrls[platform], '_blank');
+        }
+      });
+    });
+    
+    document.getElementById('whatsappChannelBtn')?.addEventListener('click', () => {
+      window.open('https://whatsapp.com/channel/0029Vb7UygL1dAvuZvBWhB3y', '_blank');
+    });
+    
+    // ========== FADE-IN OBSERVER ==========
+    function isElementInView(element) {
+      const rect = element.getBoundingClientRect();
+      return rect.top < window.innerHeight * 0.95 && rect.bottom > 0;
+    }
+
+    function initFadeUpObserver() {
+      const fadeEls = document.querySelectorAll('.fade-up');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion || !('IntersectionObserver' in window)) {
+        fadeEls.forEach(el => el.classList.add('visible'));
+        return;
+      }
+
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting || entry.intersectionRatio > 0) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
+
+      fadeEls.forEach(el => {
+        fadeObserver.observe(el);
+        if (isElementInView(el)) {
+          el.classList.add('visible');
+          fadeObserver.unobserve(el);
+        }
+      });
+    }
+
+    // ========== INITIALIZATION ==========
+    window.addEventListener('DOMContentLoaded', () => {
+      setupEpisodeTitleWrappers();
+      setupTopicNameWrappers();
+      openTopicFromHash();
+      checkAndApplyMarquee();
+      updateTopicNavArrows();
+      updateThemeToggleState();
+      initFadeUpObserver();
+    });
+    
+    window.addEventListener('hashchange', openTopicFromHash);
+    window.addEventListener('resize', () => {
+      setTimeout(checkAndApplyMarquee, 200);
+    });
+    window.addEventListener('load', () => {
+      checkAndApplyMarquee();
+      updateTopicNavArrows();
+      updateThemeToggleState();
+    });
+    
+    document.querySelectorAll('.topic-header[role="button"]').forEach(header => {
+      header.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          const topicId = header.closest('.topic-section')?.id?.replace('topic-', '');
+          if (topicId) toggleTopic(header, parseInt(topicId, 10));
+        }
+      });
+    });
+    
+    // Pause marquee and reset position while hovering
+    document.querySelectorAll('.episode-row').forEach(row => {
+      row.addEventListener('mouseenter', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const title = row.querySelector('.episode-title');
+        const inner = title?.querySelector('.episode-title-text');
+        if (title && inner && inner.offsetWidth > title.clientWidth) {
+          title.classList.remove('marquee-active');
+          title.classList.add('reset-on-hover');
+          inner.style.transform = 'translateX(0)';
+        }
+      });
+      row.addEventListener('mouseleave', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const title = row.querySelector('.episode-title');
+        const inner = title?.querySelector('.episode-title-text');
+        if (title && inner && inner.offsetWidth > title.clientWidth) {
+          title.classList.remove('reset-on-hover');
+          inner.style.removeProperty('transform');
+          requestAnimationFrame(() => title.classList.add('marquee-active'));
+        }
+      });
+    });
+
+    document.querySelectorAll('.topic-header').forEach(header => {
+      header.addEventListener('mouseenter', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const name = header.querySelector('.topic-name');
+        const inner = name?.querySelector('.topic-name-text');
+        if (name && inner && inner.offsetWidth > name.clientWidth) {
+          name.classList.remove('marquee-active');
+          name.classList.add('reset-on-hover');
+          inner.style.transform = 'translateX(0)';
+        }
+      });
+      header.addEventListener('mouseleave', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const name = header.querySelector('.topic-name');
+        const inner = name?.querySelector('.topic-name-text');
+        if (name && inner && inner.offsetWidth > name.clientWidth) {
+          name.classList.remove('reset-on-hover');
+          inner.style.removeProperty('transform');
+          requestAnimationFrame(() => name.classList.add('marquee-active'));
+        }
+      });
+    });
+  </script>
 </body>
 </html>
