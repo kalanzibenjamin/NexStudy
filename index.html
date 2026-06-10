@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Anatomy & Physiology 1 and First Aid | Clareon</title>
+  <title>Anatomy & Physiology 1 and First Aid | NexStudy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -1222,21 +1222,22 @@
     
     // ========== FADE-IN OBSERVER ==========
     function initFadeUpObserver() {
+      const fadeEls = document.querySelectorAll('.fade-up');
+      if (!('IntersectionObserver' in window)) {
+        fadeEls.forEach(el => el.classList.add('visible'));
+        return;
+      }
+
       const fadeObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting || entry.intersectionRatio > 0) {
+          if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+      }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
 
-      document.querySelectorAll('.fade-up').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          el.classList.add('visible');
-        }
-        window.requestAnimationFrame(() => fadeObserver.observe(el));
-      });
+      fadeEls.forEach(el => fadeObserver.observe(el));
     }
 
     // ========== INITIALIZATION ==========
