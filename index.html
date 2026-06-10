@@ -1221,16 +1221,24 @@
     });
     
     // ========== FADE-IN OBSERVER ==========
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+    function initFadeUpObserver() {
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting || entry.intersectionRatio > 0) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+
+      document.querySelectorAll('.fade-up').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible');
         }
+        window.requestAnimationFrame(() => fadeObserver.observe(el));
       });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    
+    }
+
     // ========== INITIALIZATION ==========
     window.addEventListener('DOMContentLoaded', () => {
       setupEpisodeTitleWrappers();
@@ -1238,6 +1246,7 @@
       openTopicFromHash();
       checkAndApplyMarquee();
       updateTopicNavArrows();
+      initFadeUpObserver();
     });
     
     window.addEventListener('hashchange', openTopicFromHash);
