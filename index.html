@@ -134,6 +134,15 @@
       align-items: center;
       gap: 0.75rem;
       margin-bottom: 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 0;
+      transition: opacity 0.4s ease;
+      opacity: 1;
+    }
+    .topics-nav-wrapper.scroll-idle {
+      opacity: 0.4;
     }
     .nav-arrow {
       flex: 0 0 auto;
@@ -159,11 +168,15 @@
     }
     .nav-arrow:disabled {
       opacity: 0.35;
-      cursor: default;
+      cursor: not-allowed;
+      pointer-events: none;
       background: rgba(255,255,255,0.10);
       border-color: rgba(255,255,255,0.14);
       box-shadow: none;
       transform: none;
+    }
+    .nav-arrow.hidden {
+      display: none;
     }
     .topics-nav {
       position: relative;
@@ -373,10 +386,9 @@
     /* Footer */
     .footer-wrapper {
       margin-top: 3rem;
-      border-top: 1px solid rgba(255,255,255,0.14);
-      padding: 2rem 0 1.5rem;
+      padding: 1.2rem 0 1rem;
       background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
       backdrop-filter: blur(22px) saturate(180%);
     }
@@ -469,7 +481,8 @@
       padding: 0;
       border: 1px solid rgba(255, 255, 255, 0.18);
       cursor: pointer;
-      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      opacity: 0.35;
+      transition: opacity 0.35s ease, transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -477,7 +490,9 @@
       -webkit-backdrop-filter: blur(22px) saturate(180%);
       box-shadow: 0 18px 32px rgba(0,0,0,0.16);
     }
-    .theme-toggle:hover { transform: translateY(-1px) scale(1.02); background: rgba(255, 255, 255, 0.16); }
+    .theme-toggle.visible { opacity: 1; }
+    .theme-toggle.fade-out { opacity: 0.18; }
+    .theme-toggle:hover { opacity: 1; transform: translateY(-1px) scale(1.02); background: rgba(255, 255, 255, 0.16); }
     .theme-toggle.scroll-top { background: rgba(255, 255, 255, 0.18); }
     .theme-toggle i { color: var(--text-primary); font-size: 1.1rem; }
     
@@ -1055,41 +1070,37 @@
     </div>
 
     
-    <footer class="footer-divider"></div>
-      <div class="footer-content">
-      <div class="social-links">
-        <i class="fab fa-whatsapp social-icon" data-social="whatsapp"></i>
-        <i class="fab fa-weixin social-icon" data-social="wechat"></i>
-        <i class="fab fa-telegram social-icon" data-social="telegram"></i>
-        <i class="fab fa-youtube social-icon" data-social="youtube"></i>
-        <i class="fab fa-tiktok social-icon" data-social="tiktok"></i>
-        <i class="fab fa-instagram social-icon" data-social="instagram"></i>
-      </div>
-      <div class="footer-cta">
-        <div class="whatsapp-channel" id="whatsappChannelBtn">
-          <i class="fab fa-whatsapp"></i>
-          <span>Join our WhatsApp channel for fresh revision updates</span>
-          <i class="fas fa-arrow-right"></i>
-        </div>
-        <div class="footer-note">
-          Site is still being constructed — this is a clean revision template.
-      </div>
-      <div class="theme-toggle" id="themeToggle">
-      <i class="fas fa-moon"></i>
-     </div>
-      </div>
+    <div class="footer-wrapper">
       <div class="footer-divider"></div>
-      <div class="copyright">
-        <i class="far fa-copyright"></i> 2026 Clareon — open knowledge universe
-      </div>
+      <div class="footer-content">
+        <div class="social-links">
+          <i class="fab fa-whatsapp social-icon" data-social="whatsapp"></i>
+          <i class="fab fa-weixin social-icon" data-social="wechat"></i>
+          <i class="fab fa-telegram social-icon" data-social="telegram"></i>
+          <i class="fab fa-youtube social-icon" data-social="youtube"></i>
+          <i class="fab fa-tiktok social-icon" data-social="tiktok"></i>
+          <i class="fab fa-instagram social-icon" data-social="instagram"></i>
+        </div>
+        <div class="footer-cta">
+          <div class="whatsapp-channel" id="whatsappChannelBtn">
+            <i class="fab fa-whatsapp"></i>
+            <span>Join our WhatsApp channel for fresh revision updates</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+          <div class="footer-note">
+            Site is still being constructed — this is a clean revision template.
+          </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="copyright">
+          <i class="far fa-copyright"></i> 2026 Clareon — open knowledge universe
+        </div>
       </div>
     </div>
-  </footer>
+    <div class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
     </div>
   </div>
-
-  
-
   <script>
     // ========== TOPIC DROPDOWNS ==========
     let openTopics = [];
@@ -1209,6 +1220,7 @@
     let isLightMode = false;
     let isScrollTopMode = false;
     const scrollToggleThreshold = 220;
+    let themeToggleFadeTimer = null;
 
     function renderThemeToggle() {
       if (!themeToggle) return;
@@ -1226,6 +1238,19 @@
           themeToggle.setAttribute('aria-label', 'Switch to light mode');
         }
       }
+    }
+
+    function showThemeToggle() {
+      if (!themeToggle) return;
+      themeToggle.classList.add('visible');
+      themeToggle.classList.remove('fade-out');
+      if (themeToggleFadeTimer) {
+        clearTimeout(themeToggleFadeTimer);
+      }
+      themeToggleFadeTimer = window.setTimeout(() => {
+        themeToggle.classList.remove('visible');
+        themeToggle.classList.add('fade-out');
+      }, 1200);
     }
 
     function setTheme(theme) {
@@ -1269,8 +1294,38 @@
       }
     });
 
+    // ========== SCROLL ACTIVITY TRACKING ==========
+    const topicsNavWrapper = document.querySelector('.topics-nav-wrapper');
+    const seasonHeader = document.querySelector('.season-header');
+    let scrollIdleTimer = null;
+    let isScrollActive = false;
+    let isSticky = false;
+
+    function checkIfSticky() {
+      if (!seasonHeader) return false;
+      const rect = seasonHeader.getBoundingClientRect();
+      return rect.top <= -96;
+    }
+
+    function resetScrollIdle() {
+      isScrollActive = true;
+      if (topicsNavWrapper) {
+        topicsNavWrapper.classList.remove('scroll-idle');
+      }
+      clearTimeout(scrollIdleTimer);
+      scrollIdleTimer = setTimeout(() => {
+        isScrollActive = false;
+        isSticky = checkIfSticky();
+        if (isSticky && topicsNavWrapper) {
+          topicsNavWrapper.classList.add('scroll-idle');
+        }
+      }, 3000);
+    }
+
     window.addEventListener('scroll', () => {
+      showThemeToggle();
       window.requestAnimationFrame(updateThemeToggleState);
+      resetScrollIdle();
     });
     
     // ========== NAVIGATION SCROLL ==========
@@ -1280,9 +1335,30 @@
 
     function updateTopicNavArrows() {
       if (!topicsNav || !navLeftBtn || !navRightBtn) return;
-      const maxScroll = topicsNav.scrollWidth - topicsNav.clientWidth;
-      navLeftBtn.disabled = topicsNav.scrollLeft <= 10;
-      navRightBtn.disabled = topicsNav.scrollLeft >= maxScroll - 10;
+      const firstTopic = topicsNav.querySelector('.topic-nav-link:first-child');
+      const lastTopic = topicsNav.querySelector('.topic-nav-link:last-child');
+      const navRect = topicsNav.getBoundingClientRect();
+      const hasOverflow = topicsNav.scrollWidth > topicsNav.clientWidth + 1;
+
+      if (!firstTopic || !lastTopic || !hasOverflow) {
+        navLeftBtn.disabled = true;
+        navRightBtn.disabled = true;
+        navLeftBtn.classList.add('hidden');
+        navRightBtn.classList.add('hidden');
+        return;
+      }
+
+      const firstRect = firstTopic.getBoundingClientRect();
+      const lastRect = lastTopic.getBoundingClientRect();
+      const leftDisabled = firstRect.left >= navRect.left + 1;
+      const rightDisabled = lastRect.right <= navRect.right - 1;
+
+      navLeftBtn.disabled = leftDisabled;
+      navRightBtn.disabled = rightDisabled;
+      navLeftBtn.classList.toggle('hidden', leftDisabled);
+      navRightBtn.classList.toggle('hidden', rightDisabled);
+      navLeftBtn.style.pointerEvents = leftDisabled ? 'none' : '';
+      navRightBtn.style.pointerEvents = rightDisabled ? 'none' : '';
     }
     
     if (navLeftBtn) {
@@ -1297,7 +1373,27 @@
       });
     }
 
-    topicsNav?.addEventListener('scroll', updateTopicNavArrows);
+    if (topicsNav) {
+      topicsNav.addEventListener('scroll', updateTopicNavArrows);
+      window.addEventListener('resize', updateTopicNavArrows);
+      updateTopicNavArrows();
+    }
+
+    if (topicsNavWrapper) {
+      topicsNavWrapper.addEventListener('mouseenter', () => {
+        if (topicsNavWrapper) {
+          topicsNavWrapper.classList.remove('scroll-idle');
+        }
+        clearTimeout(scrollIdleTimer);
+      });
+      topicsNavWrapper.addEventListener('mouseleave', () => {
+        if (!isScrollActive && isSticky) {
+          if (topicsNavWrapper) {
+            topicsNavWrapper.classList.add('scroll-idle');
+          }
+        }
+      });
+    }
 
     
     // ========== EPISODE ROW CLICKS ==========
