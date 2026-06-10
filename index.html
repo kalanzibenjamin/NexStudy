@@ -33,7 +33,6 @@
       overflow-x: hidden;
       transition: background 0.3s ease, color 0.3s ease;
     }
-<<<<<<< HEAD
     body.light-mode {
       --bg-primary: linear-gradient(135deg, #f5f7ff 0%, #e8f2ff 45%, #e5f7ff 100%);
       --text-primary: #1a1f2e;
@@ -43,14 +42,6 @@
       --glass-border: rgba(255, 255, 255, 0.55);
       --glass-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
     }
-=======
-    body.light-mode {
-      --bg-primary: radial-gradient(circle at 10% 20%, #d4e0f0, #b8c5dd 80%);
-      --text-primary: #1a2a4a;
-      --text-secondary: #2a3a5a;
-      --text-dim: #4a5a7a;
-    }
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     html {
       scroll-behavior: smooth;
       scroll-padding-top: 96px;
@@ -62,7 +53,6 @@
     .orb-c { width: 320px; height: 320px; background: radial-gradient(circle, rgba(155,77,255,0.28), rgba(255,255,255,0.08)); top: 30%; left: 70%; animation-duration: 20s; opacity: 0.25; }
     @keyframes drift { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 40px) scale(1.08); } }
     @keyframes dayGradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-<<<<<<< HEAD
     
     body.light-mode .orb-a { background: radial-gradient(circle, rgba(118,148,255,0.45), rgba(255,255,255,0.12)); }
     body.light-mode .orb-b { background: radial-gradient(circle, rgba(102, 209, 255,0.32), rgba(255,255,255,0.1)); }
@@ -85,24 +75,6 @@
       transform: translateY(0);
     }
     
-=======
-    
-    body.light-mode .orb-a { background: radial-gradient(circle, rgba(79,158,255,0.25), rgba(100,100,200,0.1)); }
-    body.light-mode .orb-b { background: radial-gradient(circle, rgba(45,212,191,0.25), rgba(100,100,200,0.1)); }
-    body.light-mode .orb-c { background: radial-gradient(circle, rgba(155,77,255,0.2), rgba(100,100,200,0.08)); }
-    
-    /* Fade up animation */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.5rem 2.5rem; position: relative; z-index: 1; }
     .season-header {
       background: rgba(255,255,255,0.10);
@@ -116,73 +88,20 @@
     }
     .season-title { font-size: 1.55rem; font-weight: 800; margin-bottom: 0.65rem; line-height: 1.2; }
     .season-meta { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; color: var(--text-secondary); }
-<<<<<<< HEAD
     .topics-nav-wrapper {
-=======
-    
-    /* Navigation styles */
-    .topics-nav {
-      position: relative;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
       display: flex;
-<<<<<<< HEAD
       align-items: center;
-=======
-      flex-wrap: nowrap;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
       gap: 0.75rem;
       margin-bottom: 1.5rem;
-<<<<<<< HEAD
-=======
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.22);
-      border-radius: 24px;
-      backdrop-filter: blur(22px) saturate(180%);
-      overflow-x: auto;
-      scrollbar-width: thin;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
-<<<<<<< HEAD
-=======
-    .topics-nav::-webkit-scrollbar { height: 4px; }
-    .topics-nav::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
-    .topics-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
-    
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     .nav-arrow {
       flex: 0 0 auto;
       width: 44px;
       height: 44px;
       border-radius: 999px;
-<<<<<<< HEAD
       border: 1px solid rgba(255,255,255,0.35);
       background: rgba(255,255,255,0.22);
       color: var(--text-primary);
-=======
-      background: rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.22);
-      color: white;
-      cursor: pointer;
-      z-index: 10;
-      transition: all 0.2s ease;
-    }
-    .nav-arrow-left { left: 0.2rem; }
-    .nav-arrow-right { right: 0.2rem; }
-    .nav-arrow:hover { background: rgba(0,0,0,0.8); transform: translateY(-50%) scale(1.05); }
-    
-    .topic-nav-link {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      padding: 0.65rem 1rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: transform 0.25s ease, background 0.25s ease;
-      white-space: nowrap;
-      flex: 0 0 auto;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -195,12 +114,8 @@
     .nav-arrow:hover {
       background: rgba(255,255,255,0.32);
       transform: translateY(-1px);
-<<<<<<< HEAD
       box-shadow: 0 24px 38px rgba(0,0,0,0.18);
-=======
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
-<<<<<<< HEAD
     .nav-arrow:disabled {
       opacity: 0.35;
       cursor: default;
@@ -216,6 +131,7 @@
       gap: 0.75rem;
       overflow-x: auto;
       scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-x: contain;
       background: rgba(255,255,255,0.10);
@@ -230,26 +146,20 @@
     }
     .topics-nav::-webkit-scrollbar { display: none; }
     .topics-nav { -ms-overflow-style: none; scrollbar-width: none; }
-    .topic-nav-link { flex: 0 0 auto; position: relative; white-space: nowrap; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.24); padding: 0.45rem 1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: var(--text-primary); text-decoration: none; transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 18px 42px rgba(0,0,0,0.12); }
+    .topic-nav-link { flex: 0 0 auto; position: relative; white-space: nowrap; scroll-snap-align: start; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.24); padding: 0.45rem 1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: var(--text-primary); text-decoration: none; transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 18px 42px rgba(0,0,0,0.12); }
     .topic-nav-link:hover { background: rgba(255,255,255,0.28); transform: translateY(-1px); box-shadow: 0 24px 54px rgba(0,0,0,0.16); }
     
     /* Topic sections */
-=======
-    
-    /* Topic sections */
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     .topic-section {
+      position: relative;
+      z-index: 1;
       background: rgba(255,255,255,0.08);
       border-radius: 28px;
       border: 1px solid rgba(255,255,255,0.18);
       margin: 1rem 0 1.5rem;
       overflow: hidden;
-<<<<<<< HEAD
       scroll-margin-top: 96px;
       box-shadow: 0 28px 80px rgba(0,0,0,0.16);
-=======
-      scroll-margin-top: 96px;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
       backdrop-filter: blur(22px) saturate(180%);
     }
     .topic-header {
@@ -259,17 +169,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-<<<<<<< HEAD
       gap: 0.75rem;
       flex-wrap: nowrap;
       transition: background 0.25s ease, transform 0.25s ease;
-=======
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      transition: background 0.25s ease;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
-<<<<<<< HEAD
     .topic-header:hover { background: rgba(255,255,255,0.12); transform: translateY(-1px); }
     .topic-header:focus-visible { outline: 2px solid rgba(79,158,255,0.55); outline-offset: 4px; }
     .topic-title {
@@ -308,13 +211,6 @@
       transform: translateX(0) !important;
     }
     .collapse-icon { font-size: 0.9rem; color: var(--text-secondary); transition: transform 0.3s ease; display: inline-block; flex-shrink: 0; }
-=======
-    .topic-header:hover { background: rgba(255,255,255,0.12); }
-    .topic-title { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
-    .topic-number { font-weight: 800; color: var(--accent-blue); }
-    .topic-name { font-weight: 700; color: var(--text-primary); }
-    .collapse-icon { font-size: 0.9rem; color: var(--text-secondary); transition: transform 0.3s ease; display: inline-block; }
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     .topic-content {
       max-height: 0;
       overflow: hidden;
@@ -350,6 +246,7 @@
     .episode-row:hover {
       background: rgba(255,255,255,0.12);
       transform: translateX(2px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.10);
     }
     .episode-row:last-child { border-bottom: none; }
     
@@ -373,68 +270,32 @@
     .episode-title {
       font-weight: 600;
       color: var(--text-primary);
-<<<<<<< HEAD
       flex: 1;
-=======
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      flex: 1;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
       min-width: 0;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
       position: relative;
     }
-<<<<<<< HEAD
     .episode-title-text {
       display: inline-block;
       white-space: nowrap;
       padding-right: 2rem;
       min-width: max-content;
       will-change: transform;
-=======
-    /* Marquee for titles that overflow */
-    .episode-title.marquee-active {
-      animation: marquee 10s linear infinite;
-      white-space: nowrap;
-      display: inline-block;
-      padding-right: 2rem;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
-<<<<<<< HEAD
     /* Marquee for titles that overflow */
     .episode-title.marquee-active .episode-title-text {
       animation: marquee var(--marquee-duration, 14s) linear infinite;
       animation-fill-mode: forwards;
-=======
-    .episode-title.marquee-active:hover {
-      animation-play-state: paused;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
-<<<<<<< HEAD
     .episode-title.marquee-active:hover .episode-title-text {
       animation-play-state: paused;
-=======
-    
-    .episode-arrow {
-      flex-shrink: 0;
-      color: var(--accent-blue);
-      font-size: 0.9rem;
-      transition: transform 0.2s ease;
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
-<<<<<<< HEAD
     .episode-title.reset-on-hover .episode-title-text {
       animation: none !important;
       transform: translateX(0) !important;
-=======
-    .episode-row:hover .episode-arrow {
-      transform: translateX(4px);
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
-<<<<<<< HEAD
     .episode-arrow {
       flex-shrink: 0;
       color: var(--accent-blue);
@@ -452,28 +313,14 @@
     }
 
     /* Footer */
-=======
-    
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    
-    /* Footer */
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     .footer-wrapper {
       margin-top: 3rem;
       border-top: 1px solid rgba(255,255,255,0.14);
       padding: 2rem 0 1.5rem;
-<<<<<<< HEAD
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
       backdrop-filter: blur(22px) saturate(180%);
-=======
-      backdrop-filter: blur(20px) saturate(180%);
-      background: rgba(255,255,255,0.04);
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
     .social-links {
       display: flex;
@@ -497,11 +344,7 @@
       margin-bottom: 1.75rem;
       padding: 0 1rem;
     }
-<<<<<<< HEAD
     .whatsapp-channel {
-=======
-    .whatsapp-channel, .construction-banner {
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
       text-align: center;
       padding: 0.75rem 1.25rem;
       background: var(--glass-bg);
@@ -512,18 +355,14 @@
       cursor: pointer;
       border: 1px solid var(--glass-border);
       transition: var(--transition-smooth);
-<<<<<<< HEAD
       max-width: 100%;
       justify-content: center;
-=======
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
     .whatsapp-channel i { color: #25D366; font-size: 1.2rem; }
-    .whatsapp-channel:hover, .construction-banner:hover {
+    .whatsapp-channel:hover {
       background: rgba(255,255,255,0.16);
       transform: translateY(-2px);
     }
-<<<<<<< HEAD
     .footer-note {
       color: var(--text-dim);
       font-size: 0.88rem;
@@ -537,8 +376,6 @@
       background: rgba(255,255,255,0.14);
       margin: 1.5rem 0;
     }
-=======
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     .copyright {
       text-align: center;
       color: var(--text-dim);
@@ -551,62 +388,40 @@
       bottom: 24px;
       right: 24px;
       z-index: 1000;
-<<<<<<< HEAD
       background: var(--glass-bg);
-=======
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(24px);
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
       border-radius: 50px;
       padding: 12px 16px;
-<<<<<<< HEAD
       border: 1px solid var(--glass-border);
-=======
-      border: 1px solid rgba(255,255,255,0.2);
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
       cursor: pointer;
       transition: var(--transition-smooth);
       display: flex;
       align-items: center;
       gap: 8px;
-<<<<<<< HEAD
       backdrop-filter: blur(20px) saturate(180%);
-=======
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
-<<<<<<< HEAD
     .theme-toggle:hover { transform: translateY(-1px) scale(1.02); }
     .theme-toggle i { color: var(--text-primary); font-size: 1.2rem; }
     
     /* Responsive */
-=======
-    .theme-toggle:hover { transform: scale(1.05); }
-    .theme-toggle i { color: white; font-size: 1.2rem; }
-    
-    /* Responsive */
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     @media (max-width: 768px) {
       .container { padding: 1rem 0.9rem 1.5rem; }
       .season-header { padding: 1.1rem 1rem; }
       .season-title { font-size: 1.35rem; }
-<<<<<<< HEAD
       .episode-row { flex-wrap: wrap; padding: 0.8rem 1rem 0.8rem 1.4rem; }
       .episode-info { width: 100%; }
+      .episode-title { white-space: normal; }
+      .episode-title-text { white-space: normal; padding-right: 0; display: inline; }
       .episode-arrow { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); }
+      .topic-title { flex-wrap: wrap; }
+      .topic-name { white-space: normal; }
       .footer-wrapper { padding: 1.5rem 1rem 1rem; }
       .social-links { gap: 1rem; margin-bottom: 1rem; }
       .footer-cta { gap: 0.5rem; margin-bottom: 1.2rem; }
       .whatsapp-channel { width: 100%; padding: 0.75rem 1rem; }
       .footer-note { font-size: 0.82rem; }
+      .season-meta { gap: 0.75rem; font-size: 0.82rem; }
+      .theme-toggle { right: 16px; bottom: 82px; }
       .nav-arrow { display: none; }
-=======
-      .episode-row { flex-wrap: wrap; padding: 0.8rem 1rem 0.8rem 1.4rem; }
-      .episode-info { width: 100%; }
-      .episode-arrow { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); }
-      .action-cards { flex-direction: column; }
-      .whatsapp-channel, .construction-banner { width: 100%; justify-content: center; }
-      .nav-arrow { display: none; }
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
   </style>
 </head>
@@ -627,7 +442,6 @@
         <span><i class="fas fa-file-alt"></i> 57 episodes · 9 topics</span>
       </div>
     </div>
-<<<<<<< HEAD
     
     <div class="topics-nav-wrapper">
       <button type="button" class="nav-arrow nav-arrow-left" aria-label="Scroll topics left"><i class="fas fa-chevron-left"></i></button>
@@ -643,26 +457,11 @@
         <a href="#topic-9" class="topic-nav-link">9.0 Digestive Review</a>
       </div>
       <button type="button" class="nav-arrow nav-arrow-right" aria-label="Scroll topics right"><i class="fas fa-chevron-right"></i></button>
-=======
-    
-    <div class="topics-nav" id="topicsNav">
-      <button type="button" class="nav-arrow nav-arrow-left" aria-label="Scroll left">◀</button>
-      <a href="#topic-1" class="topic-nav-link">1.0 Introduction</a>
-      <a href="#topic-2" class="topic-nav-link">2.0 Tissues</a>
-      <a href="#topic-3" class="topic-nav-link">3.0 Skeletal System</a>
-      <a href="#topic-4" class="topic-nav-link">4.0 Muscular System</a>
-      <a href="#topic-5" class="topic-nav-link">5.0 Nervous System</a>
-      <a href="#topic-6" class="topic-nav-link">6.0 Cardiovascular</a>
-      <a href="#topic-7" class="topic-nav-link">7.0 Respiratory</a>
-      <a href="#topic-8" class="topic-nav-link">8.0 Digestive</a>
-      <a href="#topic-9" class="topic-nav-link">9.0 Digestive Review</a>
-      <button type="button" class="nav-arrow nav-arrow-right" aria-label="Scroll right">▶</button>
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     </div>
 
     <!-- Topic 1 -->
     <div id="topic-1" class="topic-section fade-up">
-      <div class="topic-header" onclick="toggleTopic(this, 1)">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 1)">
         <div class="topic-title">
           <span class="topic-number">1.0</span>
           <span class="topic-name">Introduction to Anatomy & Physiology</span>
@@ -724,7 +523,7 @@
 
     <!-- Topic 2 -->
     <div id="topic-2" class="topic-section fade-up">
-      <div class="topic-header" onclick="toggleTopic(this, 2)">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 2)">
         <div class="topic-title">
           <span class="topic-number">2.0</span>
           <span class="topic-name">Tissues</span>
@@ -772,7 +571,7 @@
 
     <!-- Topic 3 -->
     <div id="topic-3" class="topic-section fade-up">
-      <div class="topic-header" onclick="toggleTopic(this, 3)">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 3)">
         <div class="topic-title">
           <span class="topic-number">3.0</span>
           <span class="topic-name">Skeletal System</span>
@@ -834,7 +633,7 @@
 
     <!-- Topic 4 -->
     <div id="topic-4" class="topic-section fade-up">
-      <div class="topic-header" onclick="toggleTopic(this, 4)">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 4)">
         <div class="topic-title">
           <span class="topic-number">4.0</span>
           <span class="topic-name">Muscular System</span>
@@ -896,7 +695,7 @@
 
     <!-- Topic 5 -->
     <div id="topic-5" class="topic-section fade-up">
-      <div class="topic-header" onclick="toggleTopic(this, 5)">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 5)">
         <div class="topic-title">
           <span class="topic-number">5.0</span>
           <span class="topic-name">Nervous System</span>
@@ -958,7 +757,7 @@
 
     <!-- Topic 6 -->
     <div id="topic-6" class="topic-section fade-up">
-      <div class="topic-header" onclick="toggleTopic(this, 6)">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 6)">
         <div class="topic-title">
           <span class="topic-number">6.0</span>
           <span class="topic-name">Cardiovascular System</span>
@@ -1020,7 +819,7 @@
 
     <!-- Topic 7 -->
     <div id="topic-7" class="topic-section fade-up">
-      <div class="topic-header" onclick="toggleTopic(this, 7)">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 7)">
         <div class="topic-title">
           <span class="topic-number">7.0</span>
           <span class="topic-name">Respiratory System</span>
@@ -1068,7 +867,7 @@
 
     <!-- Topic 8 -->
     <div id="topic-8" class="topic-section fade-up">
-      <div class="topic-header" onclick="toggleTopic(this, 8)">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 8)">
         <div class="topic-title">
           <span class="topic-number">8.0</span>
           <span class="topic-name">Digestive System</span>
@@ -1130,7 +929,7 @@
 
     <!-- Topic 9 -->
     <div id="topic-9" class="topic-section fade-up">
-      <div class="topic-header" onclick="toggleTopic(this, 9)">
+      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 9)">
         <div class="topic-title">
           <span class="topic-number">9.0</span>
           <span class="topic-name">Digestive Disorders Review</span>
@@ -1260,7 +1059,6 @@
       }
     }
 
-<<<<<<< HEAD
     // ========== MARQUEE DETECTION ==========
     function setupEpisodeTitleWrappers() {
       document.querySelectorAll('.episode-title').forEach(title => {
@@ -1273,38 +1071,7 @@
         }
       });
     }
-    // ========== MARQUEE DETECTION ==========
-    function checkAndApplyMarquee() {
-      document.querySelectorAll('.episode-title').forEach(title => {
-        // Remove existing marquee class
-        title.classList.remove('marquee-active');
-        
-        // Create a temporary span to measure actual text width
-        const tempSpan = document.createElement('span');
-        tempSpan.style.cssText = 'visibility: hidden; position: absolute; white-space: nowrap; font-size: ' + window.getComputedStyle(title).fontSize + '; font-weight: ' + window.getComputedStyle(title).fontWeight + '; font-family: ' + window.getComputedStyle(title).fontFamily + ';';
-        tempSpan.textContent = title.textContent;
-        document.body.appendChild(tempSpan);
-        const textWidth = tempSpan.offsetWidth;
-        document.body.removeChild(tempSpan);
-        
-        // Get container width
-        const container = title.parentElement;
-        const containerWidth = container ? container.offsetWidth - 100 : 200; // Subtract space for episode number
-        
-        // If text is wider than container, apply marquee
-        if (textWidth > containerWidth) {
-          title.classList.add('marquee-active');
-          // Set animation duration based on text length (longer text = slower scroll)
-          const duration = Math.max(8, Math.min(20, textWidth / 50));
-          title.style.animationDuration = duration + 's';
-        } else {
-          title.style.animationDuration = '';
-        }
-      });
-    }
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
 
-<<<<<<< HEAD
     function setupTopicNameWrappers() {
       document.querySelectorAll('.topic-name').forEach(name => {
         if (!name.querySelector('.topic-name-text')) {
@@ -1318,6 +1085,7 @@
     }
 
     function checkAndApplyMarquee() {
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
       document.querySelectorAll('.episode-title, .topic-name').forEach(container => {
         const inner = container.querySelector('.episode-title-text, .topic-name-text');
         if (!inner) {
@@ -1328,6 +1096,10 @@
         container.style.removeProperty('--marquee-duration');
         container.style.removeProperty('--topic-marquee-duration');
         inner.style.animationDuration = '';
+
+        if (isMobile) {
+          return;
+        }
 
         const containerWidth = container.clientWidth;
         const textWidth = inner.offsetWidth;
@@ -1345,9 +1117,6 @@
     }
 
     // ========== THEME TOGGLE (FIXED) ==========
-=======
-    // ========== THEME TOGGLE (FIXED) ==========
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     const themeToggle = document.getElementById('themeToggle');
     let isLightMode = false;
     
@@ -1364,7 +1133,6 @@
         isLightMode = false;
       }
     }
-<<<<<<< HEAD
     
     // Load saved theme
     const savedTheme = localStorage.getItem('nexstudy-theme');
@@ -1392,40 +1160,11 @@
       const maxScroll = topicsNav.scrollWidth - topicsNav.clientWidth;
       navLeftBtn.disabled = topicsNav.scrollLeft <= 10;
       navRightBtn.disabled = topicsNav.scrollLeft >= maxScroll - 10;
-=======
-    
-    // Load saved theme
-    const savedTheme = localStorage.getItem('nexstudy-theme');
-    if (savedTheme === 'light') {
-      setTheme('light');
-    } else {
-      setTheme('dark');
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     }
-<<<<<<< HEAD
     
     if (navLeftBtn) {
       navLeftBtn.addEventListener('click', () => {
         topicsNav.scrollBy({ left: -300, behavior: 'smooth' });
-=======
-    
-    themeToggle.addEventListener('click', () => {
-      if (isLightMode) {
-        setTheme('dark');
-      } else {
-        setTheme('light');
-      }
-    });
-    
-    // ========== NAVIGATION SCROLL ==========
-    const topicsNav = document.getElementById('topicsNav');
-    const navLeftBtn = document.querySelector('.nav-arrow-left');
-    const navRightBtn = document.querySelector('.nav-arrow-right');
-    
-    if (navLeftBtn) {
-      navLeftBtn.addEventListener('click', () => {
-        topicsNav.scrollBy({ left: -300, behavior: 'smooth' });
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
       });
     }
     
@@ -1434,7 +1173,6 @@
         topicsNav.scrollBy({ left: 300, behavior: 'smooth' });
       });
     }
-<<<<<<< HEAD
 
     topicsNav?.addEventListener('scroll', updateTopicNavArrows);
 
@@ -1447,17 +1185,6 @@
           window.location.href = href;
         }
       });
-=======
-    
-    // ========== EPISODE ROW CLICKS ==========
-    document.querySelectorAll('.episode-row').forEach(row => {
-      row.addEventListener('click', (e) => {
-        const href = row.getAttribute('data-href');
-        if (href) {
-          window.location.href = href;
-        }
-      });
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
     });
     
     // ========== SOCIAL LINKS ==========
@@ -1489,7 +1216,6 @@
           entry.target.classList.add('visible');
         }
       });
-<<<<<<< HEAD
     }, { threshold: 0.1 });
     
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
@@ -1514,33 +1240,9 @@
           event.preventDefault();
           const topicId = header.closest('.topic-section')?.id?.replace('topic-', '');
           if (topicId) toggleTopic(header, parseInt(topicId, 10));
-=======
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    
-    // ========== INITIALIZATION ==========
-    window.addEventListener('DOMContentLoaded', () => {
-      openTopicFromHash();
-      checkAndApplyMarquee();
-    });
-    
-    window.addEventListener('hashchange', openTopicFromHash);
-    window.addEventListener('resize', () => {
-      setTimeout(checkAndApplyMarquee, 200);
-    });
-    
-    // Check marquee on hover (optional, for dynamic content)
-    document.querySelectorAll('.episode-row').forEach(row => {
-      row.addEventListener('mouseenter', () => {
-        const title = row.querySelector('.episode-title');
-        if (title && title.scrollWidth > title.clientWidth) {
-          title.classList.add('marquee-active');
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
         }
       });
     });
-<<<<<<< HEAD
     
     // Pause marquee and reset position while hovering
     document.querySelectorAll('.episode-row').forEach(row => {
@@ -1584,8 +1286,6 @@
         }
       });
     });
-=======
->>>>>>> 8a5f7ab0b9656610fd63229e1ef0d8e6e656e0f4
   </script>
 </body>
 </html>
