@@ -196,7 +196,7 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.10);
       border-radius: 24px;
-      padding: 0.9rem 0.6rem;
+      padding: 0.9rem 2rem;
       flex: 1;
       box-shadow: 0 6px 18px rgba(0,0,0,0.06);
       backdrop-filter: blur(8px) saturate(120%);
@@ -297,6 +297,8 @@
     /* Episode rows - FLEXBOX for better control */
     .episode-row {
       display: flex;
+      text-decoration: none;
+      color: inherit;
       justify-content: space-between;
       align-items: center;
       padding: 0.95rem 1.4rem 0.95rem 1.8rem;
@@ -419,6 +421,7 @@
       transition: var(--transition-smooth);
       cursor: pointer;
     }
+    .social-icon i { color: inherit; }
     .social-icon[data-social='whatsapp'] { color: #25D366; }
     .social-icon[data-social='wechat'] { color: #07C160; }
     .social-icon[data-social='youtube'] { color: #FF3B30; }
@@ -580,7 +583,7 @@
     <div class="floating-orb orb-c"></div>
   </div>
 
-  <div class="container">
+  <main class="container">
     <div class="season-header">
       <div class="season-title"><i class="fas fa-book-open"></i> Anatomy & Physiology 1 and First Aid</div>
       <div class="season-meta">
@@ -609,7 +612,7 @@
 
     <!-- Topic 1 -->
     <div id="topic-1" class="topic-section fade-up">
-      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 1)">
+      <div class="topic-header" role="button" tabindex="0" aria-controls="topic-content-1" aria-expanded="false" onclick="toggleTopic(this, 1)">
         <div class="topic-title">
           <span class="topic-number">1.0</span>
           <span class="topic-name">Introduction to Anatomy & Physiology</span>
@@ -671,7 +674,7 @@
 
     <!-- Topic 2 -->
     <div id="topic-2" class="topic-section fade-up">
-      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 2)">
+      <div class="topic-header" role="button" tabindex="0" aria-controls="topic-content-2" aria-expanded="false" onclick="toggleTopic(this, 2)">
         <div class="topic-title">
           <span class="topic-number">2.0</span>
           <span class="topic-name">Tissues</span>
@@ -719,7 +722,7 @@
 
     <!-- Topic 3 -->
     <div id="topic-3" class="topic-section fade-up">
-      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 3)">
+      <div class="topic-header" role="button" tabindex="0" aria-controls="topic-content-3" aria-expanded="false" onclick="toggleTopic(this, 3)">
         <div class="topic-title">
           <span class="topic-number">3.0</span>
           <span class="topic-name">Skeletal System</span>
@@ -781,7 +784,7 @@
 
     <!-- Topic 4 -->
     <div id="topic-4" class="topic-section fade-up">
-      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 4)">
+      <div class="topic-header" role="button" tabindex="0" aria-controls="topic-content-4" aria-expanded="false" onclick="toggleTopic(this, 4)">
         <div class="topic-title">
           <span class="topic-number">4.0</span>
           <span class="topic-name">Muscular System</span>
@@ -843,7 +846,7 @@
 
     <!-- Topic 5 -->
     <div id="topic-5" class="topic-section fade-up">
-      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 5)">
+      <div class="topic-header" role="button" tabindex="0" aria-controls="topic-content-5" aria-expanded="false" onclick="toggleTopic(this, 5)">
         <div class="topic-title">
           <span class="topic-number">5.0</span>
           <span class="topic-name">Nervous System</span>
@@ -905,7 +908,7 @@
 
     <!-- Topic 6 -->
     <div id="topic-6" class="topic-section fade-up">
-      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 6)">
+      <div class="topic-header" role="button" tabindex="0" aria-controls="topic-content-6" aria-expanded="false" onclick="toggleTopic(this, 6)">
         <div class="topic-title">
           <span class="topic-number">6.0</span>
           <span class="topic-name">Cardiovascular System</span>
@@ -967,7 +970,7 @@
 
     <!-- Topic 7 -->
     <div id="topic-7" class="topic-section fade-up">
-      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 7)">
+      <div class="topic-header" role="button" tabindex="0" aria-controls="topic-content-7" aria-expanded="false" onclick="toggleTopic(this, 7)">
         <div class="topic-title">
           <span class="topic-number">7.0</span>
           <span class="topic-name">Respiratory System</span>
@@ -1015,7 +1018,7 @@
 
     <!-- Topic 8 -->
     <div id="topic-8" class="topic-section fade-up">
-      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 8)">
+      <div class="topic-header" role="button" tabindex="0" aria-controls="topic-content-8" aria-expanded="false" onclick="toggleTopic(this, 8)">
         <div class="topic-title">
           <span class="topic-number">8.0</span>
           <span class="topic-name">Digestive System</span>
@@ -1077,7 +1080,7 @@
 
     <!-- Topic 9 -->
     <div id="topic-9" class="topic-section fade-up">
-      <div class="topic-header" role="button" tabindex="0" onclick="toggleTopic(this, 9)">
+      <div class="topic-header" role="button" tabindex="0" aria-controls="topic-content-9" aria-expanded="false" onclick="toggleTopic(this, 9)">
         <div class="topic-title">
           <span class="topic-number">9.0</span>
           <span class="topic-name">Digestive Disorders Review</span>
@@ -1124,15 +1127,15 @@
     </div>
 
     
-    <div class="footer-wrapper">
+    <footer class="footer-wrapper">
       <div class="footer-content">
         <div class="social-links">
-          <i class="fab fa-whatsapp social-icon" data-social="whatsapp"></i>
-          <i class="fab fa-weixin social-icon" data-social="wechat"></i>
-          <i class="fab fa-telegram social-icon" data-social="telegram"></i>
-          <i class="fab fa-youtube social-icon" data-social="youtube"></i>
-          <i class="fab fa-tiktok social-icon" data-social="tiktok"></i>
-          <i class="fab fa-instagram social-icon" data-social="instagram"></i>
+          <a class="social-icon" data-social="whatsapp" href="https://whatsapp.com/channel/0029Vb7UygL1dAvuZvBWhB3y" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a class="social-icon" data-social="wechat" href="https://www.wechat.com" target="_blank" rel="noopener noreferrer" aria-label="WeChat"><i class="fab fa-weixin"></i></a>
+          <a class="social-icon" data-social="telegram" href="https://t.me/clareoni" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+          <a class="social-icon" data-social="youtube" href="https://youtube.com/@clareoni" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a class="social-icon" data-social="tiktok" href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a class="social-icon" data-social="instagram" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
         <div class="footer-cta">
           <div class="whatsapp-channel" id="whatsappChannelBtn">
@@ -1149,11 +1152,11 @@
           <i class="far fa-copyright"></i> 2026 Clareon — open knowledge universe
         </div>
       </div>
-    </div>
-    <div class="theme-toggle" id="themeToggle">
+    </footer>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
       <i class="fas fa-moon"></i>
-    </div>
-  </div>
+    </button>
+  </main>
   <script>
     // ========== TOUCH DEVICE DETECTION ==========
     (function() {
@@ -1190,6 +1193,7 @@
             if (oldestIcon) {
               oldestIcon.classList.remove('fa-chevron-down');
               oldestIcon.classList.add('fa-chevron-right');
+              oldestHeader.setAttribute('aria-expanded', 'false');
             }
           }
         }
@@ -1198,6 +1202,7 @@
           icon.classList.remove('fa-chevron-right');
           icon.classList.add('fa-chevron-down');
         }
+        header.setAttribute('aria-expanded', 'true');
         openTopics.push(topicId);
       } else {
         content.classList.remove('open');
@@ -1205,6 +1210,7 @@
           icon.classList.remove('fa-chevron-down');
           icon.classList.add('fa-chevron-right');
         }
+        header.setAttribute('aria-expanded', 'false');
         openTopics = openTopics.filter(id => id !== topicId);
       }
     }
@@ -1499,6 +1505,7 @@
     };
     
     document.querySelectorAll('.social-icon').forEach(icon => {
+      if (icon.tagName.toLowerCase() === 'a') return;
       icon.addEventListener('click', () => {
         const platform = icon.getAttribute('data-social');
         if (platform && socialUrls[platform]) {
