@@ -31,6 +31,8 @@
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg-primary);
       background-size: 300% 300%;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
       animation: dayGradientFlow 24s ease infinite;
       color: var(--text-primary);
       line-height: 1.6;
@@ -73,6 +75,7 @@
     .fade-up {
       opacity: 0;
       transform: translateY(20px);
+      visibility: hidden;
       transition: opacity 0.6s ease, transform 0.6s ease;
       will-change: opacity, transform;
       backface-visibility: hidden;
@@ -80,6 +83,31 @@
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
+      visibility: visible;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html, body { scroll-behavior: auto; }
+      body { animation: none !important; }
+      .floating-orb { animation: none !important; }
+      .fade-up {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+        transition: none !important;
+      }
+      .episode-title.marquee-active .episode-title-text,
+      .topic-name.marquee-active .topic-name-text {
+        animation: none !important;
+        transform: none !important;
+      }
+      .episode-row:hover,
+      .topic-header:hover,
+      .nav-arrow:hover,
+      .whatsapp-channel:hover,
+      .theme-toggle:hover {
+        transform: none !important;
+      }
     }
     
     .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.5rem 2.5rem; position: relative; z-index: 1; }
@@ -398,25 +426,30 @@
       font-size: 0.75rem;
     }
     
-    /* Theme toggle */
+    /* Theme toggle / scroll-to-top */
     .theme-toggle {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: 22px;
+      right: 22px;
       z-index: 1000;
-      background: var(--glass-bg);
-      border-radius: 50px;
-      padding: 12px 16px;
-      border: 1px solid var(--glass-border);
+      width: 46px;
+      height: 46px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.18);
       cursor: pointer;
-      transition: var(--transition-smooth);
-      display: flex;
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      backdrop-filter: blur(20px) saturate(180%);
+      justify-content: center;
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      box-shadow: 0 18px 32px rgba(0,0,0,0.16);
     }
-    .theme-toggle:hover { transform: translateY(-1px) scale(1.02); }
-    .theme-toggle i { color: var(--text-primary); font-size: 1.2rem; }
+    .theme-toggle:hover { transform: translateY(-1px) scale(1.02); background: rgba(255, 255, 255, 0.16); }
+    .theme-toggle.scroll-top { background: rgba(255, 255, 255, 0.18); }
+    .theme-toggle i { color: var(--text-primary); font-size: 1.1rem; }
     
     /* Responsive */
     @media (max-width: 768px) {
@@ -1102,6 +1135,7 @@
 
     function checkAndApplyMarquee() {
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       document.querySelectorAll('.episode-title, .topic-name').forEach(container => {
         const inner = container.querySelector('.episode-title-text, .topic-name-text');
         if (!inner) {
@@ -1114,7 +1148,7 @@
         inner.style.animationDuration = '';
         inner.style.removeProperty('transform');
 
-        if (isMobile) {
+        if (isMobile || prefersReducedMotion) {
           return;
         }
 
@@ -1136,21 +1170,48 @@
     // ========== THEME TOGGLE (FIXED) ==========
     const themeToggle = document.getElementById('themeToggle');
     let isLightMode = false;
-    
+    let isScrollTopMode = false;
+    const scrollToggleThreshold = 220;
+
+    function renderThemeToggle() {
+      if (!themeToggle) return;
+      if (isScrollTopMode) {
+        themeToggle.classList.add('scroll-top');
+        themeToggle.innerHTML = '<i class="fas fa-arrow-up" aria-hidden="true"></i>';
+        themeToggle.setAttribute('aria-label', 'Scroll to top');
+      } else {
+        themeToggle.classList.remove('scroll-top');
+        if (isLightMode) {
+          themeToggle.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
+          themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+        } else {
+          themeToggle.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i>';
+          themeToggle.setAttribute('aria-label', 'Switch to light mode');
+        }
+      }
+    }
+
     function setTheme(theme) {
       if (theme === 'light') {
         document.body.classList.add('light-mode');
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         localStorage.setItem('nexstudy-theme', 'light');
         isLightMode = true;
       } else {
         document.body.classList.remove('light-mode');
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         localStorage.setItem('nexstudy-theme', 'dark');
         isLightMode = false;
       }
+      renderThemeToggle();
     }
-    
+
+    function updateThemeToggleState() {
+      const shouldUseScrollTop = window.scrollY > scrollToggleThreshold;
+      if (shouldUseScrollTop !== isScrollTopMode) {
+        isScrollTopMode = shouldUseScrollTop;
+        renderThemeToggle();
+      }
+    }
+
     // Load saved theme
     const savedTheme = localStorage.getItem('nexstudy-theme');
     if (savedTheme === 'light') {
@@ -1158,13 +1219,21 @@
     } else {
       setTheme('dark');
     }
-    
+
     themeToggle.addEventListener('click', () => {
-      if (isLightMode) {
-        setTheme('dark');
+      if (isScrollTopMode) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        setTheme('light');
+        if (isLightMode) {
+          setTheme('dark');
+        } else {
+          setTheme('light');
+        }
       }
+    });
+
+    window.addEventListener('scroll', () => {
+      window.requestAnimationFrame(updateThemeToggleState);
     });
     
     // ========== NAVIGATION SCROLL ==========
@@ -1227,23 +1296,35 @@
     });
     
     // ========== FADE-IN OBSERVER ==========
+    function isElementInView(element) {
+      const rect = element.getBoundingClientRect();
+      return rect.top < window.innerHeight * 0.95 && rect.bottom > 0;
+    }
+
     function initFadeUpObserver() {
       const fadeEls = document.querySelectorAll('.fade-up');
-      if (!('IntersectionObserver' in window)) {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion || !('IntersectionObserver' in window)) {
         fadeEls.forEach(el => el.classList.add('visible'));
         return;
       }
 
       const fadeObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting || entry.intersectionRatio > 0) {
             entry.target.classList.add('visible');
             fadeObserver.unobserve(entry.target);
           }
         });
-      }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+      }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
 
-      fadeEls.forEach(el => fadeObserver.observe(el));
+      fadeEls.forEach(el => {
+        fadeObserver.observe(el);
+        if (isElementInView(el)) {
+          el.classList.add('visible');
+          fadeObserver.unobserve(el);
+        }
+      });
     }
 
     // ========== INITIALIZATION ==========
@@ -1253,12 +1334,18 @@
       openTopicFromHash();
       checkAndApplyMarquee();
       updateTopicNavArrows();
+      updateThemeToggleState();
       initFadeUpObserver();
     });
     
     window.addEventListener('hashchange', openTopicFromHash);
     window.addEventListener('resize', () => {
       setTimeout(checkAndApplyMarquee, 200);
+    });
+    window.addEventListener('load', () => {
+      checkAndApplyMarquee();
+      updateTopicNavArrows();
+      updateThemeToggleState();
     });
     
     document.querySelectorAll('.topic-header[role="button"]').forEach(header => {
@@ -1274,6 +1361,7 @@
     // Pause marquee and reset position while hovering
     document.querySelectorAll('.episode-row').forEach(row => {
       row.addEventListener('mouseenter', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const title = row.querySelector('.episode-title');
         const inner = title?.querySelector('.episode-title-text');
         if (title && inner && inner.offsetWidth > title.clientWidth) {
@@ -1283,6 +1371,7 @@
         }
       });
       row.addEventListener('mouseleave', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const title = row.querySelector('.episode-title');
         const inner = title?.querySelector('.episode-title-text');
         if (title && inner && inner.offsetWidth > title.clientWidth) {
@@ -1295,6 +1384,7 @@
 
     document.querySelectorAll('.topic-header').forEach(header => {
       header.addEventListener('mouseenter', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const name = header.querySelector('.topic-name');
         const inner = name?.querySelector('.topic-name-text');
         if (name && inner && inner.offsetWidth > name.clientWidth) {
@@ -1304,6 +1394,7 @@
         }
       });
       header.addEventListener('mouseleave', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const name = header.querySelector('.topic-name');
         const inner = name?.querySelector('.topic-name-text');
         if (name && inner && inner.offsetWidth > name.clientWidth) {
