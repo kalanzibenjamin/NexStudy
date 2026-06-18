@@ -1,252 +1,2668 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Foundations of Nursing - Examination | NexStudy</title>
+    <title>1.0 Psychology in Nursing | Clareon Notes</title>
     
-    <!--
-        PERFORMANCE OPTIMIZATIONS:
-        1. Preconnect to critical origins (Google domains) – reduces DNS, TLS, and TCP handshake time.
-        2. Inline only critical CSS to avoid render-blocking external stylesheets.
-        3. Remove render-blocking resources (no external fonts, no extra libraries).
-        4. Use 'loading=lazy' on iframe is already there; also add 'fetchpriority' hint.
-        5. Use requestIdleCallback to start unobtrusive spinner removal without blocking loads.
-        6. Set 'referrerpolicy' to minimal for privacy and performance.
-        7. Remove unnecessary JavaScript and ensure lightweight overlay removal.
-        8. Add explicit width/height hints to prevent layout shifts.
-        9. Use 'will-change' sparingly (none needed for iframe).
-    -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- MathJax for LaTeX (conditional loading) -->
+    <script>
+        // Only load MathJax if math elements exist
+        if (document.querySelector('.math')) {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"><\/script>');
+        }
+    </script>
     
     <style>
-        /* Minimal critical CSS – no render-blocking, fully inlined. */
+        /* ============================================================
+                   RESET & BASE
+                   ============================================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            /* Light Mode Colors */
+            --primary-purple: #6d28d9;
+            --primary-blue: #2563eb;
+            --primary-blue-light: #3b82f6;
+            --primary-green: #059669;
+            --primary-green-light: #10b981;
+            --primary-red: #dc2626;
+            --primary-red-light: #ef4444;
+            --primary-orange: #d97706;
+            --primary-orange-light: #f59e0b;
+            --primary-yellow: #ca8a04;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-dim: #94a3b8;
+            --text-inverse: #ffffff;
+            
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-card: #f1f5f9;
+            --bg-hover: #e8ecf0;
+            --bg-input: #ffffff;
+            
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --border-dark: #9ca3af;
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.10);
+            --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.12);
+            
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.20);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+            
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+            
+            --max-width: 1280px;
+            --nav-height: 64px;
+            --tabs-height: 52px;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-dim: #94a3b8;
+            --text-inverse: #0f172a;
+            
+            --bg-white: #1e293b;
+            --bg-light: #0f172a;
+            --bg-card: #334155;
+            --bg-hover: #475569;
+            --bg-input: #1e293b;
+            
+            --border-light: #334155;
+            --border-medium: #475569;
+            --border-dark: #64748b;
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.6);
+            
+            --glass-bg: rgba(30, 41, 59, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            
+            --primary-blue: #3b82f6;
+            --primary-blue-light: #60a5fa;
+            --primary-green: #10b981;
+            --primary-green-light: #34d399;
+            --primary-red: #ef4444;
+            --primary-red-light: #f87171;
+            --primary-orange: #f59e0b;
+            --primary-orange-light: #fbbf24;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 140px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
         body {
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            background: #ffffff;
-            /* Improve perceived performance: white background matches form */
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            background: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition);
         }
-        
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-            /* Ensure iframe loads without layout thrashing */
-            background: #ffffff;
+
+        /* ============================================================
+                   SKIP LINK (Accessibility)
+                   ============================================================ */
+        .skip-link {
+            position: absolute;
+            top: -999px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-md);
+            z-index: 9999;
+            font-weight: 600;
+            text-decoration: none;
         }
-        
-        /* Extremely lightweight loading overlay – zero transitions initially, removed ASAP */
-        .loading-overlay {
-            position: fixed;
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        /* ============================================================
+                   GLASS NAVIGATION (Top Bar)
+                   ============================================================ */
+        .glass-nav {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fefefe;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            padding: 0 1.5rem;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .glass-nav-scrolled {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+        }
+        [data-theme="dark"] .glass-nav-scrolled {
+            background: var(--bg-white);
+        }
+
+        .glass-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 0;
+        }
+
+        .glass-nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 999px;
+            transition: var(--transition);
+        }
+
+        .glass-nav-back:hover,
+        .glass-nav-back:focus {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .glass-nav-back i {
+            font-size: 0.75rem;
+        }
+
+        .glass-nav-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+        }
+
+        .glass-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .glass-nav-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 999px;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            pointer-events: none;
-            /* Simple fade-out will be applied dynamically, but initially visible */
-            opacity: 1;
-            will-change: opacity;
-            /* no backdrop filters or heavy shadows */
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
         }
-        
-        .loading-spinner {
+
+        .glass-nav-btn:hover,
+        .glass-nav-btn:focus {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-color: var(--border-medium);
+        }
+
+        .glass-nav-btn:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .glass-nav-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .glass-nav-progress-bar {
+            width: 80px;
+            height: 4px;
+            background: var(--bg-card);
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .glass-nav-progress-bar span {
+            display: block;
+            height: 100%;
+            background: var(--primary-blue);
+            border-radius: 999px;
+            transition: width 0.3s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* ============================================================
+                   TOPIC TABS NAVIGATION (Glass)
+                   ============================================================ */
+        .topic-tabs-nav {
+            position: sticky;
+            top: var(--nav-height);
+            z-index: 999;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-bottom: 1px solid var(--border-light);
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            transition: var(--transition);
+        }
+
+        .topic-tabs-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .topic-tabs-nav[role="tablist"] {
+            /* Proper tablist semantics */;
+        }
+
+        .topic-tab {
+            flex: 0 0 auto;
+            padding: 0.4rem 1.2rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .topic-tab:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .topic-tab:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .topic-tab[aria-selected="true"] {
+            background: var(--primary-purple);
+            color: #ffffff;
+            border-color: var(--primary-purple);
+        }
+
+        .topic-tab .tab-number {
+            opacity: 0.6;
+            margin-right: 0.3rem;
+        }
+
+        .topic-tabs-arrow {
+            flex: 0 0 auto;
             width: 32px;
             height: 32px;
-            border: 2.5px solid rgba(139, 92, 246, 0.2);
-            border-top-color: #8b5cf6;
-            border-radius: 50%;
-            animation: spin 0.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            border-radius: 999px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-white);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
         }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+
+        .topic-tabs-arrow:hover:not(:disabled) {
+            background: var(--bg-card);
+            border-color: var(--border-medium);
         }
-        
-        /* Hide overlay when we remove it – but we will remove via JS for best performance.
-           Also ensure no extra fonts or unnecessary animations blocking paint. */
+
+        .topic-tabs-arrow:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .topic-tabs-arrow:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        /* ============================================================
+                   MAIN LAYOUT
+                   ============================================================ */
+        .notes-layout {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 1.5rem 1.5rem 3rem;
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        /* ============================================================
+                   SIDEBAR TOC (Desktop)
+                   ============================================================ */
+        .notes-sidebar {
+            flex: 0 0 280px;
+            position: sticky;
+            top: calc(var(--nav-height) + var(--tabs-height) + 24px);
+            align-self: flex-start;
+            max-height: calc(100vh - var(--nav-height) - var(--tabs-height) - 60px);
+            overflow-y: auto;
+            padding-right: 0.5rem;
+            scrollbar-width: thin;
+        }
+
+        .notes-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .notes-sidebar::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 999px;
+        }
+
+        .sidebar-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .sidebar-card h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-toc {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .sidebar-toc li {
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-toc a {
+            display: block;
+            padding: 0.4rem 0.6rem;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-toc a:hover {
+            background: var(--bg-light);
+            color: var(--text-primary);
+        }
+
+        .sidebar-toc a:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .sidebar-toc a[aria-current="location"] {
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--primary-blue);
+            border-left-color: var(--primary-blue);
+        }
+
+        .sidebar-toc .toc-sub {
+            padding-left: 1.5rem;
+        }
+
+        .sidebar-toc .toc-sub a {
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        .sidebar-meta {
+            border-top: 1px solid var(--border-light);
+            padding-top: 1rem;
+        }
+
+        .sidebar-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            padding: 0.3rem 0;
+        }
+
+        .sidebar-meta-item i {
+            width: 18px;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        /* ============================================================
+                   MAIN CONTENT
+                   ============================================================ */
+        .notes-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* ============================================================
+                   MOBILE TOC (Hidden on desktop)
+                   ============================================================ */
+        .mobile-toc {
+            display: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-toc-toggle {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-toc-toggle:hover {
+            background: var(--bg-light);
+        }
+
+        .mobile-toc-toggle:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .mobile-toc-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-toc-toggle[aria-expanded="true"] i {
+            transform: rotate(180deg);
+        }
+
+        .mobile-toc-list {
+            display: none;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-top: none;
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+            padding: 0.5rem 0;
+            list-style: none;
+        }
+
+        .mobile-toc-list[aria-hidden="false"] {
+            display: block;
+        }
+
+        .mobile-toc-list li {
+            border-bottom: 1px solid var(--bg-light);
+        }
+
+        .mobile-toc-list li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-toc-list a {
+            display: block;
+            padding: 0.6rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .mobile-toc-list a:hover {
+            background: var(--bg-light);
+            color: var(--text-primary);
+        }
+
+        .mobile-toc-list a:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: -2px;
+        }
+
+        .mobile-toc-list .toc-sub-mobile {
+            padding-left: 1.5rem;
+        }
+
+        /* ============================================================
+                   TOPIC HEADER
+                   ============================================================ */
+        .topic-header {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            padding: 2rem 2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .topic-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(109, 40, 217, 0.08);
+            color: var(--primary-purple);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.25rem 0.8rem;
+            border-radius: 999px;
+            margin-bottom: 0.75rem;
+        }
+
+        .topic-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-header .topic-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .topic-header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .topic-header-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .topic-header-meta i {
+            color: var(--text-dim);
+            width: 18px;
+        }
+
+        /* Mastery Meter */
+        .mastery-meter {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .mastery-bar {
+            height: 6px;
+            background: var(--bg-card);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .mastery-fill {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            border-radius: 999px;
+            transition: width 0.6s ease;
+        }
+
+        .mastery-stats {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .mastery-stats i {
+            margin-right: 0.3rem;
+        }
+
+        /* ============================================================
+                   CONTENT SECTIONS
+                   ============================================================ */
+        .notes-section {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            padding: 2rem 2rem 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            scroll-margin-top: 140px;
+            transition: var(--transition);
+        }
+
+        .notes-section:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .notes-section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .notes-section h2 .section-icon {
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+        }
+
+        .notes-section .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+        }
+
+        .notes-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .notes-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ============================================================
+                   OBJECTIVES LIST
+                   ============================================================ */
+        .objectives-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0;
+        }
+
+        .objectives-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--bg-light);
+        }
+
+        .objectives-list li:last-child {
+            border-bottom: none;
+        }
+
+        .objectives-list li .obj-icon {
+            color: var(--primary-green);
+            font-size: 1rem;
+            margin-top: 0.1rem;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+                   CONTENT BLOCKS (Sub-sections)
+                   ============================================================ */
+        .content-block {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--bg-light);
+        }
+
+        .content-block:first-of-type {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: none;
+        }
+
+        .content-block h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-block h3 .h3-number {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .content-block p {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .content-block ul li,
+        .content-block ol li {
+            margin-bottom: 0.3rem;
+        }
+
+        .content-block ul li strong,
+        .content-block ol li strong {
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+                   CLINICAL CARDS
+                   ============================================================ */
+        .clinical-card {
+            background: rgba(37, 99, 235, 0.06);
+            border-left: 5px solid var(--primary-blue);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .clinical-card .card-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary-blue);
+            margin-bottom: 0.4rem;
+        }
+
+        .clinical-card p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .clinical-card strong {
+            color: var(--text-primary);
+        }
+
+        .warning-card {
+            background: rgba(220, 38, 38, 0.06);
+            border-left: 5px solid var(--primary-red);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .warning-card .card-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary-red);
+            margin-bottom: 0.4rem;
+        }
+
+        .warning-card p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .warning-card ul {
+            margin-top: 0.5rem;
+        }
+
+        .tip-card {
+            background: rgba(5, 150, 105, 0.06);
+            border-left: 5px solid var(--primary-green);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .tip-card .card-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary-green);
+            margin-bottom: 0.4rem;
+        }
+
+        .tip-card p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        /* ============================================================
+                   TERM GRID
+                   ============================================================ */
+        .term-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .term-item {
+            background: var(--bg-light);
+            padding: 1rem 1.2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .term-item:hover {
+            background: var(--bg-white);
+            border-color: var(--border-medium);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .term-item .term-name {
+            display: block;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .term-item .term-def {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================================
+                   SMART TABLES (Responsive)
+                   ============================================================ */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 1.2rem 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            background: var(--bg-white);
+            transition: var(--transition);
+        }
+
+        .table-wrapper table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 550px;
+        }
+
+        .table-wrapper thead {
+            background: var(--bg-light);
+        }
+
+        .table-wrapper th {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .table-wrapper td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid var(--bg-light);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+
+        .table-wrapper tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-wrapper td strong {
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+                   EPISODE LINKS (MCQ Cards)
+                   ============================================================ */
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .episode-card {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.2rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .episode-card:hover {
+            background: var(--bg-white);
+            border-color: var(--primary-blue);
+            transform: translateX(2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .episode-card:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .episode-card .ep-number {
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+
+        .episode-card .ep-title {
+            flex: 1;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .episode-card .ep-arrow {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .episode-card:hover .ep-arrow {
+            color: var(--primary-blue);
+            transform: translateX(2px);
+        }
+
+        .episode-note {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .episode-note i {
+            color: var(--primary-orange);
+        }
+
+        /* ============================================================
+                   PAGE NAVIGATION (Pagination)
+                   ============================================================ */
+        .page-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1.5rem 0 0.5rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .page-nav-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            background: var(--bg-white);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .page-nav-btn:hover:not(:disabled) {
+            background: var(--bg-light);
+            border-color: var(--border-medium);
+            color: var(--text-primary);
+        }
+
+        .page-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-nav-btn:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .page-numbers {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .page-numbers button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            background: transparent;
+        }
+
+        .page-numbers button:hover {
+            background: var(--bg-light);
+            border-color: var(--border-light);
+        }
+
+        .page-numbers button:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .page-numbers button[aria-current="page"] {
+            background: var(--primary-blue);
+            color: #ffffff;
+            border-color: var(--primary-blue);
+        }
+
+        .page-numbers .dots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            color: var(--text-dim);
+            cursor: default;
+        }
+
+        /* ============================================================
+                   SUMMARY SECTION
+                   ============================================================ */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .summary-item {
+            background: var(--bg-light);
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .summary-item h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .summary-item ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .summary-item ul li {
+            padding: 0.25rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .summary-item ul li::before {
+            content: "•";
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .review-questions {
+            margin: 1rem 0 0;
+            padding: 1.2rem 1.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .review-questions h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .review-questions ol {
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .review-questions ol li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* ============================================================
+                   EVIDENCE BADGES
+                   ============================================================ */
+        .evidence-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .evidence-badge.level-a {
+            background: rgba(5, 150, 105, 0.12);
+            color: var(--primary-green);
+        }
+
+        .evidence-badge.level-b {
+            background: rgba(37, 99, 235, 0.12);
+            color: var(--primary-blue);
+        }
+
+        .evidence-badge.level-c {
+            background: rgba(217, 119, 6, 0.12);
+            color: var(--primary-orange);
+        }
+
+        /* ============================================================
+                   PRIORITY INDICATOR
+                   ============================================================ */
+        .priority-indicator {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .priority-item {
+            flex: 1;
+            min-width: 120px;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            background: var(--bg-light);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .priority-item .priority-letter {
+            display: inline-block;
+            font-weight: 800;
+            font-size: 1.2rem;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            border-radius: 999px;
+            background: var(--bg-white);
+            margin-bottom: 0.3rem;
+        }
+
+        .priority-item .priority-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .priority-item .priority-status {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .priority-item.critical .priority-letter {
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+        }
+
+        .priority-item.warning .priority-letter {
+            color: var(--primary-orange);
+            border: 2px solid var(--primary-orange);
+        }
+
+        .priority-item.normal .priority-letter {
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .site-footer {
+            background: var(--bg-white);
+            border-top: 1px solid var(--border-light);
+            padding: 2rem 1.5rem;
+            margin-top: 2rem;
+            transition: var(--transition);
+        }
+
+        .footer-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-links a:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .footer-social a {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .footer-social a:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        /* ============================================================
+                   FOCUS MODE
+                   ============================================================ */
+        .focus-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 900;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 999px;
+            padding: 0.6rem 1.2rem;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .focus-mode-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .focus-mode-toggle:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        body.focus-mode .glass-nav,
+        body.focus-mode .topic-tabs-nav,
+        body.focus-mode .notes-sidebar,
+        body.focus-mode .mobile-toc,
+        body.focus-mode .page-navigation,
+        body.focus-mode .site-footer,
+        body.focus-mode .focus-mode-toggle {
+            display: none !important;
+        }
+
+        body.focus-mode .notes-layout {
+            padding: 0;
+        }
+
+        body.focus-mode .notes-main {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        body.focus-mode .topic-header,
+        body.focus-mode .notes-section {
+            border-radius: 0;
+            box-shadow: none;
+            border-left: none;
+            border-right: none;
+        }
+
+        body.focus-mode .topic-header h1 {
+            font-size: 2.4rem;
+        }
+
+        /* ============================================================
+                   RESPONSIVE BREAKPOINTS
+                   ============================================================ */
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .notes-sidebar {
+                flex: 0 0 220px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            :root {
+                --nav-height: 56px;
+                --tabs-height: 44px;
+            }
+
+            /* Glass nav */
+            .glass-nav {
+                padding: 0 1rem;
+                height: var(--nav-height);
+            }
+
+            .glass-nav-title {
+                max-width: 150px;
+                font-size: 0.85rem;
+            }
+
+            .glass-nav-back span {
+                display: none;
+            }
+
+            .glass-nav-progress {
+                display: none;
+            }
+
+            /* Topic tabs */
+            .topic-tabs-nav {
+                top: var(--nav-height);
+                padding: 0.4rem 1rem;
+                gap: 0.4rem;
+                height: var(--tabs-height);
+            }
+
+            .topic-tab {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.8rem;
+            }
+
+            .topic-tabs-arrow {
+                width: 28px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+
+            /* Layout */
+            .notes-layout {
+                padding: 1rem 0.8rem 2rem;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            /* Sidebar hidden */
+            .notes-sidebar {
+                display: none;
+            }
+
+            /* Mobile TOC shown */
+            .mobile-toc {
+                display: block;
+            }
+
+            /* Topic header */
+            .topic-header {
+                padding: 1.2rem 1.2rem 1rem;
+                border-radius: var(--radius-lg);
+            }
+
+            .topic-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .topic-header .topic-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .topic-header-meta {
+                gap: 0.8rem;
+                font-size: 0.75rem;
+            }
+
+            /* Sections */
+            .notes-section {
+                padding: 1.2rem 1.2rem 1rem;
+                border-radius: var(--radius-lg);
+                margin-bottom: 1rem;
+                scroll-margin-top: 120px;
+            }
+
+            .notes-section h2 {
+                font-size: 1.15rem;
+            }
+
+            /* Term grid */
+            .term-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Episode grid */
+            .episode-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Summary grid */
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Pagination */
+            .page-navigation {
+                flex-wrap: wrap;
+                gap: 0.3rem;
+                padding: 1rem 0 0;
+            }
+
+            .page-numbers button {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+            }
+
+            .page-nav-btn {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            /* Footer */
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            /* Focus mode */
+            .focus-mode-toggle {
+                bottom: 1rem;
+                right: 1rem;
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* Small phone */
+        @media (max-width: 480px) {
+            .glass-nav-title {
+                max-width: 100px;
+                font-size: 0.75rem;
+            }
+
+            .topic-header h1 {
+                font-size: 1.2rem;
+            }
+
+            .topic-tab {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.6rem;
+            }
+
+            .notes-section {
+                padding: 1rem;
+            }
+
+            .notes-section h2 {
+                font-size: 1rem;
+            }
+
+            .content-block h3 {
+                font-size: 1rem;
+            }
+
+            .episode-card {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .priority-indicator {
+                flex-direction: column;
+            }
+        }
+
+        /* ============================================================
+                   PRINT STYLES
+                   ============================================================ */
+        @media print {
+            .glass-nav,
+            .topic-tabs-nav,
+            .notes-sidebar,
+            .mobile-toc,
+            .page-navigation,
+            .site-footer,
+            .focus-mode-toggle {
+                display: none !important;
+            }
+
+            .notes-layout {
+                padding: 0;
+                display: block;
+            }
+
+            .notes-main {
+                max-width: 100%;
+            }
+
+            .topic-header,
+            .notes-section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+                background: white !important;
+            }
+
+            .term-grid {
+                break-inside: avoid;
+            }
+
+            .table-wrapper {
+                break-inside: avoid;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+        }
     </style>
 </head>
 <body>
-    <!--
-        OPTIMIZED IFRAME LOADING:
-        - Preconnect hints added via <link> tags before iframe.
-        - Use 'fetchpriority="high"' to signal importance for main exam iframe.
-        - Use 'loading="eager"' explicitly for above-the-fold content (since it's the entire page).
-        - Add 'referrerpolicy="strict-origin-when-cross-origin"' to reduce header overhead.
-        - Use expanded Google Forms embed URL (direct forms.gle may redirect but fastest is official forms.google.com embed).
-          However, the provided short URL redirects to full Google Forms editor/view. The fastest stable embed
-          is the direct published form URL: 'https://docs.google.com/forms/d/e/1FAIpQLScF-YOUR_ID/viewform?embedded=true'
-          But we cannot reverse-engineer from given short URL without breaking content. Instead we keep original but use
-          additional optimizations: preconnect to google.com, forms.gle, and gstatic.com.
-    -->
-    
-    <!-- PRELOAD + PRECONNECT: reduce latency for Google infrastructure -->
-    <link rel="preconnect" href="https://forms.gle" crossorigin="anonymous">
-    <link rel="preconnect" href="https://www.google.com" crossorigin="anonymous">
-    <link rel="preconnect" href="https://accounts.google.com" crossorigin="anonymous">
-    <link rel="preconnect" href="https://docs.google.com" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-    <link rel="dns-prefetch" href="https://forms.gle">
-    <link rel="dns-prefetch" href="https://docs.google.com">
-    
-    <!-- Optional: preload hint for the final form destination? Not needed but improves speculative loading -->
-    
-    <div id="loadingOverlay" class="loading-overlay" aria-hidden="true">
-        <div class="loading-spinner"></div>
-    </div>
-    
-    <iframe 
-        id="examFrame"
-        src="https://forms.gle/EMLZCQQqKm9j1ciC7"
-        title="Foundations of Nursing Examination"
-        allow="fullscreen"
-        loading="eager"
-        fetchpriority="high"
-        referrerpolicy="strict-origin-when-cross-origin"
-        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
-        importance="high">
-    </iframe>
 
+    <!-- Skip Link -->
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- ============================================================
+    GLASS NAVIGATION (Top Bar)
+    ============================================================ -->
+    <header class="glass-nav" id="glassNav" role="banner">
+        <div class="glass-nav-left">
+            <a href="/episodes" class="glass-nav-back" aria-label="Back to Episodes">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                <span>Episodes</span>
+            </a>
+            <span class="glass-nav-title" aria-label="Current topic: Psychology in Nursing">1.0 Psychology in Nursing</span>
+        </div>
+        <div class="glass-nav-right">
+            <div class="glass-nav-progress">
+                <span id="progressText">0%</span>
+                <div class="glass-nav-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Reading progress">
+                    <span id="progressFill" style="width: 0%;"></span>
+                </div>
+            </div>
+            <button class="glass-nav-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top" aria-label="Scroll to top">
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+            </button>
+            <button class="glass-nav-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light mode">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    TOPIC TABS NAVIGATION
+    ============================================================ -->
+    <nav class="topic-tabs-nav" id="topicTabsNav" role="tablist" aria-label="Topics">
+        <button class="topic-tabs-arrow" id="tabsLeft" disabled aria-label="Scroll tabs left">
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+        </button>
+
+        <a href="#topic-1" class="topic-tab active" role="tab" aria-selected="true" aria-controls="topic-1-panel" id="tab-1">
+            <span class="tab-number">1.0</span> Psychology
+        </a>
+        <a href="#topic-2" class="topic-tab" role="tab" aria-selected="false" aria-controls="topic-2-panel" id="tab-2">
+            <span class="tab-number">2.0</span> Sociology
+        </a>
+        <a href="#topic-3" class="topic-tab" role="tab" aria-selected="false" aria-controls="topic-3-panel" id="tab-3">
+            <span class="tab-number">3.0</span> Anatomy 2
+        </a>
+
+        <button class="topic-tabs-arrow" id="tabsRight" aria-label="Scroll tabs right">
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </button>
+    </nav>
+
+    <!-- ============================================================
+    MAIN LAYOUT
+    ============================================================ -->
+    <div class="notes-layout">
+
+        <!-- ============================================================
+        SIDEBAR TOC (Desktop)
+        ============================================================ -->
+        <aside class="notes-sidebar" id="notesSidebar" aria-label="Table of contents">
+            <div class="sidebar-card">
+                <h4><i class="fas fa-list-ul" aria-hidden="true"></i> In this topic</h4>
+                <ul class="sidebar-toc" id="sidebarToc" role="list">
+                    <li><a href="#section-intro" aria-current="location">Introduction</a></li>
+                    <li><a href="#section-objectives">Learning Objectives</a></li>
+                    <li>
+                        <a href="#section-1">1.1 Definition of Psychology</a>
+                        <ul class="sidebar-toc toc-sub" role="list">
+                            <li><a href="#section-1-1">1.1.1 Key Concepts</a></li>
+                            <li><a href="#section-1-2">1.1.2 Nursing Relevance</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#section-2">1.2 Psychological Needs</a>
+                        <ul class="sidebar-toc toc-sub" role="list">
+                            <li><a href="#section-2-1">1.2.1 Maslow's Hierarchy</a></li>
+                            <li><a href="#section-2-2">1.2.2 Patient Assessment</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section-3">1.3 Clinical Application</a></li>
+                    <li><a href="#section-4">1.4 Summary &amp; Review</a></li>
+                    <li><a href="#section-episodes">Related Episodes</a></li>
+                </ul>
+
+                <div class="sidebar-meta">
+                    <div class="sidebar-meta-item">
+                        <i class="fas fa-file-alt" aria-hidden="true"></i>
+                        <span>9 Episodes</span>
+                    </div>
+                    <div class="sidebar-meta-item">
+                        <i class="fas fa-clock" aria-hidden="true"></i>
+                        <span>~45 min read</span>
+                    </div>
+                    <div class="sidebar-meta-item">
+                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                        <span>Updated June 2026</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================================
+        MAIN CONTENT
+        ============================================================ -->
+        <main class="notes-main" id="main-content">
+
+            <!-- ============================================================
+            MOBILE TOC
+            ============================================================ -->
+            <div class="mobile-toc">
+                <button class="mobile-toc-toggle" id="mobileTocToggle" aria-expanded="false" aria-controls="mobileTocList">
+                    <span><i class="fas fa-list-ul" aria-hidden="true"></i> Table of Contents</span>
+                    <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                </button>
+                <ul class="mobile-toc-list" id="mobileTocList" role="list" aria-hidden="true">
+                    <li><a href="#section-intro">Introduction</a></li>
+                    <li><a href="#section-objectives">Learning Objectives</a></li>
+                    <li><a href="#section-1">1.1 Definition of Psychology</a></li>
+                    <li class="toc-sub-mobile"><a href="#section-1-1">1.1.1 Key Concepts</a></li>
+                    <li class="toc-sub-mobile"><a href="#section-1-2">1.1.2 Nursing Relevance</a></li>
+                    <li><a href="#section-2">1.2 Psychological Needs</a></li>
+                    <li class="toc-sub-mobile"><a href="#section-2-1">1.2.1 Maslow's Hierarchy</a></li>
+                    <li class="toc-sub-mobile"><a href="#section-2-2">1.2.2 Patient Assessment</a></li>
+                    <li><a href="#section-3">1.3 Clinical Application</a></li>
+                    <li><a href="#section-4">1.4 Summary &amp; Review</a></li>
+                    <li><a href="#section-episodes">Related Episodes</a></li>
+                </ul>
+            </div>
+
+            <!-- ============================================================
+            TOPIC HEADER
+            ============================================================ -->
+            <header class="topic-header" id="section-intro">
+                <div class="topic-badge">
+                    <i class="fas fa-graduation-cap" aria-hidden="true"></i> Topic 1.0
+                </div>
+                <h1>Psychology in Nursing</h1>
+                <p class="topic-subtitle">Understanding human behavior, mental processes, and their application in patient care</p>
+                <div class="topic-header-meta">
+                    <span><i class="fas fa-file-alt" aria-hidden="true"></i> 9 Episodes</span>
+                    <span><i class="fas fa-clock" aria-hidden="true"></i> ~45 min read</span>
+                    <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> Updated June 2026</span>
+                    <span><i class="fas fa-tag" aria-hidden="true"></i> Psychology, Nursing Foundation</span>
+                </div>
+
+                <!-- Mastery Meter -->
+                <div class="mastery-meter">
+                    <div class="mastery-bar">
+                        <span class="mastery-fill" style="width: 45%" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Mastery progress"></span>
+                    </div>
+                    <div class="mastery-stats">
+                        <span><i class="fas fa-check-circle" aria-hidden="true"></i> 4/9 Episodes Complete</span>
+                        <span><i class="fas fa-star" aria-hidden="true"></i> 65% Mastery</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ============================================================
+            LEARNING OBJECTIVES
+            ============================================================ -->
+            <section class="notes-section" id="section-objectives" aria-labelledby="objectives-heading">
+                <h2 id="objectives-heading"><span class="section-icon"><i class="fas fa-flag-checkered" aria-hidden="true"></i></span> Learning Objectives</h2>
+                <p class="section-subtitle">By the end of this topic, you should be able to:</p>
+                <ul class="objectives-list">
+                    <li>
+                        <span class="obj-icon"><i class="fas fa-check-circle" aria-hidden="true"></i></span>
+                        <span>Define psychology and explain its relevance to nursing practice</span>
+                    </li>
+                    <li>
+                        <span class="obj-icon"><i class="fas fa-check-circle" aria-hidden="true"></i></span>
+                        <span>Identify key psychological concepts and theories used in patient care</span>
+                    </li>
+                    <li>
+                        <span class="obj-icon"><i class="fas fa-check-circle" aria-hidden="true"></i></span>
+                        <span>Apply psychological principles to assess and address patient needs</span>
+                    </li>
+                    <li>
+                        <span class="obj-icon"><i class="fas fa-check-circle" aria-hidden="true"></i></span>
+                        <span>Recognize the psychological aspects of illness and hospitalization</span>
+                    </li>
+                    <li>
+                        <span class="obj-icon"><i class="fas fa-check-circle" aria-hidden="true"></i></span>
+                        <span>Integrate psychological knowledge into holistic nursing care</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- ============================================================
+            SECTION 1: DEFINITION OF PSYCHOLOGY
+            ============================================================ -->
+            <section class="notes-section" id="section-1" aria-labelledby="section1-heading">
+                <h2 id="section1-heading"><span class="section-icon"><i class="fas fa-brain" aria-hidden="true"></i></span> 1.1 Definition of Psychology</h2>
+                <p class="section-subtitle">Understanding the scientific study of behavior and mental processes</p>
+
+                <div class="content-block" id="section-1-1">
+                    <h3 id="subsection1-heading"><span class="h3-number">1.1.1</span> Key Concepts</h3>
+                    <p>
+                        <strong>Psychology</strong> is the scientific study of behavior and mental processes. 
+                        It encompasses everything from the biological underpinnings of our actions to the 
+                        social and cultural influences that shape who we are.
+                    </p>
+                    <p>
+                        In the context of nursing, psychology provides a framework for understanding how 
+                        patients think, feel, and behave in response to illness, treatment, and the healthcare 
+                        environment.
+                    </p>
+
+                    <!-- Term Grid -->
+                    <div class="term-grid">
+                        <div class="term-item">
+                            <span class="term-name">Behavior</span>
+                            <span class="term-def">Any observable action, response, or activity of an organism</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Cognition</span>
+                            <span class="term-def">Mental processes including thinking, memory, perception, and problem-solving</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Affect</span>
+                            <span class="term-def">The experience and expression of emotion</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Motivation</span>
+                            <span class="term-def">The internal processes that initiate, guide, and maintain goal-directed behavior</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Personality</span>
+                            <span class="term-def">The unique pattern of thoughts, feelings, and behaviors that characterize an individual</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Stress</span>
+                            <span class="term-def">The body's response to demands or threats, affecting physical and mental health</span>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Card -->
+                    <div class="clinical-card">
+                        <div class="card-label"><i class="fas fa-stethoscope" aria-hidden="true"></i> Clinical Insight</div>
+                        <p>
+                            <strong>Nurses apply psychology daily</strong> when assessing patient anxiety, 
+                            understanding coping mechanisms, and identifying readiness for behavioral change. 
+                            A patient's psychological state significantly impacts their physical recovery, 
+                            treatment adherence, and overall health outcomes.
+                        </p>
+                    </div>
+
+                    <!-- Evidence Badge -->
+                    <div style="margin-top: 1rem;">
+                        <span class="evidence-badge level-a"><i class="fas fa-check-double" aria-hidden="true"></i> Level A Evidence</span>
+                    </div>
+                </div>
+
+                <div class="content-block" id="section-1-2">
+                    <h3 id="subsection2-heading"><span class="h3-number">1.1.2</span> Nursing Relevance</h3>
+                    <p>
+                        Psychology is integral to nursing for several reasons:
+                    </p>
+                    <ul>
+                        <li><strong>Patient Assessment:</strong> Understanding psychological factors helps nurses conduct comprehensive assessments</li>
+                        <li><strong>Communication:</strong> Psychological knowledge enhances therapeutic communication skills</li>
+                        <li><strong>Behavior Change:</strong> Nurses use psychological principles to promote healthy behaviors</li>
+                        <li><strong>Stress Management:</strong> Recognizing and addressing patient stress improves outcomes</li>
+                        <li><strong>Emotional Support:</strong> Understanding emotional responses enables better patient support</li>
+                    </ul>
+
+                    <!-- Smart Table -->
+                    <div class="table-wrapper">
+                        <table>
+                            <caption class="sr-only">Psychological concepts and their nursing applications</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Psychological Concept</th>
+                                    <th scope="col">Definition</th>
+                                    <th scope="col">Nursing Application</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Psychological Concept"><strong>Behavior</strong></td>
+                                    <td data-label="Definition">Any observable action or response</td>
+                                    <td data-label="Nursing Application">Assess patient compliance, activity level, and response to treatment</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Psychological Concept"><strong>Cognition</strong></td>
+                                    <td data-label="Definition">Mental processes of thinking and understanding</td>
+                                    <td data-label="Nursing Application">Evaluate patient understanding of health information and decision-making capacity</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Psychological Concept"><strong>Affect</strong></td>
+                                    <td data-label="Definition">Emotional expression and experience</td>
+                                    <td data-label="Nursing Application">Recognize signs of depression, anxiety, or emotional distress</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Psychological Concept"><strong>Motivation</strong></td>
+                                    <td data-label="Definition">Internal drives that guide behavior</td>
+                                    <td data-label="Nursing Application">Identify factors that influence patient engagement in care</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Psychological Concept"><strong>Personality</strong></td>
+                                    <td data-label="Definition">Unique patterns of thoughts and behaviors</td>
+                                    <td data-label="Nursing Application">Understand individual differences in patient responses to illness</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            SECTION 2: PSYCHOLOGICAL NEEDS
+            ============================================================ -->
+            <section class="notes-section" id="section-2" aria-labelledby="section2-heading">
+                <h2 id="section2-heading"><span class="section-icon"><i class="fas fa-heart" aria-hidden="true"></i></span> 1.2 Psychological Needs</h2>
+                <p class="section-subtitle">Understanding and addressing the psychological needs of patients</p>
+
+                <div class="content-block" id="section-2-1">
+                    <h3 id="subsection3-heading"><span class="h3-number">1.2.1</span> Maslow's Hierarchy of Needs</h3>
+                    <p>
+                        Abraham Maslow's hierarchy of needs is a foundational theory in nursing psychology. 
+                        It proposes that human needs are arranged in a hierarchy, with basic physiological needs 
+                        at the base and self-actualization at the top.
+                    </p>
+                    <p>
+                        For nurses, understanding this hierarchy is essential because <strong>higher-level needs 
+                        cannot be effectively addressed until lower-level needs are met</strong>. A patient in 
+                        pain (physiological need) will not respond well to education about lifestyle changes 
+                        (self-esteem needs) until their pain is managed.
+                    </p>
+
+                    <!-- Priority Indicator -->
+                    <div class="priority-indicator">
+                        <div class="priority-item critical">
+                            <span class="priority-letter">A</span>
+                            <span class="priority-label">Airway</span>
+                            <span class="priority-status">Stable</span>
+                        </div>
+                        <div class="priority-item warning">
+                            <span class="priority-letter">B</span>
+                            <span class="priority-label">Breathing</span>
+                            <span class="priority-status">Monitor</span>
+                        </div>
+                        <div class="priority-item normal">
+                            <span class="priority-letter">C</span>
+                            <span class="priority-label">Circulation</span>
+                            <span class="priority-status">Stable</span>
+                        </div>
+                    </div>
+
+                    <!-- Warning Card -->
+                    <div class="warning-card">
+                        <div class="card-label"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Clinical Warning</div>
+                        <p>
+                            <strong>Never assume that all patients have their basic needs met.</strong> 
+                            Always assess for:
+                        </p>
+                        <ul>
+                            <li>Pain and physical comfort</li>
+                            <li>Safety concerns (falls, abuse, neglect)</li>
+                            <li>Nutrition and hydration</li>
+                            <li>Sleep and rest</li>
+                            <li>Elimination needs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-block" id="section-2-2">
+                    <h3 id="subsection4-heading"><span class="h3-number">1.2.2</span> Patient Assessment of Psychological Needs</h3>
+                    <p>
+                        Effective nursing assessment of psychological needs involves observation, interview, 
+                        and the use of standardized tools. Key areas to assess include:
+                    </p>
+                    <ul>
+                        <li><strong>Emotional State:</strong> Anxiety, depression, fear, anger, grief</li>
+                        <li><strong>Coping Mechanisms:</strong> Adaptive vs. maladaptive coping strategies</li>
+                        <li><strong>Support Systems:</strong> Family, friends, community resources</li>
+                        <li><strong>Stressors:</strong> Current sources of stress and their impact</li>
+                        <li><strong>Self-Esteem:</strong> Patient's perception of self-worth and body image</li>
+                    </ul>
+
+                    <div class="tip-card">
+                        <div class="card-label"><i class="fas fa-lightbulb" aria-hidden="true"></i> Nursing Tip</div>
+                        <p>
+                            <strong>Use therapeutic communication techniques:</strong>
+                            Active listening, open-ended questions, and empathetic responses are essential tools 
+                            for assessing psychological needs. Create a safe, non-judgmental environment where 
+                            patients feel comfortable expressing their concerns.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            SECTION 3: CLINICAL APPLICATION
+            ============================================================ -->
+            <section class="notes-section" id="section-3" aria-labelledby="section3-heading">
+                <h2 id="section3-heading"><span class="section-icon"><i class="fas fa-user-md" aria-hidden="true"></i></span> 1.3 Clinical Application</h2>
+                <p class="section-subtitle">Applying psychological principles in nursing practice</p>
+
+                <div class="content-block">
+                    <h3>Common Psychological Challenges in Patients</h3>
+                    <p>
+                        Patients experience a range of psychological challenges that nurses must recognize 
+                        and address:
+                    </p>
+                    <ul>
+                        <li><strong>Anxiety:</strong> Related to diagnosis, treatment, unknown outcomes</li>
+                        <li><strong>Depression:</strong> Common in chronic illness, pain, and disability</li>
+                        <li><strong>Fear:</strong> Of pain, death, loss of independence, the unknown</li>
+                        <li><strong>Grief and Loss:</strong> Loss of health, function, identity, and life as it was</li>
+                        <li><strong>Anger and Frustration:</strong> Often directed at healthcare providers or family</li>
+                        <li><strong>Denial:</strong> A common initial response to serious diagnosis</li>
+                        <li><strong>Withdrawal:</strong> Social isolation and reduced communication</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h3>Nursing Interventions</h3>
+                    <div class="term-grid">
+                        <div class="term-item">
+                            <span class="term-name">Therapeutic Communication</span>
+                            <span class="term-def">Active listening, empathy, open-ended questions, validation</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Patient Education</span>
+                            <span class="term-def">Information provision, health literacy, self-management strategies</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Emotional Support</span>
+                            <span class="term-def">Empathy, presence, validation of feelings, reassurance</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Stress Management</span>
+                            <span class="term-def">Relaxation techniques, coping strategies, referrals to support services</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Advocacy</span>
+                            <span class="term-def">Ensuring patient voices are heard, addressing concerns with the healthcare team</span>
+                        </div>
+                        <div class="term-item">
+                            <span class="term-name">Multidisciplinary Collaboration</span>
+                            <span class="term-def">Working with psychologists, social workers, and other healthcare providers</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clinical-card">
+                    <div class="card-label"><i class="fas fa-clipboard-list" aria-hidden="true"></i> Case Scenario</div>
+                    <p>
+                        <strong>Patient:</strong> A 45-year-old woman newly diagnosed with breast cancer. 
+                        She expresses fear about treatment, concerns about body image, and anxiety about 
+                        the impact on her family.
+                    </p>
+                    <p style="margin-top: 0.5rem;">
+                        <strong>Nursing Actions:</strong>
+                        <br>
+                        1. Provide a safe space for her to express her feelings
+                        <br>
+                        2. Offer information about treatment options in understandable terms
+                        <br>
+                        3. Connect her with support groups and counseling services
+                        <br>
+                        4. Include family members in education and support
+                        <br>
+                        5. Collaborate with the multidisciplinary team (psychologist, social worker, oncology team)
+                        <br>
+                        6. Monitor for signs of depression or anxiety that may require referral
+                    </p>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            SECTION 4: SUMMARY & REVIEW
+            ============================================================ -->
+            <section class="notes-section" id="section-4" aria-labelledby="section4-heading">
+                <h2 id="section4-heading"><span class="section-icon"><i class="fas fa-check-double" aria-hidden="true"></i></span> 1.4 Summary &amp; Review</h2>
+                <p class="section-subtitle">Key takeaways and self-assessment questions</p>
+
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <h4><i class="fas fa-key" style="color: var(--primary-blue);" aria-hidden="true"></i> Key Takeaways</h4>
+                        <ul>
+                            <li>Psychology is the scientific study of behavior and mental processes</li>
+                            <li>Understanding psychology is essential for holistic patient care</li>
+                            <li>Psychological assessment is a core nursing competency</li>
+                            <li>Maslow's hierarchy provides a framework for prioritizing patient needs</li>
+                            <li>Patients experience a range of psychological challenges that nurses must address</li>
+                            <li>Therapeutic communication is the foundation of psychological nursing care</li>
+                        </ul>
+                    </div>
+                    <div class="summary-item">
+                        <h4><i class="fas fa-book" style="color: var(--primary-green);" aria-hidden="true"></i> Key Terms</h4>
+                        <ul>
+                            <li>Psychology</li>
+                            <li>Behavior</li>
+                            <li>Cognition</li>
+                            <li>Affect</li>
+                            <li>Motivation</li>
+                            <li>Personality</li>
+                            <li>Stress</li>
+                            <li>Homeostasis</li>
+                            <li>Therapeutic Communication</li>
+                            <li>Coping Mechanisms</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="review-questions">
+                    <h4><i class="fas fa-question-circle" style="color: var(--primary-orange);" aria-hidden="true"></i> Review Questions</h4>
+                    <ol>
+                        <li>Define psychology and explain its relevance to nursing practice.</li>
+                        <li>Identify and describe the key psychological concepts used in patient assessment.</li>
+                        <li>Explain Maslow's hierarchy of needs and its application in nursing.</li>
+                        <li>List five common psychological challenges that patients may experience.</li>
+                        <li>Describe three nursing interventions for addressing patient anxiety.</li>
+                        <li>Explain the role of therapeutic communication in psychological nursing care.</li>
+                        <li>How does understanding psychology contribute to holistic patient care?</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            RELATED EPISODES (MCQs)
+            ============================================================ -->
+            <section class="notes-section" id="section-episodes" aria-labelledby="episodes-heading">
+                <h2 id="episodes-heading"><span class="section-icon"><i class="fas fa-clipboard-question" aria-hidden="true"></i></span> Related Episodes (MCQs)</h2>
+                <p class="section-subtitle">Test your understanding with these multiple-choice question episodes</p>
+
+                <div class="episode-grid">
+                    <a href="/episodes/psychology-introduction" class="episode-card" aria-label="Episode 01: Psychology Introduction">
+                        <span class="ep-number">EP01</span>
+                        <span class="ep-title">Psychology Introduction</span>
+                        <span class="ep-arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+                    <a href="/episodes/psychological-needs" class="episode-card" aria-label="Episode 02: Psychological Needs">
+                        <span class="ep-number">EP02</span>
+                        <span class="ep-title">Psychological Needs</span>
+                        <span class="ep-arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+                    <a href="/episodes/psychological-challenges" class="episode-card" aria-label="Episode 03: Psychological Challenges and Dilemmas">
+                        <span class="ep-number">EP03</span>
+                        <span class="ep-title">Psychological Challenges and Dilemmas</span>
+                        <span class="ep-arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+                    <a href="/episodes/psychosocial-development" class="episode-card" aria-label="Episode 04: Psychosocial Development">
+                        <span class="ep-number">EP04</span>
+                        <span class="ep-title">Psychosocial Development</span>
+                        <span class="ep-arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+                    <a href="/episodes/personality" class="episode-card" aria-label="Episode 05: Personality">
+                        <span class="ep-number">EP05</span>
+                        <span class="ep-title">Personality</span>
+                        <span class="ep-arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+                    <a href="/episodes/stress-and-emotions" class="episode-card" aria-label="Episode 06: Stress and Stressors, Emotions">
+                        <span class="ep-number">EP06</span>
+                        <span class="ep-title">Stress and Stressors, Emotions</span>
+                        <span class="ep-arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+                    <a href="/episodes/mind-body-relationship" class="episode-card" aria-label="Episode 07: Mind and Body Relationship">
+                        <span class="ep-number">EP07</span>
+                        <span class="ep-title">Mind and Body Relationship</span>
+                        <span class="ep-arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+                    <a href="/episodes/intelligence-learning" class="episode-card" aria-label="Episode 08: Intelligence and Learning">
+                        <span class="ep-number">EP08</span>
+                        <span class="ep-title">Intelligence and Learning</span>
+                        <span class="ep-arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+                    <a href="/episodes/cognitive-development" class="episode-card" aria-label="Episode 09: Cognitive Development">
+                        <span class="ep-number">EP09</span>
+                        <span class="ep-title">Cognitive Development</span>
+                        <span class="ep-arrow"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+                </div>
+
+                <div class="episode-note">
+                    <i class="fas fa-info-circle" aria-hidden="true"></i>
+                    <span>Complete these episodes to reinforce your understanding and track your progress</span>
+                </div>
+            </section>
+
+            <!-- ============================================================
+            PAGE NAVIGATION (Pagination)
+            ============================================================ -->
+            <nav class="page-navigation" aria-label="Pagination">
+                <button class="page-nav-btn" disabled aria-label="Previous page">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i> Prev
+                </button>
+                <div class="page-numbers" role="list">
+                    <button aria-current="page" aria-label="Page 1">1</button>
+                    <button aria-label="Page 2">2</button>
+                    <button aria-label="Page 3">3</button>
+                    <span class="dots" aria-hidden="true">…</span>
+                    <button aria-label="Page 7">7</button>
+                </div>
+                <button class="page-nav-btn" aria-label="Next page">
+                    Next <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </nav>
+
+        </main>
+    </div>
+
+    <!-- ============================================================
+    FOCUS MODE TOGGLE
+    ============================================================ -->
+    <button class="focus-mode-toggle" id="focusToggle" aria-label="Toggle focus mode">
+        <i class="fas fa-expand" aria-hidden="true"></i>
+        <span>Focus Mode</span>
+    </button>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-copy">
+                <i class="far fa-copyright" aria-hidden="true"></i> 2026 Clareon — open knowledge universe
+            </div>
+            <div class="footer-links">
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://whatsapp.com/channel/0029Vb7UygL1dAvuZvBWhB3y" target="_blank" rel="noopener" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <a href="https://t.me/clareoniz" target="_blank" rel="noopener" aria-label="Telegram">
+                    <i class="fab fa-telegram" aria-hidden="true"></i>
+                </a>
+                <a href="https://youtube.com/@clareoniz" target="_blank" rel="noopener" aria-label="YouTube">
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
+                </a>
+                <a href="https://tiktok.com/@clareoniz" target="_blank" rel="noopener" aria-label="TikTok">
+                    <i class="fab fa-tiktok" aria-hidden="true"></i>
+                </a>
+                <a href="https://instagram.com/clareoniz" target="_blank" rel="noopener" aria-label="Instagram">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
     <script>
-        // ========== PERFORMANCE SCRIPT: Fast loading and overlay removal ==========
-        // Goals: 
-        // 1. Remove loading overlay as soon as iframe signals load OR after a short max wait to ensure always gone.
-        // 2. Use event listeners with 'once' to reduce overhead.
-        // 3. Also use fallback with requestIdleCallback to remove overlay after 1.2s if the 'load' event
-        //    didn't fire (for cases where iframe never triggers load due to redirects or cross-origin restrictions).
-        // 4. Avoid unnecessary reflows, keep script minimal and non-blocking.
-        
         (function() {
-            // Get elements
-            const overlay = document.getElementById('loadingOverlay');
-            const iframe = document.getElementById('examFrame');
-            
-            // Safety check: if overlay doesn't exist, exit
-            if (!overlay) return;
-            
-            // Helper to remove overlay smoothly (fade then remove)
-            function removeOverlay() {
-                // Only remove once
-                if (overlay.getAttribute('data-removed') === 'true') return;
-                overlay.setAttribute('data-removed', 'true');
-                
-                // Short fade-out for perceptual smoothness (0.2s) then remove from DOM completely
-                overlay.style.transition = 'opacity 0.2s ease-out';
-                overlay.style.opacity = '0';
-                
-                // Remove from DOM after transition completes to free resources and avoid overlay blocking clicks
-                const onTransitionEnd = () => {
-                    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-                };
-                overlay.addEventListener('transitionend', onTransitionEnd, { once: true });
-                
-                // Fallback in case transitionend doesn't fire (e.g., display:none change)
-                setTimeout(() => {
-                    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-                }, 250);
+            'use strict';
+
+            // ============================================================
+            // THEME TOGGLE - FIXED
+            // ============================================================
+            const themeToggle = document.getElementById('themeToggle');
+            const htmlElement = document.documentElement;
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('clareon-theme');
+            if (savedTheme === 'dark') {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
             }
-            
-            // MARK: iframe load event - most reliable when iframe's main document loads
-            // Even for cross-origin iframes, the load event fires when the iframe's initial src finishes loading.
-            if (iframe) {
-                // Use 'load' event with 'once' for efficiency. However, due to redirects from forms.gle to actual forms URL,
-                // the load event still fires appropriately.
-                iframe.addEventListener('load', function onIframeLoad() {
-                    // For Google Forms, the iframe content may redirect multiple times, but load fires after navigation settles.
-                    // Remove overlay as fast as possible.
-                    removeOverlay();
-                }, { once: true });
-            }
-            
-            // Fallback 1: if load event never fires (some browsers or strange redirect cases), use a fast timeout.
-            // Google Forms usually loads under 800ms but to be safe we set max 1.5 seconds before removing overlay.
-            // Yet since we want "faster load" perception, we also use a shorter optimistic timeout of 600ms to guess loading.
-            // But we must not remove too early before form is interactive. The safest: use load event + max 1.2 seconds timeout.
-            // To improve: use requestIdleCallback to detect if overlay still present after 1 second, then remove anyway.
-            // Additionally, we might use 'pageshow' but not needed.
-            
-            // Timeout fallback: remove overlay after at most 1.4 seconds if not already removed.
-            // This ensures overlay never stays forever, while load event usually triggers earlier.
-            setTimeout(() => {
-                // Check if overlay still in DOM and not removed
-                if (overlay.parentNode) {
-                    removeOverlay();
+
+            themeToggle.addEventListener('click', function() {
+                const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+                if (isDark) {
+                    htmlElement.removeAttribute('data-theme');
+                    localStorage.setItem('clareon-theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i>';
+                } else {
+                    htmlElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('clareon-theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
                 }
-            }, 1400);
-            
-            // Extra performance: Listen to iframe's error? Not required. 
-            // Also, remove overlay immediately when user interacts? Not needed.
-            
-            // OPTIMIZATION: Use 'requestAnimationFrame' to early hint browser about idle time? Not needed.
-            // However, to reduce jank, we also tell browser we are ready for quick paints.
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(() => {
-                    // Perform optional passive tasks: ensure we don't hold memory
-                    if (overlay && overlay.parentNode && !overlay.getAttribute('data-removed')) {
-                        // Not removed yet? The load event likely failed, so force removal.
-                        removeOverlay();
+            });
+
+            // ============================================================
+            // FOCUS MODE
+            // ============================================================
+            const focusToggle = document.getElementById('focusToggle');
+            let isFocusMode = false;
+
+            focusToggle.addEventListener('click', function() {
+                isFocusMode = !isFocusMode;
+                document.body.classList.toggle('focus-mode', isFocusMode);
+                const icon = this.querySelector('i');
+                const text = this.querySelector('span');
+                if (isFocusMode) {
+                    icon.className = 'fas fa-compress';
+                    text.textContent = 'Exit Focus';
+                    this.setAttribute('aria-label', 'Exit focus mode');
+                } else {
+                    icon.className = 'fas fa-expand';
+                    text.textContent = 'Focus Mode';
+                    this.setAttribute('aria-label', 'Toggle focus mode');
+                }
+            });
+
+            // ============================================================
+            // MOBILE TOC TOGGLE
+            // ============================================================
+            const tocToggle = document.getElementById('mobileTocToggle');
+            const tocList = document.getElementById('mobileTocList');
+
+            if (tocToggle && tocList) {
+                tocToggle.addEventListener('click', function() {
+                    const isOpen = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !isOpen);
+                    tocList.setAttribute('aria-hidden', isOpen);
+                    const icon = this.querySelector('i.fa-chevron-down, i.fa-chevron-up');
+                    if (icon) {
+                        icon.className = isOpen ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
                     }
-                }, { timeout: 800 });
-            } else {
-                // Fallback for older browsers: set additional timeout 900ms
-                setTimeout(() => {
-                    if (overlay && overlay.parentNode && !overlay.getAttribute('data-removed')) {
-                        removeOverlay();
+                });
+
+                // Close when a link is clicked
+                tocList.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        tocToggle.setAttribute('aria-expanded', 'false');
+                        tocList.setAttribute('aria-hidden', 'true');
+                        const icon = tocToggle.querySelector('i.fa-chevron-down, i.fa-chevron-up');
+                        if (icon) {
+                            icon.className = 'fas fa-chevron-down';
+                        }
+                    });
+                });
+
+                // Close on Escape key
+                tocToggle.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && this.getAttribute('aria-expanded') === 'true') {
+                        this.click();
                     }
-                }, 900);
+                });
             }
+
+            // ============================================================
+            // SIDEBAR TOC ACTIVE STATE (Intersection Observer)
+            // ============================================================
+            const sections = document.querySelectorAll('.notes-section, .topic-header');
+            const tocLinks = document.querySelectorAll('#sidebarToc a');
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.id;
+                            tocLinks.forEach(function(link) {
+                                link.removeAttribute('aria-current');
+                                const href = link.getAttribute('href');
+                                if (href && href.substring(1) === id) {
+                                    link.setAttribute('aria-current', 'location');
+                                    // Highlight parent
+                                    const parentLi = link.closest('li');
+                                    if (parentLi && parentLi.parentElement && parentLi.parentElement
+                                        .parentElement && parentLi.parentElement.parentElement
+                                        .tagName === 'LI') {
+                                        const parentLink = parentLi.parentElement.parentElement
+                                            .querySelector('> a');
+                                        if (parentLink) {
+                                            parentLink.setAttribute('aria-current', 'location');
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }, {
+                    rootMargin: '-100px 0px -400px 0px',
+                    threshold: 0
+                });
+
+                sections.forEach(function(section) {
+                    observer.observe(section);
+                });
+            } else {
+                // Fallback to scroll listener
+                function updateActiveToc() {
+                    let currentId = '';
+                    const scrollPos = window.scrollY + 150;
+                    sections.forEach(function(section) {
+                        const sectionTop = section.offsetTop;
+                        const sectionHeight = section.offsetHeight;
+                        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                            currentId = section.id;
+                        }
+                    });
+                    tocLinks.forEach(function(link) {
+                        link.removeAttribute('aria-current');
+                        const href = link.getAttribute('href');
+                        if (href && href.substring(1) === currentId) {
+                            link.setAttribute('aria-current', 'location');
+                        }
+                    });
+                }
+                window.addEventListener('scroll', updateActiveToc);
+                window.addEventListener('resize', updateActiveToc);
+                updateActiveToc();
+            }
+
+            // ============================================================
+            // GLASS NAV SCROLL EFFECT
+            // ============================================================
+            const glassNav = document.getElementById('glassNav');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 20) {
+                    glassNav.classList.add('glass-nav-scrolled');
+                } else {
+                    glassNav.classList.remove('glass-nav-scrolled');
+                }
+            }, { passive: true });
+
+            // ============================================================
+            // READING PROGRESS
+            // ============================================================
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            function updateProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = Math.max(
+                    document.documentElement.scrollHeight,
+                    document.body.scrollHeight
+                ) - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                const clampedProgress = Math.min(progress, 100);
+                if (progressFill) {
+                    progressFill.style.width = clampedProgress + '%';
+                    progressFill.parentElement.setAttribute('aria-valuenow', Math.round(clampedProgress));
+                }
+                if (progressText) {
+                    progressText.textContent = Math.round(clampedProgress) + '%';
+                }
+            }
+
+            window.addEventListener('scroll', updateProgress, { passive: true });
+            window.addEventListener('resize', updateProgress, { passive: true });
+            updateProgress();
+
+            // ============================================================
+            // TOPIC TABS SCROLL
+            // ============================================================
+            const tabsNav = document.getElementById('topicTabsNav');
+            const tabsLeft = document.getElementById('tabsLeft');
+            const tabsRight = document.getElementById('tabsRight');
+
+            if (tabsNav && tabsLeft && tabsRight) {
+                function updateTabArrows() {
+                    const scrollLeft = tabsNav.scrollLeft;
+                    const maxScroll = tabsNav.scrollWidth - tabsNav.clientWidth;
+                    tabsLeft.disabled = scrollLeft <= 5;
+                    tabsRight.disabled = scrollLeft >= maxScroll - 5;
+                }
+
+                tabsLeft.addEventListener('click', function() {
+                    tabsNav.scrollBy({ left: -200, behavior: 'smooth' });
+                });
+
+                tabsRight.addEventListener('click', function() {
+                    tabsNav.scrollBy({ left: 200, behavior: 'smooth' });
+                });
+
+                tabsNav.addEventListener('scroll', updateTabArrows, { passive: true });
+                window.addEventListener('resize', updateTabArrows, { passive: true });
+                updateTabArrows();
+            }
+
+            // ============================================================
+            // TOPIC TAB ACTIVE STATE
+            // ============================================================
+            const topicTabs = document.querySelectorAll('.topic-tab');
+
+            topicTabs.forEach(function(tab) {
+                tab.addEventListener('click', function(e) {
+                    topicTabs.forEach(function(t) {
+                        t.setAttribute('aria-selected', 'false');
+                    });
+                    this.setAttribute('aria-selected', 'true');
+                });
+            });
+
+            // ============================================================
+            // PAGE NUMBER CLICK
+            // ============================================================
+            const pageNumbers = document.querySelectorAll('.page-numbers button:not(.dots)');
+
+            pageNumbers.forEach(function(num) {
+                num.addEventListener('click', function() {
+                    pageNumbers.forEach(function(n) {
+                        n.removeAttribute('aria-current');
+                    });
+                    this.setAttribute('aria-current', 'page');
+                    document.querySelector('.notes-main').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+
+            // ============================================================
+            // TABLE RESPONSIVENESS
+            // ============================================================
+            document.querySelectorAll('.table-wrapper table').forEach(function(table) {
+                const headers = table.querySelectorAll('thead th');
+                table.querySelectorAll('tbody tr').forEach(function(row) {
+                    row.querySelectorAll('td').forEach(function(cell, index) {
+                        if (headers[index]) {
+                            cell.setAttribute('data-label', headers[index].textContent.trim());
+                        }
+                    });
+                });
+            });
+
+            // ============================================================
+            // KEYBOARD SHORTCUTS
+            // ============================================================
+            document.addEventListener('keydown', function(e) {
+                // Alt + T: Toggle theme
+                if (e.altKey && e.key === 't') {
+                    e.preventDefault();
+                    themeToggle.click();
+                }
+                // Alt + F: Toggle focus mode
+                if (e.altKey && e.key === 'f') {
+                    e.preventDefault();
+                    focusToggle.click();
+                }
+                // Escape: Close mobile TOC if open
+                if (e.key === 'Escape') {
+                    if (tocToggle && tocToggle.getAttribute('aria-expanded') === 'true') {
+                        tocToggle.click();
+                    }
+                }
+            });
+
+            console.log('📚 Notes template loaded successfully!');
+            console.log('⌨️ Keyboard shortcuts: Alt+T (theme), Alt+F (focus mode)');
+
         })();
-        
-        // ========== ADDITIONAL PERFORMANCE TWEAKS ==========
-        // Dynamically set iframe attributes to avoid any extra render delay.
-        // Ensure that scroll behavior is smooth, disable any extra pointer events on overlay.
-        // Also for modern browsers: we can use 'fetchpriority' already on iframe.
-        
-        // Optionally, to further reduce initial render cost: avoid any font loading, the page has zero external fonts.
-        // Already inline CSS ensures no render blocking resources.
-        
-        // If the short URL causes an extra redirect, we could transform it to the direct embed URL if we had mapping.
-        // However, we can't dynamically resolve the published form ID via client-side due to CORS, but we can add
-        // performance hints by prefetching the redirect location? Not safe. Better keep original.
-        // Additionally, we can set iframe's 'srcdoc'? No, because we need actual Google Form.
-        
-        // For maximum speed on repeat views, we can also add cache hints, but this is just HTML/CSS/JS.
-        // Implementing an early 'preconnect' to the final endpoint after redirect is not possible without server.
-        // But we have preconnect to forms.gle, docs.google.com, etc. Enough.
-        
-        // Update: To ensure no layout shift due to scrollbar, we set body overflow:hidden, iframe 100% width/height.
-        // That's already fine.
-        
-        // ========== BONUS: Disable any autofocus to avoid conflicts ==========
-        // Also ensure the iframe's src is not deferred incorrectly.
-        // 'loading' is 'eager' so it loads immediately. There is also 'fetchpriority' attribute.
-        
-        // For browsers that support 'priority hints', we are all set.
-        
-        // Additionally, after removing the overlay, we could clear the spinner from memory.
-        // Overlay is entirely removed from DOM, freeing resources.
-        
-        // ========== Alternative: Provide a direct embed URL fallback? Not needed ==========
-        // But we can also detect if the iframe failed to load due to network and still remove overlay.
-        window.addEventListener('online', () => {
-            // minor: iframe might reload but no action needed.
-        });
-        
-        // Fully non-blocking, script size is minimal, no external libraries.
-        // This yields significant load time improvements compared to original HTML.
     </script>
+
 </body>
 </html>
