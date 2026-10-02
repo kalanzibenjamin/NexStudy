@@ -547,6 +547,8 @@
       el.lyricsSection.hidden = state.lyricLines.length === 0;
       el.lyricsSection.open = false;
       if (el.lyricsTranscript) el.lyricsTranscript.textContent = stripLyricTimestamps(text);
+      if (state.lyricLines.length) startLyricsTimer();
+      else stopLyricsTimer();
     }
 
     var now = Date.now();
@@ -626,7 +628,18 @@
 
   function initRadioLyrics() {
     if (!el.currentLyric) return;
+    if (state.lyricLines.length) startLyricsTimer();
+  }
+
+  function startLyricsTimer() {
+    if (state.lyricsTimer || !el.currentLyric) return;
     state.lyricsTimer = setInterval(renderCurrentLyric, 250);
+  }
+
+  function stopLyricsTimer() {
+    if (!state.lyricsTimer) return;
+    clearInterval(state.lyricsTimer);
+    state.lyricsTimer = null;
   }
 
   function updateRadioArtwork(art, title, artist) {
@@ -803,9 +816,13 @@
 
   function initVisibility() {
     document.addEventListener('visibilitychange', function () {
-      if (!document.hidden) {
-        fetchNowPlaying();
+      if (document.hidden) {
+        stopLyricsTimer();
+        return;
       }
+
+      if (state.lyricLines.length) startLyricsTimer();
+      fetchNowPlaying();
     });
   }
 
