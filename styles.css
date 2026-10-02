@@ -811,12 +811,6 @@
       font-weight: 600;
       line-height: 1.5;
     }
-    .radio-current-lyric-character.is-active {
-      color: var(--accent-blue);
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 0.15em;
-    }
     .radio-lyrics {
       width: min(100%, 560px);
       margin-top: 0.8rem;

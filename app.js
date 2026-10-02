@@ -119,7 +119,6 @@
     lyricsDuration: 0,
     lyricsUpdatedAt: 0,
     renderedLyricLine: null,
-    activeLyricCharacter: -1,
     lyricsTimer:    null,
     lastHistoryKey: '',
     themeMode:      'system',   // 'system' | 'light' | 'dark'
@@ -461,12 +460,11 @@
     String(lyrics || '').split(/\r?\n/).forEach(function (line) {
       var hmrcMatch = line.match(/^\s*\[(\d+),\d+\]/);
       if (hmrcMatch) {
-        var hmrc = parseHmrcLine(line.slice(hmrcMatch[0].length));
-        if (hmrc.text) {
+        var text = formatHmrcLyricText(line.slice(hmrcMatch[0].length));
+        if (text) {
           entries.push({
             time: Number(hmrcMatch[1]) / 1000,
-            text: hmrc.text,
-            characters: hmrc.characters
+            text: text
           });
         }
         return;
@@ -490,34 +488,6 @@
     });
 
     return entries.sort(function (a, b) { return a.time - b.time; });
-  }
-
-  function parseHmrcLine(text) {
-    var lyric = String(text || '').split('^')[0];
-    var characters = [];
-    var timingPattern = /<(\d+),(\d+)>/g;
-    var match;
-
-    while ((match = timingPattern.exec(lyric)) !== null) {
-      var characterStart = timingPattern.lastIndex;
-      var nextTiming = timingPattern.exec(lyric);
-      var characterEnd = nextTiming ? nextTiming.index : lyric.length;
-      var characterText = lyric.slice(characterStart, characterEnd);
-      if (nextTiming) timingPattern.lastIndex = nextTiming.index;
-
-      Array.from(characterText).forEach(function (character) {
-        characters.push({
-          text: character,
-          start: Number(match[1]) / 1000,
-          end: (Number(match[1]) + Number(match[2])) / 1000
-        });
-      });
-    }
-
-    return {
-      text: characters.map(function (character) { return character.text; }).join('').trim(),
-      characters: characters
-    };
   }
 
   function formatHmrcLyricText(text) {
@@ -583,46 +553,12 @@
     el.currentLyric.hidden = !activeLine;
     if (!activeLine) {
       state.renderedLyricLine = null;
-      state.activeLyricCharacter = -1;
       return;
     }
 
     if (activeLine !== state.renderedLyricLine) {
-      while (el.currentLyric.firstChild) el.currentLyric.removeChild(el.currentLyric.firstChild);
-      if (activeLine.characters && activeLine.characters.length) {
-        activeLine.characters.forEach(function (character) {
-          var span = document.createElement('span');
-          span.className = 'radio-current-lyric-character';
-          span.textContent = character.text;
-          el.currentLyric.appendChild(span);
-        });
-      } else {
-        el.currentLyric.textContent = activeLine.text;
-      }
+      el.currentLyric.textContent = activeLine.text;
       state.renderedLyricLine = activeLine;
-      state.activeLyricCharacter = -1;
-    }
-
-    if (activeLine.characters && activeLine.characters.length) {
-      var activeCharacter = -1;
-      var lineElapsed = elapsed - activeLine.time;
-      for (var j = 0; j < activeLine.characters.length; j += 1) {
-        var character = activeLine.characters[j];
-        if (lineElapsed >= character.start && lineElapsed < character.end) {
-          activeCharacter = j;
-          break;
-        }
-      }
-      if (activeCharacter !== state.activeLyricCharacter) {
-        var characterNodes = el.currentLyric.children;
-        if (state.activeLyricCharacter >= 0 && characterNodes[state.activeLyricCharacter]) {
-          characterNodes[state.activeLyricCharacter].classList.remove('is-active');
-        }
-        if (activeCharacter >= 0 && characterNodes[activeCharacter]) {
-          characterNodes[activeCharacter].classList.add('is-active');
-        }
-        state.activeLyricCharacter = activeCharacter;
-      }
     }
   }
 
