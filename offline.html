@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030615">
+  <title>KYU Radio | Offline</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { display: grid; min-height: 100vh; place-items: center; margin: 0; padding: 1.5rem; color: #f0f3fa; background: radial-gradient(ellipse at 80% 30%, rgba(45,212,191,.14), transparent 38%), #030615; font-family: system-ui, sans-serif; text-align: center; }
+    main { width: min(100%, 26rem); }
+    img { width: 7rem; height: 7rem; object-fit: contain; }
+    h1 { margin: 1.5rem 0 .5rem; font-size: 2rem; }
+    p { margin: 0; color: #b9c7db; line-height: 1.6; }
+    button { min-height: 3rem; margin-top: 1.5rem; padding: .7rem 1.2rem; border: 0; border-radius: 999px; color: #061317; background: #71d9d0; font: inherit; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="kyu-logo.png" alt="Kyambogo University crest">
+    <h1>You're offline</h1>
+    <p>Reconnect to hear KYU Radio.</p>
+    <button type="button" onclick="location.reload()">Try again</button>
+  </main>
+</body>
+</html>

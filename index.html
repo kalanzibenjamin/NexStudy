@@ -1,350 +1,690 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#6C2BDD" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0a0616" media="(prefers-color-scheme: dark)">
-
-  <title>KYU Radio — University Radio</title>
-  <meta name="description" content="KYU Radio is the student-run voice of our university. Live 24/7, hosted by students, for students.">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="KYU Radio — University Radio">
-  <meta property="og:description" content="Student-run campus radio. Live 24/7.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://a10.asurahosting.com/api/nowplaying/kyu_radio/art/1790714594.jpg">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="player">
-  <meta name="twitter:title" content="KYU Radio — University Radio">
-  <meta name="twitter:description" content="Student-run campus radio. Live 24/7.">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css">
-
-  <!-- Anti-flash theme bootstrap. Runs before paint. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <script>
     (function () {
-      try {
-        var mode = localStorage.getItem('kyu-theme') || 'system';
-        if (mode === 'light' || mode === 'dark') {
-          document.documentElement.setAttribute('data-theme', mode);
-        }
-        document.documentElement.setAttribute('data-theme-mode', mode);
-      } catch (e) {
-        document.documentElement.setAttribute('data-theme-mode', 'system');
+      var theme;
+      try { theme = localStorage.getItem('kyu-theme'); } catch (e) {}
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
+      document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
+  <title>KYU Radio | Kyambogo University</title>
+  <meta name="description" content="KYU Radio is the student-led voice of Kyambogo University, bringing the campus community music, conversations, interviews, and stories.">
+  <meta name="theme-color" content="#030615">
+  <link rel="icon" type="image/png" sizes="192x192" href="app-icon-192.png?v=2">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="app-icon-180.png?v=2">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="KYU Radio">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="canonical" href="https://nexstudy.me/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="KYU Radio">
+  <meta property="og:title" content="KYU Radio | Kyambogo University">
+  <meta property="og:description" content="The student-led voice of Kyambogo University. Listen for music, campus conversations, interviews, and student stories.">
+  <meta property="og:url" content="https://nexstudy.me/">
+  <meta property="og:image" content="https://nexstudy.me/og-image.png">
+  <meta property="og:image:alt" content="Kyambogo University crest, the KYU Radio logo">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KYU Radio | Kyambogo University">
+  <meta name="twitter:description" content="The student-led voice of Kyambogo University. Listen for music, campus conversations, interviews, and student stories.">
+  <meta name="twitter:image" content="https://nexstudy.me/og-image.png">
+  <link rel="preload" href="fonts/Inter-VariableFont_opsz,wght.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
+<body class="entry-active">
+  <section class="entry-gate" id="entry" role="dialog" aria-modal="true" aria-labelledby="entryTitle">
+    <div class="entry-gate-shell">
+      <header class="entry-gate-header">
+        <div class="entry-gate-brand">
+          <img class="entry-gate-brand-mark" src="kyu-logo.png" alt="">
+          <span>KYU <strong>RADIO</strong></span>
+        </div>
+        <div class="entry-gate-location">
+          <span class="entry-gate-location-dot" aria-hidden="true"></span>
+          <span>KYAMBOGO UNIVERSITY</span>
+        </div>
+      </header>
 
-<body>
+      <div class="entry-gate-layout">
+        <div class="entry-gate-copy">
+          <p class="entry-gate-kicker">YOUR CAMPUS. YOUR SOUND.</p>
+          <h1 class="entry-gate-title" id="entryTitle">Closer Than<br><span>You Think.</span></h1>
+          <p class="entry-gate-description">Music, voices and campus life, live from Kyambogo.</p>
+          <button class="entry-gate-button" id="enterBtn" type="button">
+            <span class="entry-gate-play-icon"><i class="fas fa-play" aria-hidden="true"></i></span>
+            <span>Listen live</span>
+            <i class="fas fa-arrow-right entry-gate-button-arrow" aria-hidden="true"></i>
+          </button>
+          <p class="entry-gate-note"><span aria-hidden="true"></span> TAP TO JOIN THE LIVE STREAM</p>
+        </div>
 
-  <!-- ============================================================
-       ENTRY OVERLAY
-       ============================================================ -->
-  <div id="entry" role="button" tabindex="0" aria-label="Tap to listen to KYU Radio">
-    <div class="entry-wave" aria-hidden="true">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <div class="entry-logo">KYU RADIO</div>
-    <div class="entry-sub">University Radio · Live</div>
-
-    <button class="entry-btn" id="enterBtn" type="button">
-      Tap to Listen
-    </button>
-  </div>
-
-  <!-- ============================================================
-       MAIN STAGE
-       ============================================================ -->
-  <div id="stage">
-
-    <!-- ==========================================================
-         HEADER
-         ========================================================== -->
-    <header class="site-header">
-      <div class="brand-wrap">
-        <span class="brand">KYU RADIO</span>
-        <span class="brand-sub">University Radio</span>
+        <div class="entry-gate-art" aria-hidden="true">
+          <img class="entry-gate-logo" src="kyu-logo.png" alt="">
+          <div class="entry-gate-signal">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
       </div>
 
-      <div class="header-actions">
-        <!-- Live pill only — theme toggle now lives as a FAB -->
-        <div class="live-pill" id="livePill" data-state="live" role="status" aria-live="polite">
-          <span class="live-dot" aria-hidden="true"></span>
-          <span id="liveText">Live</span>
+      <footer class="entry-gate-footer">
+        <span>KYU RADIO <i class="fas fa-circle" aria-hidden="true"></i> CLOSER THAN YOU THINK</span>
+        <span>KYAMBOGO <b>／</b> UGANDA</span>
+      </footer>
+    </div>
+  </section>
+  <div class="cosmic-bg" aria-hidden="true">
+    <div class="floating-orb orb-a"></div>
+    <div class="floating-orb orb-b"></div>
+    <div class="floating-orb orb-c"></div>
+  </div>
+
+  <main class="container">
+    <header class="radio-site-header">
+      <div class="radio-brand" aria-label="KYU Radio brand">
+        <img class="radio-brand-logo" src="kyu-logo.png" alt="KYU Radio logo">
+        <div class="radio-brand-copy">
+          <span class="radio-brand-name">KYU RADIO</span>
+          <span class="radio-brand-sub">Closer Than You Think</span>
         </div>
+      </div>
+      <div class="radio-state" id="livePill" data-state="ready" role="status" aria-live="polite">
+        <span class="radio-state-dot" aria-hidden="true"></span>
+        <span id="liveText">Ready</span>
       </div>
     </header>
-
-    <!-- ==========================================================
-         MAIN
-         ========================================================== -->
-    <main class="site-main">
-
-      <!-- Error banner (hidden by default) -->
-      <div class="error-banner hidden" id="errorBanner" role="alert">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 2 1 21h22L12 2zm0 6a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm0 12a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/>
-        </svg>
-        <span id="errorText">The stream is currently unavailable. Trying to reconnect…</span>
+    <section id="radio-player" class="radio-player" aria-label="KYU Radio live stream">
+      <div class="radio-art-frame">
+        <span class="radio-art-fallback" id="radioArtFallback">KYU</span>
+        <img id="radioArt" alt="" hidden>
       </div>
-
-      <!-- ========================================================
-           PLAYER
-           ======================================================== -->
-      <section class="player" id="player" aria-label="Radio player">
-
-        <!-- Wave visualizer -->
-        <div class="visualizer" id="visualizer" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-
-        <!-- Now playing -->
-        <div class="now">
-          <div class="now-label">Now Playing</div>
-          <div class="now-title" id="nowTitle">Welcome to KYU Radio</div>
-          <div class="now-artist" id="nowArtist">Connecting…</div>
-        </div>
-
-        <!-- Play button -->
-        <div class="control">
-          <button class="play-btn" id="playBtn" type="button" aria-label="Play stream">
-            <svg id="playIcon" viewBox="0 0 24 24" aria-hidden="true">
-              <path id="playPath" d="M8 5v14l11-7z"/>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Volume -->
-        <div class="volume">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-          </svg>
-          <input
-            type="range"
-            id="volume"
-            min="0"
-            max="1"
-            step="0.01"
-            value="0.75"
-            aria-label="Volume"
-          >
-        </div>
-
-        <!-- Status -->
-        <div class="status" id="status" role="status" aria-live="polite">
-          Tap play to start
-        </div>
-
-      </section>
-
-      <!-- ========================================================
-           GRID — LISTENERS + SCHEDULE
-           ======================================================== -->
-      <div class="grid">
-
-        <section class="section" aria-labelledby="listenersHeading">
-          <h2 class="section-title" id="listenersHeading">Tuned In Now</h2>
-          <div class="listeners">
-            <div class="listener-num" id="listenerCount">—</div>
-            <div class="listener-label">listeners</div>
-          </div>
-        </section>
-
-        <section class="section" aria-labelledby="scheduleHeading">
-          <h2 class="section-title" id="scheduleHeading">Today's Schedule</h2>
-          <ul class="schedule-list" id="scheduleList">
-
-            <!-- Manually edit these entries.
-                 Add class="live" to whichever is on air now. -->
-            <li class="schedule-item live">
-              <span class="schedule-time">Now</span>
-              <div>
-                <div class="schedule-name">Live Programming</div>
-                <div class="schedule-dj">See full schedule on our socials</div>
-              </div>
-            </li>
-
-            <li class="schedule-item">
-              <span class="schedule-time">16:00</span>
-              <div>
-                <div class="schedule-name">Afternoon Mix</div>
-                <div class="schedule-dj">with the KYU team</div>
-              </div>
-            </li>
-
-            <li class="schedule-item">
-              <span class="schedule-time">18:00</span>
-              <div>
-                <div class="schedule-name">Campus Voices</div>
-                <div class="schedule-dj">Student stories &amp; interviews</div>
-              </div>
-            </li>
-
-          </ul>
-        </section>
-
+      <div class="radio-player-copy">
+        <div class="radio-player-kicker">Now Playing</div>
+        <h1 class="radio-player-title" id="nowTitle">KYU Radio</h1>
+        <p class="radio-player-note" id="nowArtist">Live from Kyambogo University</p>
+        <p class="radio-current-lyric" id="currentLyric" aria-live="off" hidden></p>
+        <p class="radio-player-status" id="status" role="status" aria-live="polite" hidden></p>
       </div>
-
-      <!-- ========================================================
-           SONG HISTORY
-           ======================================================== -->
-      <section class="section" aria-labelledby="historyHeading" style="margin-bottom: var(--space-7);">
-        <h2 class="section-title" id="historyHeading">Recently Played</h2>
-        <ul class="history-list" id="historyList">
-
-          <!-- Placeholder rows — JS will replace these -->
-          <li class="history-item">
-            <div class="history-art"></div>
-            <div class="history-text">
-              <div class="history-title">Waiting for data…</div>
-              <div class="history-artist">—</div>
-            </div>
-            <div class="history-time">—</div>
-          </li>
-
-        </ul>
-      </section>
-
-      <!-- ========================================================
-           ABOUT
-           ======================================================== -->
-      <section class="full-section" aria-labelledby="aboutHeading">
-        <h2 id="aboutHeading">About KYU Radio</h2>
-        <p>
-          KYU Radio is the student-run voice of our university — broadcasting
-          live from campus, 24 hours a day. We're a training ground for the
-          next generation of broadcasters, producers, and media makers, and a
-          community hub for music, culture, and campus conversation.
-        </p>
-        <p>
-          Whether you're studying in the library, between lectures, or just
-          need something good to listen to, we're here. All shows are hosted
-          by students, for students.
-        </p>
-      </section>
-
-      <!-- ========================================================
-           GET INVOLVED
-           ======================================================== -->
-      <section class="full-section" aria-labelledby="involvedHeading">
-        <h2 id="involvedHeading">Get Involved</h2>
-        <p>
-          Want to host your own show, join the tech team, or help run the
-          station? We're always looking for new voices. No experience needed —
-          we'll train you.
-        </p>
-        <p>
-          Applications open each semester. Reach out to us on social media or
-          email the team to find out when the next intake is.
-        </p>
-        <a class="cta-btn" href="mailto:hello@kyuradio.example">
-          Apply to Host a Show
-        </a>
-      </section>
-
-    </main>
-
-    <!-- ==========================================================
-         FOOTER
-         ========================================================== -->
-    <footer class="site-footer">
-      <span>&copy; <span id="year">2026</span> KYU Radio</span>
-      <span class="sep">·</span>
-      <span>Student-run, campus-powered</span>
-      <span class="sep">·</span>
-      <a href="#">Instagram</a>
-      <span class="sep">·</span>
-      <a href="#">Discord</a>
-      <span class="sep">·</span>
-      <a href="mailto:hello@kyuradio.example">Contact</a>
-    </footer>
-
-  </div><!-- /#stage -->
-
-  <!-- ============================================================
-       THEME TOGGLE — FLOATING ACTION BUTTON (bottom-right)
-       Visible in all states, including over the entry overlay.
-       Cycles only between Light and Dark. System mode is reachable
-       via Alt+S, but the button never enters System by clicking.
-       ============================================================ -->
-  <button
-    class="theme-toggle"
-    id="themeToggle"
-    type="button"
-    aria-label="Switch to dark theme"
-    title="Toggle theme (Alt+T) · System (Alt+S)"
-  >
-    <!-- System icon (shown only if mode is System — rarely visible) -->
-    <svg class="icon icon-system" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 2v9h16V6H4z"/>
-    </svg>
-
-    <!-- Sun icon (Light mode) -->
-    <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm0 17a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM4.22 4.22a1 1 0 0 1 1.42 0l1.42 1.42a1 1 0 0 1-1.42 1.42L4.22 5.64a1 1 0 0 1 0-1.42zm12.72 12.72a1 1 0 0 1 1.42 0l1.42 1.42a1 1 0 0 1-1.42 1.42l-1.42-1.42a1 1 0 0 1 0-1.42zM2 11h2a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2zm18 0h2a1 1 0 0 1 0 2h-2a1 1 0 0 1 0-2zM4.22 19.78a1 1 0 0 1 0-1.42l1.42-1.42a1 1 0 1 1 1.42 1.42l-1.42 1.42a1 1 0 0 1-1.42 0zm12.72-12.72a1 1 0 0 1 0-1.42l1.42-1.42a1 1 0 1 1 1.42 1.42l-1.42 1.42a1 1 0 0 1-1.42 0z"/>
-    </svg>
-
-    <!-- Moon icon (Dark mode) -->
-    <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M21.64 13a1 1 0 0 0-1.05-.14 8.05 8.05 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.6 8.6 0 0 0 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05z"/>
-    </svg>
-  </button>
-
-  <!-- ============================================================
-       STICKY NOW-PLAYING BAR (mobile only)
-       ============================================================ -->
-  <div class="sticky-bar" id="stickyBar" aria-hidden="true">
-    <div class="sb-art" id="sbArt"></div>
-    <div class="sb-info">
-      <div class="sb-title" id="sbTitle">KYU Radio</div>
-      <div class="sb-artist" id="sbArtist">Live</div>
+      <div class="radio-controls">
+        <button class="radio-play-btn" id="playBtn" type="button" aria-label="Play KYU Radio">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path id="playPath" d="M8 5v14l11-7z"/></svg>
+        </button>
+        <label class="radio-volume" for="volume">
+          <span class="radio-volume-heading">
+            <span>Volume</span>
+            <output class="radio-volume-value" id="volumeValue" for="volume">75%</output>
+          </span>
+          <span class="radio-volume-slider">
+            <i class="fas fa-volume-up radio-volume-icon" aria-hidden="true"></i>
+            <input id="volume" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Volume">
+          </span>
+        </label>
+      </div>
+      <details class="radio-lyrics" id="lyricsSection" hidden>
+        <summary>Lyrics</summary>
+        <div class="radio-lyrics-transcript" id="lyricsTranscript"></div>
+      </details>
+      <audio id="audio" preload="none" aria-label="KYU Radio stream"></audio>
+    </section>
+    <div class="radio-listener-strip" aria-live="polite">
+      <span class="radio-listener-count" id="listenerCount">—</span>
+      <span>listening now</span>
     </div>
-    <button class="sb-btn" id="sbBtn" type="button" aria-label="Play or pause">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path id="sbPath" d="M8 5v14l11-7z"/>
-      </svg>
+    
+    <div class="topics-nav-wrapper">
+      <button type="button" class="nav-arrow nav-arrow-left" aria-label="Scroll topics left"><i class="fas fa-chevron-left"></i></button>
+      <div class="topics-nav" id="topicsNav">
+        <a href="#radio-player" class="topic-nav-link">Listen Live</a>
+        <a href="#radio-history" class="topic-nav-link">Recently Played</a>
+        <a href="#radio-about" class="topic-nav-link">About</a>
+        <a href="#radio-programs" class="topic-nav-link">Programming</a>
+        <a href="#radio-schedule" class="topic-nav-link">Schedule</a>
+      </div>
+      <button type="button" class="nav-arrow nav-arrow-right" aria-label="Scroll topics right"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <section id="radio-history" class="radio-history fade-up" aria-labelledby="historyHeading">
+      <h2 id="historyHeading">Recently Played</h2>
+      <ul class="history-list" id="historyList">
+        <li class="history-item">
+          <div class="history-art" aria-hidden="true"></div>
+          <div class="history-text">
+            <div class="history-title">Waiting for station data…</div>
+            <div class="history-artist">Track history will appear here</div>
+          </div>
+          <div class="history-time">—</div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="radio-about" class="radio-about fade-up" aria-labelledby="aboutHeading">
+      <h2 id="aboutHeading">About KYU Radio</h2>
+      <p>KYU Radio is the student-led voice of Kyambogo University, connecting the campus through music, conversations, interviews, and stories from the university community.</p>
+      <p>Broadcasting from campus, the station creates space for student voices and the ideas, culture, and everyday life that shape Kyambogo.</p>
+    </section>
+
+    <section id="radio-programs" class="radio-programs fade-up" aria-labelledby="programsHeading">
+      <h2 id="programsHeading">What you’ll hear on KYU Radio</h2>
+      <div class="program-grid">
+        <article class="program-item">
+          <h3>Music &amp; culture</h3>
+          <p>Music and campus culture, shaped by the Kyambogo community.</p>
+        </article>
+        <article class="program-item">
+          <h3>Campus conversations</h3>
+          <p>Interviews and discussions about ideas and life across the university.</p>
+        </article>
+        <article class="program-item">
+          <h3>Student stories</h3>
+          <p>Voices and perspectives from students across campus.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="radio-schedule" class="radio-schedule fade-up" aria-labelledby="scheduleHeading">
+      <i class="fas fa-calendar-alt radio-schedule-icon" aria-hidden="true"></i>
+      <div>
+        <h2 id="scheduleHeading">Station schedule</h2>
+        <p>Programme times will be posted here once the broadcast schedule is confirmed.</p>
+      </div>
+    </section>
+
+  </main>
+
+    <footer class="footer-wrapper">
+      <div class="footer-content">
+        <div class="social-links">
+          <a class="social-icon" data-social="whatsapp" href="https://whatsapp.com/channel/0029Vb8wN9pDZ4LTn4xQVS14" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a class="social-icon" data-social="wechat" href="https://www.wechat.com" target="_blank" rel="noopener noreferrer" aria-label="WeChat"><i class="fab fa-weixin"></i></a>
+          <a class="social-icon" data-social="telegram" href="https://t.me/kyuradio" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+          <a class="social-icon" data-social="youtube" href="https://youtube.com/@kyambogo_university?si=bXR2ndta5d_9NJWc" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a class="social-icon" data-social="tiktok" href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a class="social-icon" data-social="instagram" href="https://www.instagram.com/kyambogo_university?stkn=MXdjdWpjbTR1eXE0bg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="footer-cta">
+          <div class="whatsapp-channel" id="whatsappChannelBtn">
+            <i class="fab fa-whatsapp"></i>
+            <span>Join the WhatsApp channel for fresh updates</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+          <div class="footer-note">
+            Site is still being constructed - this is a revision template.
+          </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="copyright">
+          <i class="far fa-copyright"></i> 2026 KYU Radio - Closer Than You Think
+        </div>
+      </div>
+    </footer>
+    <button class="theme-toggle" id="displayThemeToggle" type="button" aria-label="Toggle theme">
+      <i class="fas fa-moon"></i>
     </button>
-  </div>
+    <aside class="sticky-player" id="stickyBar" aria-label="Mini player" aria-hidden="true">
+      <div class="sticky-player-art" id="sbArt" aria-hidden="true"></div>
+      <div class="sticky-player-copy" aria-live="polite">
+        <span class="sticky-player-label">NOW PLAYING</span>
+        <span class="sticky-player-title" id="sbTitle">KYU Radio</span>
+        <span class="sticky-player-artist" id="sbArtist">Live from Kyambogo University</span>
+      </div>
+      <button class="sticky-player-button" id="sbBtn" type="button" aria-label="Play stream">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path id="sbPath" d="M8 5v14l11-7z"/></svg>
+      </button>
+    </aside>
+  <script>
+    // ========== TOUCH DEVICE DETECTION ==========
+    (function() {
+      const isTouchDevice = () => {
+        return (('ontouchstart' in window) ||
+                (navigator.maxTouchPoints > 0) ||
+                (navigator.msMaxTouchPoints > 0) ||
+                window.matchMedia('(pointer: coarse)').matches);
+      };
 
-  <!-- ============================================================
-       TOASTS
-       ============================================================ -->
-  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+      if (isTouchDevice()) {
+        document.documentElement.classList.add('touch-device');
+        document.body.classList.add('touch-device');
+      }
+    })();
 
-  <!-- ============================================================
-       AUDIO ELEMENT
-       ============================================================ -->
-  <audio id="audio" preload="none" crossorigin="anonymous"></audio>
+    // ========== TOPIC DROPDOWNS ==========
+    let openTopics = [];
 
-  <!-- Script -->
+    function toggleTopic(header, topicId) {
+      const content = document.getElementById(`topic-content-${topicId}`);
+      const icon = header.querySelector('.collapse-icon');
+      const isOpen = content.classList.contains('open');
+
+      if (!isOpen) {
+        // Limit to 3 open topics
+        if (openTopics.length >= 3) {
+          const oldestId = openTopics.shift();
+          const oldestContent = document.getElementById(`topic-content-${oldestId}`);
+          const oldestHeader = oldestContent ? oldestContent.previousElementSibling : null;
+          if (oldestContent && oldestHeader) {
+            oldestContent.classList.remove('open');
+            const oldestIcon = oldestHeader.querySelector('.collapse-icon');
+            if (oldestIcon) {
+              oldestIcon.classList.remove('fa-chevron-down');
+              oldestIcon.classList.add('fa-chevron-right');
+              oldestHeader.setAttribute('aria-expanded', 'false');
+            }
+          }
+        }
+        content.classList.add('open');
+        if (icon) {
+          icon.classList.remove('fa-chevron-right');
+          icon.classList.add('fa-chevron-down');
+        }
+        header.setAttribute('aria-expanded', 'true');
+        openTopics.push(topicId);
+      } else {
+        content.classList.remove('open');
+        if (icon) {
+          icon.classList.remove('fa-chevron-down');
+          icon.classList.add('fa-chevron-right');
+        }
+        header.setAttribute('aria-expanded', 'false');
+        openTopics = openTopics.filter(id => id !== topicId);
+      }
+    }
+
+    // Open topic from hash
+    function openTopicFromHash() {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#topic-')) {
+        const topicId = hash.replace('#topic-', '');
+        const header = document.querySelector(`#topic-${topicId} .topic-header`);
+        if (header) {
+          const content = document.getElementById(`topic-content-${topicId}`);
+          if (content && !content.classList.contains('open')) {
+            toggleTopic(header, parseInt(topicId));
+          }
+        }
+      }
+    }
+
+    // ========== MARQUEE DETECTION ==========
+    function setupEpisodeTitleWrappers() {
+      document.querySelectorAll('.episode-title').forEach(title => {
+        if (!title.querySelector('.episode-title-text')) {
+          const inner = document.createElement('span');
+          inner.className = 'episode-title-text';
+          inner.textContent = title.textContent.trim();
+          title.textContent = '';
+          title.appendChild(inner);
+        }
+      });
+    }
+
+    function setupTopicNameWrappers() {
+      document.querySelectorAll('.topic-name').forEach(name => {
+        if (!name.querySelector('.topic-name-text')) {
+          const inner = document.createElement('span');
+          inner.className = 'topic-name-text';
+          inner.textContent = name.textContent.trim();
+          name.textContent = '';
+          name.appendChild(inner);
+        }
+      });
+    }
+
+    function checkAndApplyMarquee() {
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('.episode-title, .topic-name').forEach(container => {
+        const inner = container.querySelector('.episode-title-text, .topic-name-text');
+        if (!inner) {
+          return;
+        }
+
+        container.classList.remove('marquee-active');
+        container.style.removeProperty('--marquee-duration');
+        container.style.removeProperty('--topic-marquee-duration');
+        inner.style.animationDuration = '';
+        inner.style.removeProperty('transform');
+
+        if (prefersReducedMotion) {
+          return;
+        }
+
+        const containerWidth = container.clientWidth;
+        const textWidth = inner.scrollWidth;
+
+        if (textWidth > containerWidth + 2) {
+          container.classList.add('marquee-active');
+          container.style.setProperty('--marquee-shift', `${textWidth - containerWidth}px`);
+          const durationBase = container.classList.contains('topic-name') ? (isMobile ? 7 : 10) : (isMobile ? 8 : 12);
+          const maxDuration = container.classList.contains('topic-name') ? (isMobile ? 16 : 22) : (isMobile ? 18 : 24);
+          const duration = Math.max(durationBase, Math.min(maxDuration, (textWidth / containerWidth) * durationBase));
+          const propertyName = container.classList.contains('topic-name') ? '--topic-marquee-duration' : '--marquee-duration';
+          container.style.setProperty(propertyName, duration + 's');
+        }
+      });
+    }
+
+    // ========== THEME TOGGLE (FIXED) ==========
+    const themeToggle = document.getElementById('displayThemeToggle');
+    const THEME_KEY = 'kyu-theme';
+    let isScrollTopMode = false;
+    const scrollToggleThreshold = 220;
+    let themeToggleFadeTimer = null;
+
+    function getSystemTheme() {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function getStoredTheme() {
+      try {
+        const saved = localStorage.getItem(THEME_KEY);
+        if (saved === 'light' || saved === 'dark') return saved;
+      } catch (e) {}
+      return getSystemTheme();
+    }
+
+    function applyTheme(mode) {
+      const resolvedMode = mode === 'system' ? getSystemTheme() : mode;
+      document.documentElement.setAttribute('data-theme', resolvedMode);
+      document.body.classList.toggle('light-mode', resolvedMode === 'light');
+      document.body.classList.toggle('dark-mode', resolvedMode === 'dark');
+      try { localStorage.setItem(THEME_KEY, resolvedMode); } catch (e) {}
+      renderThemeToggle();
+    }
+
+    function renderThemeToggle() {
+      if (!themeToggle) return;
+      if (isScrollTopMode) {
+        themeToggle.classList.add('scroll-top');
+        themeToggle.innerHTML = '<svg class="scroll-top-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';
+        themeToggle.setAttribute('aria-label', 'Scroll to top');
+        return;
+      }
+
+      themeToggle.classList.remove('scroll-top');
+      const isLightMode = document.body.classList.contains('light-mode');
+      themeToggle.innerHTML = isLightMode
+        ? '<i class="theme-toggle-icon fas fa-moon" aria-hidden="true"></i>'
+        : '<i class="theme-toggle-icon fas fa-sun" aria-hidden="true"></i>';
+      themeToggle.setAttribute('aria-label', isLightMode ? 'Switch to dark mode' : 'Switch to light mode');
+    }
+
+    function showThemeToggle() {
+      if (!themeToggle) return;
+      themeToggle.classList.add('visible');
+      themeToggle.classList.remove('fade-out');
+      if (themeToggleFadeTimer) {
+        clearTimeout(themeToggleFadeTimer);
+      }
+      themeToggleFadeTimer = window.setTimeout(() => {
+        themeToggle.classList.remove('visible');
+        themeToggle.classList.add('fade-out');
+      }, 1200);
+    }
+
+    function updateThemeToggleState() {
+      const shouldUseScrollTop = window.scrollY > scrollToggleThreshold;
+      if (shouldUseScrollTop !== isScrollTopMode) {
+        isScrollTopMode = shouldUseScrollTop;
+        renderThemeToggle();
+      }
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (isScrollTopMode) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const nextMode = document.body.classList.contains('light-mode') ? 'dark' : 'light';
+      applyTheme(nextMode);
+    });
+
+    const savedTheme = getStoredTheme();
+    applyTheme(savedTheme);
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => {
+      if (getStoredTheme() === 'dark' || getStoredTheme() === 'light') return;
+      applyTheme(getSystemTheme());
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!event.altKey) return;
+      const key = (event.key || '').toLowerCase();
+
+      if (key === 't') {
+        event.preventDefault();
+        const nextMode = document.body.classList.contains('light-mode') ? 'dark' : 'light';
+        applyTheme(nextMode);
+      }
+
+      if (key === 's') {
+        event.preventDefault();
+        applyTheme(getSystemTheme());
+      }
+    });
+
+    // ========== PAGE SCROLL ==========
+    window.addEventListener('scroll', () => {
+      showThemeToggle();
+      window.requestAnimationFrame(updateThemeToggleState);
+    });
+    
+    // ========== NAVIGATION SCROLL ==========
+    const topicsNav = document.getElementById('topicsNav');
+    const navLeftBtn = document.querySelector('.nav-arrow-left');
+    const navRightBtn = document.querySelector('.nav-arrow-right');
+
+    function updateTopicNavArrows() {
+      if (!topicsNav || !navLeftBtn || !navRightBtn) return;
+      const firstTopic = topicsNav.querySelector('.topic-nav-link:first-child');
+      const lastTopic = topicsNav.querySelector('.topic-nav-link:last-child');
+      const navRect = topicsNav.getBoundingClientRect();
+      const hasOverflow = topicsNav.scrollWidth > topicsNav.clientWidth + 1;
+
+      if (!firstTopic || !lastTopic || !hasOverflow) {
+        navLeftBtn.disabled = true;
+        navRightBtn.disabled = true;
+        navLeftBtn.classList.add('hidden');
+        navRightBtn.classList.add('hidden');
+        return;
+      }
+
+      const firstRect = firstTopic.getBoundingClientRect();
+      const lastRect = lastTopic.getBoundingClientRect();
+      const leftDisabled = firstRect.left >= navRect.left + 1;
+      const rightDisabled = lastRect.right <= navRect.right - 1;
+
+      navLeftBtn.disabled = leftDisabled;
+      navRightBtn.disabled = rightDisabled;
+      navLeftBtn.classList.toggle('hidden', leftDisabled);
+      navRightBtn.classList.toggle('hidden', rightDisabled);
+      navLeftBtn.style.pointerEvents = leftDisabled ? 'none' : '';
+      navRightBtn.style.pointerEvents = rightDisabled ? 'none' : '';
+    }
+    
+    if (navLeftBtn) {
+      navLeftBtn.addEventListener('click', () => {
+        topicsNav.scrollBy({ left: -300, behavior: 'smooth' });
+      });
+    }
+    
+    if (navRightBtn) {
+      navRightBtn.addEventListener('click', () => {
+        topicsNav.scrollBy({ left: 300, behavior: 'smooth' });
+      });
+    }
+
+    if (topicsNav) {
+      topicsNav.addEventListener('scroll', () => {
+        updateTopicNavArrows();
+      });
+      window.addEventListener('resize', updateTopicNavArrows);
+      updateTopicNavArrows();
+    }
+
+    // ========== EPISODE ROW CLICKS ==========
+    document.querySelectorAll('.episode-row').forEach(row => {
+      row.addEventListener('click', (e) => {
+        const href = row.getAttribute('data-href');
+        if (href) {
+          window.location.href = href;
+        }
+      });
+    });
+    
+    // ========== SOCIAL LINKS ==========
+    const socialUrls = {
+      whatsapp: 'https://whatsapp.com/channel/0029Vb8wN9pDZ4LTn4xQVS14',
+      wechat: 'https://www.wechat.com',
+      telegram: 'https://t.me/kyuradio',
+      youtube: 'https://youtube.com/@kyambogo_university?si=bXR2ndta5d_9NJWc',
+      tiktok: 'https://tiktok.com',
+      instagram: 'https://www.instagram.com/kyambogo_university?stkn=MXdjdWpjbTR1eXE0bg=='
+    };
+    
+    document.querySelectorAll('.social-icon').forEach(icon => {
+      if (icon.tagName.toLowerCase() === 'a') return;
+      icon.addEventListener('click', () => {
+        const platform = icon.getAttribute('data-social');
+        if (platform && socialUrls[platform]) {
+          window.open(socialUrls[platform], '_blank');
+        }
+      });
+    });
+    
+    document.getElementById('whatsappChannelBtn')?.addEventListener('click', () => {
+      window.open('https://whatsapp.com/channel/0029Vb8wN9pDZ4LTn4xQVS14', '_blank');
+    });
+    
+    // ========== FADE-IN OBSERVER ==========
+    function isElementInView(element) {
+      const rect = element.getBoundingClientRect();
+      return rect.top < window.innerHeight * 0.95 && rect.bottom > 0;
+    }
+
+    function initFadeUpObserver() {
+      const fadeEls = document.querySelectorAll('.fade-up');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion || !('IntersectionObserver' in window)) {
+        fadeEls.forEach(el => el.classList.add('visible'));
+        return;
+      }
+
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting || entry.intersectionRatio > 0) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
+
+      fadeEls.forEach(el => {
+        fadeObserver.observe(el);
+        if (isElementInView(el)) {
+          el.classList.add('visible');
+          fadeObserver.unobserve(el);
+        }
+      });
+    }
+
+    // ========== INITIALIZATION ==========
+    window.addEventListener('DOMContentLoaded', () => {
+      setupEpisodeTitleWrappers();
+      setupTopicNameWrappers();
+      openTopicFromHash();
+      checkAndApplyMarquee();
+      updateTopicNavArrows();
+      updateThemeToggleState();
+      initFadeUpObserver();
+    });
+    
+    window.addEventListener('hashchange', openTopicFromHash);
+    window.addEventListener('resize', () => {
+      setTimeout(checkAndApplyMarquee, 200);
+    });
+    window.addEventListener('load', () => {
+      checkAndApplyMarquee();
+      updateTopicNavArrows();
+      updateThemeToggleState();
+    });
+    
+    document.querySelectorAll('.topic-header[role="button"]').forEach(header => {
+      header.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          const topicId = header.closest('.topic-section')?.id?.replace('topic-', '');
+          if (topicId) toggleTopic(header, parseInt(topicId, 10));
+        }
+      });
+    });
+    
+    // Pause marquee and reset position while hovering
+    document.querySelectorAll('.episode-row').forEach(row => {
+      row.addEventListener('mouseenter', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const title = row.querySelector('.episode-title');
+        const inner = title?.querySelector('.episode-title-text');
+        if (title && inner && inner.offsetWidth > title.clientWidth) {
+          title.classList.remove('marquee-active');
+          title.classList.add('reset-on-hover');
+          inner.style.transform = 'translateX(0)';
+        }
+      });
+      row.addEventListener('mouseleave', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const title = row.querySelector('.episode-title');
+        const inner = title?.querySelector('.episode-title-text');
+        if (title && inner && inner.offsetWidth > title.clientWidth) {
+          title.classList.remove('reset-on-hover');
+          inner.style.removeProperty('transform');
+          requestAnimationFrame(() => title.classList.add('marquee-active'));
+        }
+      });
+    });
+
+    document.querySelectorAll('.topic-header').forEach(header => {
+      header.addEventListener('mouseenter', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const name = header.querySelector('.topic-name');
+        const inner = name?.querySelector('.topic-name-text');
+        if (name && inner && inner.offsetWidth > name.clientWidth) {
+          name.classList.remove('marquee-active');
+          name.classList.add('reset-on-hover');
+          inner.style.transform = 'translateX(0)';
+        }
+      });
+      header.addEventListener('mouseleave', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const name = header.querySelector('.topic-name');
+        const inner = name?.querySelector('.topic-name-text');
+        if (name && inner && inner.offsetWidth > name.clientWidth) {
+          name.classList.remove('reset-on-hover');
+          inner.style.removeProperty('transform');
+          requestAnimationFrame(() => name.classList.add('marquee-active'));
+        }
+      });
+    });
+  </script>
   <script src="app.js"></script>
-
+  <script>
+    if ('serviceWorker' in navigator && window.isSecureContext) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./service-worker.js')
+          .catch(function (error) {
+            console.error('Service worker registration failed:', error);
+          });
+      });
+    }
+  </script>
 </body>
 </html>

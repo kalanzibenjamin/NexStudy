@@ -1,0 +1,26 @@
+{
+  "id": "./",
+  "name": "KYU Radio | Kyambogo University",
+  "short_name": "KYU Radio",
+  "description": "Listen to KYU Radio, the student-led voice of Kyambogo University.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#030615",
+  "theme_color": "#030615",
+  "icons": [
+    {
+      "src": "./app-icon-192.png?v=2",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./app-icon-512.png?v=2",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
